@@ -1,0 +1,29 @@
+{
+  "trailingComma": "none",
+  "useTabs": true,
+  "tabWidth": 2,
+  "semi": true,
+  "endOfLine": "lf",
+  "singleQuote": false,
+  "jsxSingleQuote": false,
+  "singleAttributePerLine": true,
+  "printWidth": 85,
+  "bracketSpacing": true,
+  "arrowParens": "avoid",
+  "importOrder": [
+    "<THIRD_PARTY_MODULES>",
+		"^@/app",
+		"^@/processes",
+		"^@/screens",
+		"^@/layouts",
+		"^@/widgets",
+		"^@/features",
+		"^@/entities",
+		"^@/shared",
+    "^../(?!.*scss)",
+    "^./(?!.*scss)",
+    "(.scss)$"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
+}
