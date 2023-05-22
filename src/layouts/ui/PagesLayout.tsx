@@ -1,20 +1,17 @@
-import { MessageOutlined, TeamOutlined, VideoCameraOutlined } from "@ant-design/icons";
 import {
-	ActionIcon,
-	Avatar,
-	Box,
-	Flex,
-	Group,
-	Stack
-} from "@mantine/core";
+	MessageOutlined,
+	TeamOutlined,
+	VideoCameraOutlined
+} from "@ant-design/icons";
+import { ActionIcon, Avatar, Box, Flex, Group, Stack } from "@mantine/core";
 import React from "react";
 import { NavLink } from "react-router-dom";
 
+import { baseApi } from "@/shared/api";
+import { getFirstLetters } from "@/shared/lib/helpers";
 import { Logo } from "@/shared/ui";
 
 import { IDefaultLayoutProps } from "../interfaces/DefaultLayout.interface";
-import { baseApi } from "@/shared/api";
-import { getFirstLetters } from "@/shared/lib/helpers";
 
 const PagesLayout: React.FC<IDefaultLayoutProps> = ({ children }) => {
 	const { data: user } = baseApi.useGetCurrentUserQuery();
@@ -33,7 +30,9 @@ const PagesLayout: React.FC<IDefaultLayoutProps> = ({ children }) => {
 				justify="space-between"
 				sx={theme => ({
 					borderRight: `1px solid ${
-						theme.colorScheme === "dark" ? theme.colors.dark[6] : theme.colors.gray[4]
+						theme.colorScheme === "dark"
+							? theme.colors.dark[6]
+							: theme.colors.gray[4]
 					}`
 				})}
 			>

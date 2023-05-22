@@ -1,2 +1,4 @@
 import ThemedText from "./ThemedText";
-export default ThemedText;ThemedText
+
+export default ThemedText;
+ThemedText;

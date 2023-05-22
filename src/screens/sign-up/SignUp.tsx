@@ -146,7 +146,10 @@ const SignUp: React.FC = () => {
 						/>
 					</Stack>
 
-					<Stack mt="xl" align="center">
+					<Stack
+						mt="xl"
+						align="center"
+					>
 						<ThemedText>Forgot your password?</ThemedText>
 
 						<Button
@@ -159,7 +162,9 @@ const SignUp: React.FC = () => {
 							Sign Up
 						</Button>
 
-						<ThemedText>Already have an account? <Anchor to="/sign-in">Sign In</Anchor></ThemedText>
+						<ThemedText>
+							Already have an account? <Anchor to="/sign-in">Sign In</Anchor>
+						</ThemedText>
 					</Stack>
 				</form>
 			</Box>

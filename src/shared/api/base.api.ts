@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+import { IChat } from "../interfaces/chat.interface";
 import {
 	IAuthResponse,
 	ISignInBody,
@@ -7,7 +8,6 @@ import {
 	IUser
 } from "../interfaces/user.interface";
 import { getAccessToken, setAccessToken } from "../lib/helpers";
-import { IChat } from "../interfaces/chat.interface";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 

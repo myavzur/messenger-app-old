@@ -38,7 +38,10 @@ const AuthLayout: React.FC<IDefaultLayoutProps> = ({ children }) => {
 		<div className={classes.layout}>
 			<main className={classes.layout__content}> {children} </main>
 			<aside className={classes.layout__view}>
-				<img alt="firechat-random-photo" src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/9afe0493484903.5e66500f8dea4.gif"/>
+				<img
+					alt="firechat-random-photo"
+					src="https://mir-s3-cdn-cf.behance.net/project_modules/fs/9afe0493484903.5e66500f8dea4.gif"
+				/>
 			</aside>
 		</div>
 	);

@@ -56,14 +56,22 @@ const Chats: React.FC = () => {
 						type="never"
 						sx={{ flexGrow: 1 }}
 					>
-						{chats && chats.map(chat => <Chat chat={chat} key={chat.id} />)}
+						{chats &&
+							chats.map(chat => (
+								<Chat
+									chat={chat}
+									key={chat.id}
+								/>
+							))}
 					</ScrollArea>
 				</Flex>
 
 				<Box
 					sx={theme => ({
 						borderLeft: `1px solid ${
-							theme.colorScheme === "dark" ? theme.colors.dark[6] : theme.colors.gray[4]
+							theme.colorScheme === "dark"
+								? theme.colors.dark[6]
+								: theme.colors.gray[4]
 						}`,
 						flexGrow: 1
 					})}

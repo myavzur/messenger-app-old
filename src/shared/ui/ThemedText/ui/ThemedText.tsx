@@ -1,7 +1,7 @@
+import { Text, useMantineTheme } from "@mantine/core";
 import React from "react";
 
 import { ThemedTextProps } from "./ThemedText.interface";
-import { Text, useMantineTheme } from "@mantine/core";
 
 const ThemedText: React.FC<ThemedTextProps> = ({ children }) => {
 	const theme = useMantineTheme();
