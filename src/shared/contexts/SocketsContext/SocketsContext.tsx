@@ -5,6 +5,9 @@ import { getAccessToken, getSocketOptions } from "@/shared/lib/helpers";
 
 import { ISocketsContext, ISocketsProviderProps } from "./SocketsContext.interface";
 
+const PRESENCE_BASE_URL = import.meta.env.VITE_PRESENCE_BASE_URL;
+const CHAT_BASE_URL = import.meta.env.VITE_CHAT_BASE_URL;
+
 export const SocketsContext = React.createContext<ISocketsContext>({
 	presenceSocket: null,
 	chatSocket: null,
@@ -17,9 +20,6 @@ export const SocketsContext = React.createContext<ISocketsContext>({
 	}
 });
 
-const PRESENCE_BASE_URL = import.meta.env.VITE_PRESENCE_BASE_URL;
-const CHAT_BASE_URL = import.meta.env.VITE_CHAT_BASE_URL;
-
 export const SocketsProvider: React.FC<ISocketsProviderProps> = props => {
 	const [accessToken, setAccessToken] = useState(getAccessToken());
 	const socketRefs = useRef<ISocketsContext["sockets"]>([]);
@@ -28,9 +28,7 @@ export const SocketsProvider: React.FC<ISocketsProviderProps> = props => {
 		if (accessToken) {
 			const socket = io(PRESENCE_BASE_URL, getSocketOptions(accessToken));
 
-			// Set socket to the array.
-			socketRefs.current = [...socketRefs.current, { name: "Presence", socket }];
-
+			socketRefs.current.push({ name: "Presence", socket });
 			return socket;
 		}
 
@@ -42,8 +40,7 @@ export const SocketsProvider: React.FC<ISocketsProviderProps> = props => {
 		if (accessToken) {
 			const socket = io(CHAT_BASE_URL, getSocketOptions(accessToken));
 
-			// Set socket to the array.
-			socketRefs.current = [...socketRefs.current, { name: "Chat", socket }];
+			socketRefs.current.push({ name: "Chat", socket });
 			return socket;
 		}
 

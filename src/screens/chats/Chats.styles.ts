@@ -1,13 +1,9 @@
 import { createStyles } from "@mantine/core";
 
 export const useStyles = createStyles(theme => ({
-	layout: {
-		display: "flex",
-		height: "100vh"
-	},
 	header: {
-		minHeight: 90,
-		padding: `0 ${theme.spacing.sm}`,
+		minHeight: 40,
+		padding: `${theme.spacing.xs} ${theme.spacing.md}`,
 		display: "flex",
 		alignItems: "center",
 		justifyContent: "space-between",
