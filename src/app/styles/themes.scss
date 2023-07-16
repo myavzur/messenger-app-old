@@ -1,0 +1,44 @@
+// https://mantine.dev/theming/colors/
+body[class="theme_dark"] {
+  // Colors
+  --color-primary-1000: #141517; // dark[9]
+  --color-primary-900:  #1A1B1E; // dark[8[
+  --color-primary-800:  #1A1B1E; // dark[7]
+  --color-primary-700:  #25262B; // dark[6]
+  --color-primary-600:  #2C2E33; // dark[5]
+  --color-primary-500:  #373A40; // dark[4]
+  --color-primary-400:  #5C5F66; // dark[3]
+	--color-primary-300:  #909296; // dark[2]
+	--color-primary-200:  #A6A7AB; // dark[1]
+  --color-primary-100:  #C1C2C5; // dark[0]
+
+	--color-secondary-1000: #F8F9FA; // gray[0]
+
+  --color-accent-1000: #FF6B6B; // red[5]
+
+  --color-etc-error:  #E03131; // red[8]
+  --color-etc-success:#20C997; // teal[5]
+  --color-etc-warn:   #FCC419; // yellow[5]
+}
+
+body[class="theme_light"] {
+  // Colors
+  --color-primary-1000: #F8F9FA; // gray[0]
+  --color-primary-900:  #F1F3F5; // gray[1]
+  --color-primary-800:  #E9ECEF; // gray[2]
+  --color-primary-600:  #DEE2E6; // gray[3]
+  --color-primary-700:    #CED4DA  // gray[4]
+  --color-primary-500:    #ADB5BD; // gray[5]
+  --color-primary-400:  #868E96; // gray[6]
+	--color-primary-300:  #495057; // gray[7]
+	--color-primary-200:  #343A40; // gray[8]
+  --color-primary-100:  #212529; // gray[9]
+
+	--color-secondary-1000: #000000;
+
+  --color-accent-1000: #FF6B6B; // red[5]
+
+  --color-etc-error:  #E03131; // red[8]
+  --color-etc-success:#20C997; // teal[5]
+  --color-etc-warn:   #FCC419; // yellow[5]
+}

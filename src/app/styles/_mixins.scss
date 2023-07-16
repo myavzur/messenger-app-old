@@ -1,0 +1,70 @@
+@mixin cut-on-line($line) {
+  display: -webkit-box;
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
+}
+
+// Responsiveness settings
+$phone-portrait-min-width: 320px;
+$phone-landscape-min-width: 480px;
+$tablet-portrait-min-width: 768px;
+$desktop-sm-min-width: 980px;
+$desktop-md-min-width: 1400px;
+$desktop-min-width: 1680px;
+
+// Responsive breakpoints
+@mixin bpto($point) {
+	// Portrait phones (320+)
+	@if $point == phone-portrait {
+		@media only screen and (min-width: $phone-portrait-min-width) {
+      @content;
+    }
+	}
+
+  // Landscape phones (480+)
+  @else if $point == phone-landscape {
+    @media only screen and (min-width: $phone-landscape-min-width) {
+      @content;
+    }
+  }
+  // Portrait tablet (768+)
+  @else if $point == tablet-portrait {
+    @media only screen and (min-width: $tablet-portrait-min-width) {
+      @content;
+    }
+  }
+  // Desktop small (980+)
+  @else if $point == desktop-sm {
+    @media only screen and (min-width: $desktop-sm-min-width) {
+      @content;
+    }
+  }
+  // Desktop middle (1400+)
+  @else if $point == desktop-md {
+    @media only screen and (min-width: $desktop-md-min-width) {
+      @content;
+    }
+  }
+  // Desktop (1680+)
+  @else if $point == desktop {
+    @media only screen and (min-width: $desktop-min-width) {
+      @content;
+    }
+  }
+}
+
+@mixin bp($points...) {
+  @each $point in $points {
+    @include bpto($point) {
+      @content;
+    }
+  }
+}
+
+@mixin bp-custom($media, $point) {
+  @media only screen and ($media: $point) {
+    @content;
+  }
+}

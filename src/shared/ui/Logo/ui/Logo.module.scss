@@ -1,0 +1,7 @@
+.svg {
+	@apply w-12 h-12;
+
+	&__shape {
+		fill: var(--color-accent-1000);
+	}
+}

@@ -22,13 +22,16 @@ import { ISocketsContext } from "@/shared/contexts/SocketsContext";
 import { ISignInBody } from "@/shared/interfaces/user.interface";
 import { useSocketsContext } from "@/shared/lib/hooks";
 import { validateEmail } from "@/shared/lib/validators/email.validator";
-import { Anchor, Logo, ThemedText } from "@/shared/ui";
+import { TextAnchor, Logo, TextField } from "@/shared/ui";
+import { useForm as useHookForm } from "react-hook-form";
 
 const SignIn: React.FC = () => {
 	const navigate = useNavigate();
 
 	const [signIn, signInStatus] = baseApi.useSignInMutation();
 	const { updateSocketsAccessToken } = useSocketsContext() as ISocketsContext;
+
+	const hookForm = useHookForm<ISignInBody>({	mode: "onChange" });
 
 	const form = useForm<ISignInBody>({
 		initialValues: {
@@ -75,12 +78,40 @@ const SignIn: React.FC = () => {
 							</Center>
 						</Box>
 
+						<TextField
+							label="Email"
+							description="Email or whatjkdafjkadjkf jksddfjk sdjkf jksdf jksdjkf kjsdf jksdkjf jkakjdsajk; askj;d asjk;djklsgldhjh jashjld fhlasdjf jlh"
+							placeholder="shwave_id404@mail.ru"
+							autoComplete="off"
+							required={true}
+							{...hookForm.register('email', {
+								minLength: 4,
+								maxLength: 60,
+								required: "Email is required"
+							})}
+						>
+							X
+						</TextField>
+
+						<TextField
+							label="Password"
+							placeholder="myavzur"
+							autoComplete="off"
+							required={true}
+							{...hookForm.register('password', {
+								minLength: 12,
+								maxLength: 60,
+								required: "Password is required"
+							})}
+						/>
+
 						<TextInput
 							{...form.getInputProps("email")}
 							autoComplete="off"
 							size="lg"
 							required={true}
 							label="Email"
+							description="Email or whatjkdafjkadjkf jksddfjk sdjkf jksdf jksdjkf kjsdf jksdkjf jkakjdsajk; askj;d asjk;djklsgldhjh jashjld fhlasdjf jlh"
 							placeholder="shwave_id404@mail.ru"
 							styles={theme => ({
 								input: {
@@ -112,7 +143,7 @@ const SignIn: React.FC = () => {
 						mt="xl"
 						align="center"
 					>
-						<ThemedText>Forgot your password?</ThemedText>
+						<p>Forgot your password?</p>
 
 						<Button
 							type="submit"
@@ -124,9 +155,9 @@ const SignIn: React.FC = () => {
 							Sign In
 						</Button>
 
-						<ThemedText>
-							Don't have an account? <Anchor to="/sign-up">Sign Up</Anchor>
-						</ThemedText>
+						<span>
+							Don't have an account? <TextAnchor to="/sign-up">Sign Up</TextAnchor>
+						</span>
 					</Stack>
 				</form>
 			</Box>

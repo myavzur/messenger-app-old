@@ -20,7 +20,7 @@ import { ISocketsContext } from "@/shared/contexts/SocketsContext";
 import { ISignUpBody } from "@/shared/interfaces/user.interface";
 import { useSocketsContext } from "@/shared/lib/hooks";
 import { validateEmail } from "@/shared/lib/validators/email.validator";
-import { Anchor, Logo, ThemedText } from "@/shared/ui";
+import { TextAnchor, Logo } from "@/shared/ui";
 
 const SignUp: React.FC = () => {
 	const navigate = useNavigate();
@@ -150,7 +150,7 @@ const SignUp: React.FC = () => {
 						mt="xl"
 						align="center"
 					>
-						<ThemedText>Forgot your password?</ThemedText>
+						<p>Forgot your password?</p>
 
 						<Button
 							type="submit"
@@ -162,9 +162,9 @@ const SignUp: React.FC = () => {
 							Sign Up
 						</Button>
 
-						<ThemedText>
-							Already have an account? <Anchor to="/sign-in">Sign In</Anchor>
-						</ThemedText>
+						<span>
+							Already have an account? <TextAnchor to="/sign-in">Sign In</TextAnchor>
+						</span>
 					</Stack>
 				</form>
 			</Box>

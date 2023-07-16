@@ -1,25 +1,12 @@
-import { Box, Loader } from "@mantine/core";
 import React from "react";
+
+import styles from "./PageLoader.module.scss";
 
 const PageLoader: React.FC = () => {
 	return (
-		<Box
-			sx={{
-				position: "absolute",
-				left: 0,
-				top: 0,
-				display: "flex",
-				alignItems: "center",
-				justifyContent: "center",
-				height: "100vh",
-				width: "100vw"
-			}}
-		>
-			<Loader
-				color="red"
-				size="xl"
-			/>
-		</Box>
+		<div className={styles["page-loader"]}>
+			LOADING
+		</div>
 	);
 };
 

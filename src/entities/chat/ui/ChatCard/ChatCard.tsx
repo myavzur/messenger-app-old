@@ -9,7 +9,6 @@ import { getFirstLetters } from "@/shared/lib/helpers";
 
 import { ChatCardProps } from "./ChatCard.interface";
 import { useStyles } from "./CharCard.styles";
-import { ThemedText } from "@/shared/ui";
 
 const ChatCard: React.FC<ChatCardProps> = ({ chat }) => {
 	const { classes } = useStyles();
@@ -29,24 +28,17 @@ const ChatCard: React.FC<ChatCardProps> = ({ chat }) => {
 
 
 			<Group position="apart">
-				<ThemedText size="sm">
+				<p>
 					{isConversation ? chat.users[0].account_name : "Design Team"}
-				</ThemedText>
-				<ThemedText
-					size="sm"
-					c="dimmed"
-				>
+				</p>
+				<p>
 					{dayjs(chat.updated_at).format("h:mm A")}
-				</ThemedText>
+				</p>
 			</Group>
 
-			<ThemedText
-				c="dimmed"
-				size="sm"
-				truncate
-			>
+			<p>
 				{chat.last_message.text}
-			</ThemedText>
+			</p>
 		</Group>
 	);
 };

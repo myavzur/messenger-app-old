@@ -1,6 +1,5 @@
-import { Loader } from "@mantine/core";
 import React, { useMemo } from "react";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Chats from "@/screens/chats";
 import SignIn from "@/screens/sign-in";

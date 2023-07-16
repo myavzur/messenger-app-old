@@ -1,0 +1,54 @@
+.field {
+	&__label {
+		@apply font-medium text-lg;
+		color: var(--color-primary-100);
+	}
+
+	&__description {
+		@apply text-base;
+		color: var(--color-primary-300);
+	}
+
+	&__input-wrapper {
+		@apply relative;
+
+		input {
+			@apply w-full transition-colors text-lg font-normal px-4;
+
+			outline: none;
+			background: none;
+			appearance: none;
+
+			color: #9aa1b6;
+			border-radius: 0.25rem;
+			border: 0.0625rem solid var(--color-primary-500);
+			background-color: var(--color-primary-700);
+			min-height: 3.125rem;
+
+			&::placeholder {
+				color: var(--color-primary-400);
+			}
+
+			&:hover,
+			&:focus {
+				border-color: var(--color-accent-1000);
+			}
+		}
+
+		.field__input-actions {
+			@apply absolute top-4 right-4;
+		}
+	}
+
+	&__error {}
+
+	&_required {
+		.field__label::after {
+			@apply pl-1;
+			content: '*';
+			color: var(--color-etc-error);
+		}
+
+	}
+	&_invalid {}
+}

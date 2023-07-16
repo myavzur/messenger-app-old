@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import '@/app/styles/_mixins.scss';
+@import '@/app/styles/normalize.scss';
+@import '@/app/styles/themes.scss';
+@import '@/app/styles/fonts.scss';
+
+body {
+  font-family: Inter, sans-serif;
+  background-color: var(--color-primary-900, #141517);
+  color: var(--color-secondary-1000, #FFFFFF);
+}

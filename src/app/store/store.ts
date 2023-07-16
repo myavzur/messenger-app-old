@@ -5,7 +5,7 @@ import { baseApi } from "@/shared/api";
 import { rootReducer } from "./root.reducer";
 
 export const store = configureStore({
-	devTools: process.env.NODE_ENV !== "production",
+	devTools: import.meta.env.DEV,
 	reducer: rootReducer,
 	middleware: getDefaultMiddleware =>
 		getDefaultMiddleware().concat(baseApi.middleware)

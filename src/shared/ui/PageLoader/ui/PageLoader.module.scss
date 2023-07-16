@@ -1,0 +1,4 @@
+.page-loader {
+	@apply absolute left-0 top-0 flex items-center justify-center w-screen h-screen;
+	color: var(--color-accent-1000);
+}
