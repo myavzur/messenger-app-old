@@ -1,4 +1,4 @@
-@mixin cut-on-line($line) {
+@mixin line-clamp($line) {
   display: -webkit-box;
   -webkit-line-clamp: $line;
   -webkit-box-orient: vertical;
@@ -6,50 +6,56 @@
   word-break: break-word;
 }
 
+@mixin hide-scrollbar() {
+  &::-webkit-scrollbar { width: 0; }   // Chrome, Safari
+  & { -ms-overflow-style: none; } // IE 10+
+  & { overflow: -moz-scrollbars-none; } // Firefox
+}
+
 // Responsiveness settings
-$phone-portrait-min-width: 320px;
-$phone-landscape-min-width: 480px;
-$tablet-portrait-min-width: 768px;
-$desktop-sm-min-width: 980px;
-$desktop-md-min-width: 1400px;
-$desktop-min-width: 1680px;
+$phone-portrait-max-width: 320px;
+$phone-landscape-max-width: 480px;
+$tablet-portrait-max-width: 768px;
+$laptop-max-width: 1200px;
+$laptop-md-max-width: 1400px;
+$desktop-max-width: 1680px;
 
 // Responsive breakpoints
 @mixin bpto($point) {
 	// Portrait phones (320+)
 	@if $point == phone-portrait {
-		@media only screen and (min-width: $phone-portrait-min-width) {
+		@media only screen and (max-width: $phone-portrait-max-width) {
       @content;
     }
 	}
 
   // Landscape phones (480+)
   @else if $point == phone-landscape {
-    @media only screen and (min-width: $phone-landscape-min-width) {
+    @media only screen and (max-width: $phone-landscape-max-width) {
       @content;
     }
   }
   // Portrait tablet (768+)
   @else if $point == tablet-portrait {
-    @media only screen and (min-width: $tablet-portrait-min-width) {
+    @media only screen and (max-width: $tablet-portrait-max-width) {
       @content;
     }
   }
-  // Desktop small (980+)
-  @else if $point == desktop-sm {
-    @media only screen and (min-width: $desktop-sm-min-width) {
+  // Laptop (1280px+)
+  @else if $point == laptop {
+    @media only screen and (max-width: $laptop-max-width) {
       @content;
     }
   }
-  // Desktop middle (1400+)
-  @else if $point == desktop-md {
-    @media only screen and (min-width: $desktop-md-min-width) {
+  // Laptop middle (1400+)
+  @else if $point == laptop-md {
+    @media only screen and (max-width: $laptop-md-max-width) {
       @content;
     }
   }
   // Desktop (1680+)
   @else if $point == desktop {
-    @media only screen and (min-width: $desktop-min-width) {
+    @media only screen and (max-width: $desktop-max-width) {
       @content;
     }
   }

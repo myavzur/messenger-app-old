@@ -1,9 +1,14 @@
 import React, { useEffect } from "react";
 
-import { SocketsProvider } from "@/shared/contexts/SocketsContext";
+import {
+	AppChatSocketHandler,
+	AppRouter,
+	AppStore,
+	AppTheme
+} from "@/app/providers";
+import "@/app/styles/index.scss";
 
-import { AppMantine, AppRouter, AppStore, AppTheme } from "@/app/providers";
-import '@/app/styles/index.scss';
+import { SocketsProvider } from "@/shared/contexts/SocketsContext";
 
 function App() {
 	useEffect(() => {
@@ -12,13 +17,13 @@ function App() {
 
 	return (
 		<SocketsProvider>
-			<AppMantine>
-				<AppStore>
+			<AppStore>
+				<AppChatSocketHandler>
 					<AppTheme>
 						<AppRouter />
 					</AppTheme>
-				</AppStore>
-			</AppMantine>
+				</AppChatSocketHandler>
+			</AppStore>
 		</SocketsProvider>
 	);
 }

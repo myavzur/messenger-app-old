@@ -2,19 +2,17 @@ import { LogoutOutlined } from "@ant-design/icons";
 import { ActionIcon } from "@mantine/core";
 import React from "react";
 
-import { baseApi } from "@/shared/api";
-import { ISocketsContext } from "@/shared/contexts/SocketsContext";
 import { removeAccessToken } from "@/shared/lib/helpers";
-import { useSocketsContext } from "@/shared/lib/hooks";
+import { useAuth, useSockets } from "@/shared/lib/hooks";
 
 const LogoutButton: React.FC = () => {
-	const { disconnectAll } = useSocketsContext() as ISocketsContext;
-	const { refetch: refetchUser } = baseApi.useGetCurrentUserQuery();
+	const { disconnectAll } = useSockets();
+	const { refetchCurrentUser } = useAuth();
 
 	const handleLogout = () => {
 		removeAccessToken();
 		disconnectAll();
-		refetchUser();
+		refetchCurrentUser();
 	};
 
 	return (

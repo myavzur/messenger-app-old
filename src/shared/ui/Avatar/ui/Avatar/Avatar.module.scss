@@ -1,0 +1,19 @@
+.avatar {
+	--size: 50px;
+	--font-size: 1.3rem;
+
+	@apply flex items-center justify-center rounded-full overflow-hidden;
+	min-width: var(--size);
+	width: var(--size);
+	height: var(--size);
+	font-size: var(--font-size);
+
+	img {
+		@apply block w-full h-full object-cover;
+	}
+
+	&_size_sm {
+		--size: 40px;
+		--font-size: 1rem;
+	}
+}

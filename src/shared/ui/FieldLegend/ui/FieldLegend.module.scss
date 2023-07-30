@@ -1,0 +1,24 @@
+.field {
+	&__label {
+		@apply font-medium text-base;
+		color: var(--color-primary-100);
+	}
+
+	&__description {
+		@apply text-sm pb-1;
+		color: var(--color-primary-300);
+	}
+
+	&__error {
+		@apply pt-1 text-sm;
+		color: var(--color-etc-error);
+	}
+
+	&_with-asterisk {
+		.field__label::after {
+			@apply pl-1;
+			content: '*';
+			color: var(--color-etc-error);
+		}
+	}
+}

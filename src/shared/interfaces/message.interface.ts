@@ -2,6 +2,7 @@ import { IChat } from "./chat.interface";
 import { IUser } from "./user.interface";
 
 export interface IMessage {
+	id: number;
 	created_at: Date;
 	text: string;
 	user: IUser;

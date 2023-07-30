@@ -1,31 +1,27 @@
-import { Avatar, Center, Text, TypographyStylesProvider } from "@mantine/core";
 import React from "react";
 
-import { getFirstLetters } from "@/shared/lib/helpers";
+import { Avatar } from "@/shared/ui";
 
 import { UserInfoProps } from "./UserInfo.interface";
 
+import styles from "./UserInfo.module.scss";
+
 const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
 	return (
-		<Center>
+		<div className={styles.info}>
 			<Avatar
-				size="md"
-				radius="xl"
-				mr="md"
+				src={undefined}
+				alt={user.account_name}
+				size="sm"
 			>
-				{getFirstLetters(user?.account_name)}
+				{user.account_name}
 			</Avatar>
 
-			<TypographyStylesProvider>
-				<Text size="sm">{user?.account_name}</Text>
-				<Text
-					size="xs"
-					c="dimmed"
-				>
-					last seen recently
-				</Text>
-			</TypographyStylesProvider>
-		</Center>
+			<div className={styles.info__right}>
+				<p className={styles["info__account-name"]}>{user.account_name}</p>
+				<p className={styles["info__last-seen"]}>last seen recently</p>
+			</div>
+		</div>
 	);
 };
 

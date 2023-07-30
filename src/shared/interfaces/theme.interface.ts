@@ -1,1 +1,1 @@
-export type ITheme = 'dark' | 'light';
+export type ITheme = "dark" | "winter";

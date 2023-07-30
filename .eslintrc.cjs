@@ -25,8 +25,8 @@ module.exports = {
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-explicit-any": "off",
-    "no-trailing-spaces": "warn",
-    "semi": [ "warn", "always" ],
-    "quotes": [ "warn",  "double" ]
+    "no-trailing-spaces": "error",
+    "semi": [ "error", "always" ],
+    "quotes": [ "error",  "double" ]
   },
 };

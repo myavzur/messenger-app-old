@@ -10,7 +10,16 @@ const AppTheme: React.FC<IAppThemeProps> = ({ children }) => {
 	const { theme } = useStoreSelector(state => state.appSettings);
 
 	useLayoutEffect(() => {
-		document.body.classList.add(`theme_${theme}`);
+		const classList = document.body.classList;
+
+		// Delete all themes classes
+		classList.forEach(className => {
+			if (className.startsWith("theme")) {
+				classList.remove(className);
+			}
+		});
+
+		classList.add(`theme_${theme}`);
 	}, [theme]);
 
 	return <React.Fragment>{children}</React.Fragment>;

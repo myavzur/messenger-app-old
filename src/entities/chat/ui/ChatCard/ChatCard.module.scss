@@ -1,0 +1,29 @@
+@import '@/app/styles/_mixins.scss';
+
+.card {
+	@apply flex items-center gap-2 p-2 rounded-md cursor-pointer;
+
+	&__info {
+		@apply w-full;
+	}
+	&__top {
+		@apply flex justify-between items-center w-full;
+
+		&-updated {
+			@apply text-xs;
+		}
+	}
+
+	&__bottom {
+		@apply w-full;
+
+		&-text {
+			max-width: 90%;
+			@include line-clamp(1);
+		}
+	}
+
+	&_selected {
+		background-color: var(--color-accent-1000);
+	}
+}

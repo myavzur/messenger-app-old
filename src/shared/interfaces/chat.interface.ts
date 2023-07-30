@@ -1,10 +1,12 @@
-import { IBase } from "./base.interface";
 import { IMessage } from "./message.interface";
 import { IUser } from "./user.interface";
 
-export interface IChat extends IBase {
+export interface IChat {
+	id: number;
 	updated_at: Date;
+	title?: string;
+	is_group: boolean;
 	users: IUser[];
 	messages: IMessage[];
-	last_message: IMessage;
+	last_message?: IMessage;
 }

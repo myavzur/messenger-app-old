@@ -1,45 +1,48 @@
-import {
-	Avatar,
-	Group
-} from "@mantine/core";
-import dayjs from "dayjs";
+import cn from "classnames";
 import React from "react";
 
-import { getFirstLetters } from "@/shared/lib/helpers";
+import { getLastUpdatedTime } from "@/shared/lib/helpers";
+import { useStoreSelector } from "@/shared/lib/hooks";
+import { Avatar } from "@/shared/ui";
+
+import { getChatTitle } from "../../lib/helpers";
 
 import { ChatCardProps } from "./ChatCard.interface";
-import { useStyles } from "./CharCard.styles";
 
-const ChatCard: React.FC<ChatCardProps> = ({ chat }) => {
-	const { classes } = useStyles();
-	// chat.users.length === 1 because there are no current user in chat.users.
-	const isConversation = chat.users.length === 1;
+import styles from "./ChatCard.module.scss";
+
+const ChatCard: React.FC<ChatCardProps> = ({ chat, onClick }) => {
+	const { activeChat } = useStoreSelector(state => state.chats);
+
+	const title = getChatTitle(chat);
+	const isSelected = Boolean(activeChat && activeChat.id === chat.id);
 
 	return (
-		<Group p="xs" className={classes["chat-card"]}>
+		<div
+			className={cn(styles.card, { [styles.card_selected]: isSelected })}
+			onClick={() => onClick(chat.id)}
+		>
 			<Avatar
-				size="md"
-				radius="xl"
+				className={styles.card__image}
+				src={undefined}
+				alt={undefined}
 			>
-				{getFirstLetters(
-					isConversation ? chat.users[0].account_name : "Design Team"
-				)}
+				{title}
 			</Avatar>
 
+			<div className={styles.card__info}>
+				<div className={styles.card__top}>
+					<p>{title}</p>
+					<p className={styles["card__top-updated"]}>
+						{getLastUpdatedTime(chat.updated_at)}
+					</p>
+				</div>
 
-			<Group position="apart">
-				<p>
-					{isConversation ? chat.users[0].account_name : "Design Team"}
-				</p>
-				<p>
-					{dayjs(chat.updated_at).format("h:mm A")}
-				</p>
-			</Group>
-
-			<p>
-				{chat.last_message.text}
-			</p>
-		</Group>
+				<div className={styles.card__bottom}>
+					<p className={styles['card__bottom-text']}>{chat.last_message.text}</p>
+				</div>
+			</div>
+		</div>
 	);
 };
 

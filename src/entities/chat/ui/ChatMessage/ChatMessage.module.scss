@@ -1,0 +1,16 @@
+.message {
+	@apply p-2.5 rounded-2xl;
+	background-color: var(--color-primary-800);
+
+	&__author {
+		@apply text-xs;
+	}
+
+	&__text {
+		@apply text-base;
+	}
+
+	&_own {
+		background-color: var(--color-accent-1000);
+	}
+}

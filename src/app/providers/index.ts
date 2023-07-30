@@ -1,6 +1,6 @@
-import AppMantine from "./AppMantine";
+import AppChatSocketHandler from "./AppChatSocketHandler";
 import AppRouter from "./AppRouter";
 import AppStore from "./AppStore";
 import AppTheme from "./AppTheme";
 
-export { AppMantine, AppTheme, AppRouter, AppStore };
+export { AppChatSocketHandler, AppTheme, AppRouter, AppStore };

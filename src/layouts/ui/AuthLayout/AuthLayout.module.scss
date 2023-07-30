@@ -1,0 +1,28 @@
+@import '@/app/styles/_mixins';
+
+.layout {
+	@apply flex w-screen h-screen;
+
+	&__content {
+		@apply flex items-center justify-center;
+		flex: 1;
+	}
+	
+	&__view {
+		@apply pointer-events-none;
+		clip-path: polygon(10% 0%, 100% 0, 100% 100%, 0% 100%);
+		flex: 1.8;
+		background: var(--image-auth-aside);
+		background-position: left;
+		background-repeat: no-repeat;
+		background-size: cover;
+
+		@include bpto(laptop-md) {
+			flex: 1.3;
+		}
+
+		@include bpto(laptop) {
+			display: none;
+		}
+	}
+}

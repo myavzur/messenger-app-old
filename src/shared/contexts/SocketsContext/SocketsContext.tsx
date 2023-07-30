@@ -27,8 +27,7 @@ export const SocketsProvider: React.FC<ISocketsProviderProps> = props => {
 	const presenceSocket = useMemo<ISocketsContext["presenceSocket"]>(() => {
 		if (accessToken) {
 			const socket = io(PRESENCE_BASE_URL, getSocketOptions(accessToken));
-
-			socketRefs.current.push({ name: "Presence", socket });
+			socketRefs.current.push({ name: "presence", socket });
 			return socket;
 		}
 
@@ -39,8 +38,7 @@ export const SocketsProvider: React.FC<ISocketsProviderProps> = props => {
 	const chatSocket = useMemo<ISocketsContext["chatSocket"]>(() => {
 		if (accessToken) {
 			const socket = io(CHAT_BASE_URL, getSocketOptions(accessToken));
-
-			socketRefs.current.push({ name: "Chat", socket });
+			socketRefs.current.push({ name: "chat", socket });
 			return socket;
 		}
 

@@ -1,30 +1,20 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Chats from "@/screens/chats";
 import SignIn from "@/screens/sign-in";
 import SignUp from "@/screens/sign-up";
 
-import { baseApi } from "@/shared/api";
+import { useAuth } from "@/shared/lib/hooks";
 import { ProtectedRoute } from "@/shared/lib/utils";
 import { PageLoader } from "@/shared/ui";
 
 const redirectPath = "/sign-in";
 
 const AppRouter: React.FC = () => {
-	// TODO: Refactor since it's causes warnings in console.
-	const {
-		data: user,
-		isError: isUserError,
-		isLoading: isUserLoading
-	} = baseApi.useGetCurrentUserQuery();
+	const { isAuthorized, isCurrentUserLoading } = useAuth();
 
-	const hasAccess = useMemo(
-		() => Boolean(user && !isUserError),
-		[user, isUserError]
-	);
-
-	if (isUserLoading) {
+	if (isCurrentUserLoading) {
 		return <PageLoader />;
 	}
 
@@ -36,7 +26,7 @@ const AppRouter: React.FC = () => {
 					element={
 						<ProtectedRoute
 							redirectPath={redirectPath}
-							hasAccess={hasAccess}
+							hasAccess={isAuthorized}
 							outlet={<Chats />}
 						/>
 					}

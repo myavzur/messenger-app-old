@@ -1,1 +1,1 @@
-export * from './app-settings.slice';
+export * from "./app-settings.slice";

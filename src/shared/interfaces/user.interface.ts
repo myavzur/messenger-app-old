@@ -1,11 +1,8 @@
-import { IBase } from "./base.interface";
-
-export interface IUser extends IBase {
+export interface IUser {
+	id: number;
 	created_at: Date;
 	email: string;
 	account_name: string;
-	first_name?: string;
-	last_name?: string;
 }
 
 // API

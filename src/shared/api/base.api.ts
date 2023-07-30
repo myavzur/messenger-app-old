@@ -11,8 +11,13 @@ import { getAccessToken, setAccessToken } from "../lib/helpers";
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
+enum ApiTags {
+	USER = "user",
+	CHAT = "chat"
+}
+
 export const baseApi = createApi({
-	tagTypes: ["User", "Chats"],
+	tagTypes: [ApiTags.USER, ApiTags.CHAT],
 	reducerPath: "api",
 	baseQuery: fetchBaseQuery({
 		baseUrl: BASE_URL,
@@ -28,10 +33,10 @@ export const baseApi = createApi({
 		}
 	}),
 	endpoints: builder => ({
-		// Auth
+		// * Auth
 		getCurrentUser: builder.query<IUser, void>({
 			query: () => "/auth/me",
-			providesTags: ["User"]
+			providesTags: [ApiTags.USER]
 		}),
 
 		signIn: builder.mutation<IAuthResponse, ISignInBody>({
@@ -46,7 +51,7 @@ export const baseApi = createApi({
 				}
 				return response;
 			},
-			invalidatesTags: ["User"]
+			invalidatesTags: [ApiTags.USER]
 		}),
 
 		signUp: builder.mutation<IAuthResponse, ISignUpBody>({
@@ -61,13 +66,12 @@ export const baseApi = createApi({
 				}
 				return response;
 			},
-			invalidatesTags: ["User"]
+			invalidatesTags: [ApiTags.USER]
 		}),
 
-		// * Chats
-		getChats: builder.query<IChat[], void | null>({
-			query: () => "/chats",
-			providesTags: ["Chats"]
+		// * Users
+		searchUsersByAccountName: builder.query<IUser[], IUser["account_name"]>({
+			query: account_name => `/users/search?account_name=${account_name}`
 		})
 	})
 });

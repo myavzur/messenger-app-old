@@ -1,8 +1,8 @@
 // https://mantine.dev/theming/colors/
 body[class="theme_dark"] {
   // Colors
-  --color-primary-1000: #141517; // dark[9]
-  --color-primary-900:  #1A1B1E; // dark[8[
+  --color-primary-1000: #101113; // dark[9]
+  --color-primary-900:  #141517; // dark[8]
   --color-primary-800:  #1A1B1E; // dark[7]
   --color-primary-700:  #25262B; // dark[6]
   --color-primary-600:  #2C2E33; // dark[5]
@@ -19,16 +19,26 @@ body[class="theme_dark"] {
   --color-etc-error:  #E03131; // red[8]
   --color-etc-success:#20C997; // teal[5]
   --color-etc-warn:   #FCC419; // yellow[5]
+
+  // Components
+  --color-app-background: var(--color-primary-900);
+  --color-inputs-background: var(--color-primary-700);
+
+  // Images
+  --image-auth-aside: url("https://mir-s3-cdn-cf.behance.net/project_modules/fs/9afe0493484903.5e66500f8dea4.gif")
+
+  // Z-Indexes
+
 }
 
-body[class="theme_light"] {
+body[class="theme_winter"] {
   // Colors
   --color-primary-1000: #F8F9FA; // gray[0]
   --color-primary-900:  #F1F3F5; // gray[1]
   --color-primary-800:  #E9ECEF; // gray[2]
   --color-primary-600:  #DEE2E6; // gray[3]
-  --color-primary-700:    #CED4DA  // gray[4]
-  --color-primary-500:    #ADB5BD; // gray[5]
+  --color-primary-700:  #CED4DA;  // gray[4]
+  --color-primary-500:  #ADB5BD; // gray[5]
   --color-primary-400:  #868E96; // gray[6]
 	--color-primary-300:  #495057; // gray[7]
 	--color-primary-200:  #343A40; // gray[8]
@@ -41,4 +51,11 @@ body[class="theme_light"] {
   --color-etc-error:  #E03131; // red[8]
   --color-etc-success:#20C997; // teal[5]
   --color-etc-warn:   #FCC419; // yellow[5]
+
+  // Components
+  --color-app-background: var(--color-primary-1000);
+  --color-inputs-background: var(--color-primary-1000);
+
+  // Images
+  --image-auth-aside: url("https://steamuserimages-a.akamaihd.net/ugc/958603887331757558/D1E9FAB08630AFD6CB06EE7B719338B00BCEACBC/?imw=512&imh=219&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true")
 }
