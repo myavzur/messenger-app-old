@@ -1,61 +1,54 @@
-// https://mantine.dev/theming/colors/
-body[class="theme_dark"] {
+// * Common Theme
+body {
   // Colors
-  --color-primary-1000: #101113; // dark[9]
-  --color-primary-900:  #141517; // dark[8]
-  --color-primary-800:  #1A1B1E; // dark[7]
-  --color-primary-700:  #25262B; // dark[6]
-  --color-primary-600:  #2C2E33; // dark[5]
-  --color-primary-500:  #373A40; // dark[4]
-  --color-primary-400:  #5C5F66; // dark[3]
-	--color-primary-300:  #909296; // dark[2]
-	--color-primary-200:  #A6A7AB; // dark[1]
-  --color-primary-100:  #C1C2C5; // dark[0]
+  --color-accent-1000: #6E90EE;
+  --color-util-error:  #EE5252;
+  --color-util-success:#52EE79;
+  --color-util-warn:   #DEEE52;
+}
 
-	--color-secondary-1000: #F8F9FA; // gray[0]
+// * Insomnia Theme
+body[class="theme_insomnia"] {
+  // Colors
+  --color-primary-1000: #101113;
+  --color-primary-900:  #141517;
+  --color-primary-800:  #1A1B1E;
+  --color-primary-700:  #25262B;
+  --color-primary-600:  #2C2E33;
+  --color-primary-500:  #373A40;
+  --color-primary-400:  #5C5F66;
+	--color-primary-300:  #909296;
+	--color-primary-200:  #A6A7AB;
+  --color-primary-100:  #C1C2C5;
+	--color-secondary-1000: #F8F9FA;
 
-  --color-accent-1000: #FF6B6B; // red[5]
-
-  --color-etc-error:  #E03131; // red[8]
-  --color-etc-success:#20C997; // teal[5]
-  --color-etc-warn:   #FCC419; // yellow[5]
-
-  // Components
+  // Specific Colors
   --color-app-background: var(--color-primary-900);
   --color-inputs-background: var(--color-primary-700);
 
   // Images
-  --image-auth-aside: url("https://mir-s3-cdn-cf.behance.net/project_modules/fs/9afe0493484903.5e66500f8dea4.gif")
-
-  // Z-Indexes
-
+  --image-authorization: url("@/app/assets/images/insomnia_authorization.gif");
 }
 
+// * Winter Theme
 body[class="theme_winter"] {
   // Colors
-  --color-primary-1000: #F8F9FA; // gray[0]
-  --color-primary-900:  #F1F3F5; // gray[1]
-  --color-primary-800:  #E9ECEF; // gray[2]
-  --color-primary-600:  #DEE2E6; // gray[3]
-  --color-primary-700:  #CED4DA;  // gray[4]
-  --color-primary-500:  #ADB5BD; // gray[5]
-  --color-primary-400:  #868E96; // gray[6]
-	--color-primary-300:  #495057; // gray[7]
-	--color-primary-200:  #343A40; // gray[8]
-  --color-primary-100:  #212529; // gray[9]
-
+  --color-primary-1000: #F8F9FA;
+  --color-primary-900:  #F1F3F5;
+  --color-primary-800:  #E9ECEF;
+  --color-primary-600:  #DEE2E6;
+  --color-primary-700:  #CED4DA;
+  --color-primary-500:  #ADB5BD;
+  --color-primary-400:  #868E96;
+	--color-primary-300:  #495057;
+	--color-primary-200:  #343A40;
+  --color-primary-100:  #212529;
 	--color-secondary-1000: #000000;
 
-  --color-accent-1000: #FF6B6B; // red[5]
-
-  --color-etc-error:  #E03131; // red[8]
-  --color-etc-success:#20C997; // teal[5]
-  --color-etc-warn:   #FCC419; // yellow[5]
-
-  // Components
+  // Specific Colors
   --color-app-background: var(--color-primary-1000);
   --color-inputs-background: var(--color-primary-1000);
 
   // Images
-  --image-auth-aside: url("https://steamuserimages-a.akamaihd.net/ugc/958603887331757558/D1E9FAB08630AFD6CB06EE7B719338B00BCEACBC/?imw=512&imh=219&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=true")
+  --image-authorization: url("@/app/assets/images/winter_authorization.gif");
 }

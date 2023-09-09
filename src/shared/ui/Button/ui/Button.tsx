@@ -6,19 +6,21 @@ import styles from "./Button.module.scss";
 
 const Button: React.FC<IButtonProps> = ({
 	icon: Icon,
-	onClick,
 	children,
-	...IButtonProps
+	...buttonProps
 }) => {
 	return (
 		<button
-			{...IButtonProps}
-			onClick={onClick}
+			{...buttonProps}
 			className={styles.button}
 		>
-			{Icon && <div className={styles.button__icon}>{Icon}</div>}
+			{Icon && (
+				<div className={styles.button__icon}>{Icon}</div>
+			)}
 
-			<span className={styles.button__text}>{children}</span>
+			{children && (
+				<span className={styles.button__text}>{children}</span>
+			)}
 		</button>
 	);
 };

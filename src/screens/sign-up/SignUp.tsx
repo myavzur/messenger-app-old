@@ -1,5 +1,4 @@
-import { UserAddOutlined } from "@ant-design/icons";
-import { Box, Button, Center, Stack, rem } from "@mantine/core";
+import { Box, Center, Stack, rem } from "@mantine/core";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -11,8 +10,10 @@ import { ISignUpBody } from "@/shared/interfaces/user.interface";
 import { useSockets } from "@/shared/lib/hooks";
 import { validateEmail } from "@/shared/lib/validators/email.validator";
 import {
+	Button,
 	Field,
 	FieldLegend,
+	Icon,
 	Logo,
 	PasswordField,
 	TextAnchor,
@@ -177,11 +178,9 @@ const SignUp: React.FC = () => {
 						<p>Forgot your password?</p>
 
 						<Button
+							disabled={signUpStatus.isLoading}
+							icon={<Icon name="identity-card"/>}
 							type="submit"
-							leftIcon={<UserAddOutlined size={20} />}
-							color="red"
-							variant="outline"
-							loading={signUpStatus.isLoading}
 						>
 							Sign Up
 						</Button>

@@ -1,13 +1,13 @@
 import { VideoCameraAddOutlined } from "@ant-design/icons";
 import cn from "classnames";
-import React from "react";
+import React, { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { useTemporaryChat } from "@/entities/chat/lib/hooks/useTemporaryChat";
 import ChatMessage from "@/entities/chat/ui/ChatMessage";
 import { UserInfo } from "@/entities/user";
 
-import { useAuth, useSockets, useStoreSelector } from "@/shared/lib/hooks";
+import { useAuth, useScrollButton, useSockets, useStoreSelector } from "@/shared/lib/hooks";
 import { Field } from "@/shared/ui";
 
 import ChatHeader from "../ChatHeader";
@@ -19,19 +19,23 @@ const ChatActive: React.FC = () => {
 	const { currentUser } = useAuth();
 	const { chatSocket } = useSockets();
 	const { sendMessageAndCreateChat } = useTemporaryChat();
+	const { windowRef, isFocusingWindow, scrollWindow } = useScrollButton({
+		appearsAfterScrolledPixels: 1000
+	});
 
 	const {
 		register,
 		handleSubmit,
+		reset,
 		formState: { isValid }
 	} = useForm<{ text: string }>({ mode: "onChange" });
 
+	/* If active chat exists - send message to it.
+	 * Overwise - create it and send message to it
+	 */
 	const handleSendMessage: SubmitHandler<{ text: string }> = message => {
 		if (!isValid || !activeChat) return;
 
-		/* If active chat exists - send message to it.
-		 * Overwise - create it and send message to it
-		 */
 		if (activeChat.id) {
 			chatSocket?.emit("send-message", {
 				chatId: activeChat.id,
@@ -40,9 +44,18 @@ const ChatActive: React.FC = () => {
 		} else {
 			sendMessageAndCreateChat(activeChat.users[0].id, message.text);
 		}
+
+		reset();
 	};
 
-	// TODO: Make nice background for empty chat.
+	// Scroll messages to bottom on initialize and on new message.
+	useEffect(() => {
+		if (!isFocusingWindow) {
+			scrollWindow('smooth');
+		}
+	}, [activeChat?.messages])
+
+
 	if (!activeChat || !currentUser)
 		return (
 			<div className={styles["active-chat"]}>
@@ -54,21 +67,22 @@ const ChatActive: React.FC = () => {
 		participant => participant.id !== currentUser.id
 	);
 
-	if (!user) return <h1>BUG: no user</h1>;
-
 	return (
 		<div className={styles["active-chat"]}>
 			<div className={styles["active-chat__background-filter"]} />
 
 			<ChatHeader className={styles["active-chat__header"]}>
-				<UserInfo user={user} />
+				{user && <UserInfo user={user} />}
 
 				<div className={styles["active-chat__actions"]}>
 					<VideoCameraAddOutlined />
 				</div>
 			</ChatHeader>
 
-			<div className={styles["active-chat__messages"]}>
+			<div
+				ref={windowRef}
+				className={styles["active-chat__messages"]}
+			>
 				{activeChat?.messages &&
 					activeChat.messages.map(message => {
 						const isOwn = currentUser.id === message.user.id;
@@ -91,17 +105,13 @@ const ChatActive: React.FC = () => {
 				onSubmit={handleSubmit(handleSendMessage)}
 			>
 				<Field
-					{...register("text")}
 					className={styles["active-chat__form-field"]}
 					placeholder="Message"
+					{...register("text", {
+						minLength: 1,
+						required: true
+					})}
 				/>
-
-				<button
-					className={styles["active-chat__form-submit"]}
-					type="submit"
-				>
-					💗
-				</button>
 			</form>
 		</div>
 	);

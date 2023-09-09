@@ -6,6 +6,7 @@ import Icon from "./Icon";
 import Logo from "./Logo";
 import PageLoader from "./PageLoader";
 import PasswordField from "./PasswordField";
+import ScrollButton from "./ScrollButton";
 import TextAnchor from "./TextAnchor";
 import Title from "./Title";
 
@@ -18,6 +19,7 @@ export {
 	Logo,
 	PageLoader,
 	PasswordField,
+	ScrollButton,
 	TextAnchor,
 	Title
 };

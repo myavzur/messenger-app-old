@@ -1,5 +1,22 @@
 .button {
-	background: var(--color-app-background);
+	@apply flex items-center rounded-md px-2 py-1.5 select-none outline-none cursor-pointer;
+	background-color: var(--color-app-background);
 	border: 1px solid var(--color-accent-1000);
 	color: var(--color-accent-1000);
+
+	&__icon {
+		@apply mr-1.5;
+		color: inherit;
+		min-width: 22px;
+		width: 22px;
+		height: 22px;
+		color: var(--color-accent-1000);
+	}
+
+	&:hover,
+	&:active {
+		background-color: var(--color-accent-1000);
+	}
 }
+
+// TODO DELETE

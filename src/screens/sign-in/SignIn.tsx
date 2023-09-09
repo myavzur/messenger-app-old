@@ -1,5 +1,4 @@
-import { LoginOutlined } from "@ant-design/icons";
-import { Box, Button, Center, Stack, rem } from "@mantine/core";
+import { Box, Center, Stack, rem } from "@mantine/core";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
@@ -10,8 +9,10 @@ import { baseApi } from "@/shared/api";
 import { ISignInBody } from "@/shared/interfaces/user.interface";
 import { useSockets } from "@/shared/lib/hooks";
 import {
+	Button,
 	Field,
 	FieldLegend,
+	Icon,
 	Logo,
 	PasswordField,
 	TextAnchor,
@@ -81,11 +82,9 @@ const SignIn: React.FC = () => {
 						<p>Forgot your password?</p>
 
 						<Button
+							disabled={signInStatus.isLoading}
+							icon={<Icon name="user-activity" />}
 							type="submit"
-							leftIcon={<LoginOutlined size={20} />}
-							color="red"
-							variant="outline"
-							loading={signInStatus.isLoading}
 						>
 							Sign In
 						</Button>

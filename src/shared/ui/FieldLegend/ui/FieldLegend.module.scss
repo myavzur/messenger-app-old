@@ -11,14 +11,14 @@
 
 	&__error {
 		@apply pt-1 text-sm;
-		color: var(--color-etc-error);
+		color: var(--color-util-error);
 	}
 
 	&_with-asterisk {
 		.field__label::after {
 			@apply pl-1;
 			content: '*';
-			color: var(--color-etc-error);
+			color: var(--color-util-error);
 		}
 	}
 }

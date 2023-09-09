@@ -1,5 +1,5 @@
 .message {
-	@apply p-2.5 rounded-2xl;
+	@apply select-none p-2.5 rounded-2xl;
 	background-color: var(--color-primary-800);
 
 	&__author {
@@ -7,7 +7,7 @@
 	}
 
 	&__text {
-		@apply text-base;
+		@apply select-text text-base;
 	}
 
 	&_own {

@@ -65,7 +65,6 @@ const appSettings = createSlice({
 			const chat = state.chats[idx];
 
 			if (idx !== -1) {
-				chat.messages.push(action.payload.message);
 				chat.last_message = action.payload.message;
 
 				// Replace chat forwards.
@@ -74,7 +73,7 @@ const appSettings = createSlice({
 			}
 
 			if (state.activeChat?.id === action.payload.chatId) {
-				state.activeChat.messages.push(action.payload.message);
+				state.activeChat.messages.unshift(action.payload.message);
 			}
 		}
 	}

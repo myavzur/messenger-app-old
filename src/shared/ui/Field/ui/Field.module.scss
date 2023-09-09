@@ -1,6 +1,6 @@
 .field {
 	@apply relative overflow-hidden w-full;
-	border-radius: 0.25rem;
+	border-radius: 0.45rem;
 	border: 0.0625rem solid var(--color-primary-500);
 	background-color: var(--color-inputs-background);
 
@@ -24,13 +24,13 @@
 	}
 
 	&_invalid {
-		border-color: var(--color-etc-error);
+		border-color: var(--color-util-error);
 
 		input {
-			color: var(--color-etc-error);
+			color: var(--color-util-error);
 
 			&:hover,
-			&:focus {	border-color: var(--color-etc-error);	}
+			&:focus {	border-color: var(--color-util-error);	}
 		}
 	}
 }
