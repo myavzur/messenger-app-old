@@ -1,6 +1,4 @@
-import React from "react";
-
-export interface AvatarProps {
+export interface IAvatarProps {
 	children: string;
 	src?: string;
 	alt?: string;

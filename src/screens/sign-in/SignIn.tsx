@@ -91,7 +91,8 @@ const SignIn: React.FC = () => {
 						</Button>
 
 						<span>
-							Don't have an account? <TextAnchor to="/sign-up">Sign Up</TextAnchor>
+							Don&apos;t have an account?{" "}
+							<TextAnchor to="/sign-up">Sign Up</TextAnchor>
 						</span>
 					</Stack>
 				</form>

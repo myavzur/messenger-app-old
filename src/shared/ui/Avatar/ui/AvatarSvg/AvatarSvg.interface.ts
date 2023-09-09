@@ -1,6 +1,4 @@
-import React from "react";
-
-export interface AvatarSvgProps {
+export interface IAvatarSvgProps {
 	/** @default #FFFFFF */
 	strokeColor?: string;
 	fillColor: string;

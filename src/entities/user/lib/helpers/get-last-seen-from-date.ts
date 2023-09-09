@@ -7,7 +7,8 @@ const ONE_HOUR_IN_MINUTES = 60;
 const ONE_DAY_IN_MINUTES = 1440;
 const ONE_YEAR_IN_MINUTES = 525600;
 
-export const getLastSeenFromDate = (date: Date) => {
+// date: Date
+export const getLastSeenFromDate = () => {
 	const nowDate = dayjs();
 	const lastDate = dayjs(Date.now());
 

@@ -1,3 +1,3 @@
-export interface TitleProps {
+export interface ITitleProps {
 	children: string;
 }

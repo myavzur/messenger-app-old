@@ -1,4 +1,4 @@
-export interface ChatHeaderProps {
+export interface IChatHeaderProps {
 	children: React.ReactNode;
 	className?: string;
 }

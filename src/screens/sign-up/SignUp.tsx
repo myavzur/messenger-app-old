@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import { AuthLayout } from "@/layouts";
 
 import { baseApi } from "@/shared/api";
-import { ISocketsContext } from "@/shared/contexts/SocketsContext";
 import { ISignUpBody } from "@/shared/interfaces/user.interface";
 import { useSockets } from "@/shared/lib/hooks";
 import { validateEmail } from "@/shared/lib/validators/email.validator";
@@ -109,7 +108,7 @@ const SignUp: React.FC = () => {
 
 						<FieldLegend
 							legend="Password"
-							description={'Don\'t use common passwords such as "qwerty..."'}
+							description="Don't use common passwords such as 'qwerty...'"
 							withAsterisk={true}
 							errorText={passwordError}
 						>

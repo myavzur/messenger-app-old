@@ -2,11 +2,11 @@ import React, { forwardRef, useState } from "react";
 
 import { Field, Icon } from "@/shared/ui";
 
-import { FieldProps } from "../../Field";
+import { IFieldProps } from "../../Field";
 
 import styles from "./PasswordField.module.scss";
 
-const PasswordField = forwardRef<HTMLInputElement, Omit<FieldProps, "children">>(
+const PasswordField = forwardRef<HTMLInputElement, Omit<IFieldProps, "children">>(
 	(props, ref) => {
 		const [isVisible, setVisibility] = useState(false);
 

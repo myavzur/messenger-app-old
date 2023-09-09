@@ -2,13 +2,13 @@ import React from "react";
 import { Socket } from "socket.io-client";
 
 import {
-	ChatClientToServerEvents,
-	ChatServerToClientEvents
+	IChatClientToServerEvents,
+	IChatServerToClientEvents
 } from "@/shared/interfaces/socket-io-chat.interface";
 
 export interface ISocketsContext {
 	presenceSocket: Socket | null;
-	chatSocket: Socket<ChatServerToClientEvents, ChatClientToServerEvents> | null;
+	chatSocket: Socket<IChatServerToClientEvents, IChatClientToServerEvents> | null;
 	sockets: {
 		name: "chat" | "presence";
 		socket: Socket;

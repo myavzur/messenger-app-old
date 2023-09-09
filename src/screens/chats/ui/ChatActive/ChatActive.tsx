@@ -1,4 +1,5 @@
 import { VideoCameraAddOutlined } from "@ant-design/icons";
+import cn from "classnames";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -12,7 +13,6 @@ import { Field } from "@/shared/ui";
 import ChatHeader from "../ChatHeader";
 
 import styles from "./ChatActive.module.scss";
-import cn from "classnames";
 
 const ChatActive: React.FC = () => {
 	const { activeChat } = useStoreSelector(state => state.chats);
@@ -43,22 +43,25 @@ const ChatActive: React.FC = () => {
 	};
 
 	// TODO: Make nice background for empty chat.
-	if (!activeChat || !currentUser) return (
-		<div className={styles["active-chat"]}>
-			<div className={styles["active-chat__background-filter"]} />
-		</div>
+	if (!activeChat || !currentUser)
+		return (
+			<div className={styles["active-chat"]}>
+				<div className={styles["active-chat__background-filter"]} />
+			</div>
+		);
+
+	const user = activeChat.users.find(
+		participant => participant.id !== currentUser.id
 	);
+
+	if (!user) return <h1>BUG: no user</h1>;
 
 	return (
 		<div className={styles["active-chat"]}>
 			<div className={styles["active-chat__background-filter"]} />
 
 			<ChatHeader className={styles["active-chat__header"]}>
-				<UserInfo
-					user={activeChat.users.find(
-						participant => participant.id !== currentUser.id
-					)}
-				/>
+				<UserInfo user={user} />
 
 				<div className={styles["active-chat__actions"]}>
 					<VideoCameraAddOutlined />
@@ -73,10 +76,9 @@ const ChatActive: React.FC = () => {
 						return (
 							<ChatMessage
 								key={message.id}
-								className={cn(
-									styles["active-chat__messages-message"],
-									{ [styles["active-chat__messages-message_own"]]: isOwn }
-								)}
+								className={cn(styles["active-chat__messages-message"], {
+									[styles["active-chat__messages-message_own"]]: isOwn
+								})}
 								isOwn={isOwn}
 								message={message}
 							/>

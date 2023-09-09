@@ -1,11 +1,11 @@
 import cn from "classnames";
 import React, { forwardRef } from "react";
 
-import { FieldProps } from "./Field.interface";
+import { IFieldProps } from "./Field.interface";
 
 import styles from "./Field.module.scss";
 
-const Field = forwardRef<HTMLInputElement, FieldProps>((props, ref) => {
+const Field = forwardRef<HTMLInputElement, IFieldProps>((props, ref) => {
 	const { isInvalid, className, type, children, ...inputProps } = props;
 
 	return (

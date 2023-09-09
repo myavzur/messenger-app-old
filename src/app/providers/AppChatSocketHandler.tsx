@@ -9,11 +9,13 @@ import {
 	updateChatCarefully
 } from "@/shared/models/chats";
 
-interface AppChatSocketHandlerProps {
+interface IAppChatSocketHandlerProps {
 	children: React.ReactNode;
 }
 
-const AppChatSocketHandler: React.FC<AppChatSocketHandlerProps> = ({ children }) => {
+const AppChatSocketHandler: React.FC<IAppChatSocketHandlerProps> = ({
+	children
+}) => {
 	const dispatch = useStoreDispatch();
 	const { chatSocket } = useSockets();
 

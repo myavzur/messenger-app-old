@@ -5,7 +5,7 @@ import { getElementFromArrayByStringHash, getInitials } from "@/shared/lib/helpe
 
 import AvatarSvg from "../AvatarSvg";
 
-import { AvatarProps } from "./Avatar.interface";
+import { IAvatarProps } from "./Avatar.interface";
 
 import styles from "./Avatar.module.scss";
 
@@ -24,7 +24,7 @@ const fillColors = [
 	"#577889"
 ];
 
-const Avatar: React.FC<AvatarProps> = ({ children, src, alt, size, className }) => {
+const Avatar: React.FC<IAvatarProps> = ({ children, src, alt, size, className }) => {
 	let content = null;
 
 	if (src) {

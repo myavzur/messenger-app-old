@@ -2,9 +2,9 @@ import React from "react";
 
 import sprite from "../assets/sprite.svg";
 
-import { IconProps } from "./Icon.interface";
+import { IIconProps } from "./Icon.interface";
 
-const Icon: React.FC<IconProps> = ({ name }) => {
+const Icon: React.FC<IIconProps> = ({ name }) => {
 	return (
 		<svg
 			width="100%"

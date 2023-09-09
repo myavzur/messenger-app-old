@@ -1,8 +1,8 @@
 import React from "react";
 
-import { AvatarSvgProps } from "./AvatarSvg.interface";
+import { IAvatarSvgProps } from "./AvatarSvg.interface";
 
-const AvatarSvg: React.FC<AvatarSvgProps> = ({
+const AvatarSvg: React.FC<IAvatarSvgProps> = ({
 	strokeColor = "#FFFFFF",
 	fillColor,
 	text

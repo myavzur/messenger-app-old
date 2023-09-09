@@ -1,10 +1,10 @@
 import React from "react";
 
-import { FieldLegendProps } from "./FieldLegend.interface";
+import { IFieldLegendProps } from "./FieldLegend.interface";
 
 import styles from "./FieldLegend.module.scss";
 
-const FieldLegend: React.FC<FieldLegendProps> = ({
+const FieldLegend: React.FC<IFieldLegendProps> = ({
 	legend,
 	description,
 	errorText,

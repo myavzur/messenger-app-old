@@ -1,18 +1,18 @@
 import React from "react";
 
-import { ButtonProps } from "./Button.interface";
+import { IButtonProps } from "./Button.interface";
 
 import styles from "./Button.module.scss";
 
-const Button: React.FC<ButtonProps> = ({
+const Button: React.FC<IButtonProps> = ({
 	icon: Icon,
 	onClick,
 	children,
-	...buttonProps
+	...IButtonProps
 }) => {
 	return (
 		<button
-			{...buttonProps}
+			{...IButtonProps}
 			onClick={onClick}
 			className={styles.button}
 		>

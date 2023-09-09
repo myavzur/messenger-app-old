@@ -1,3 +1,3 @@
-export interface IconProps {
+export interface IIconProps {
 	name: "eye" | "eye-crossed";
 }

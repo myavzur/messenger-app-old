@@ -7,11 +7,11 @@ import { Avatar } from "@/shared/ui";
 
 import { getChatTitle } from "../../lib/helpers";
 
-import { ChatCardProps } from "./ChatCard.interface";
+import { IChatCardProps } from "./ChatCard.interface";
 
 import styles from "./ChatCard.module.scss";
 
-const ChatCard: React.FC<ChatCardProps> = ({ chat, onClick }) => {
+const ChatCard: React.FC<IChatCardProps> = ({ chat, onClick }) => {
 	const { activeChat } = useStoreSelector(state => state.chats);
 
 	const title = getChatTitle(chat);
@@ -39,7 +39,7 @@ const ChatCard: React.FC<ChatCardProps> = ({ chat, onClick }) => {
 				</div>
 
 				<div className={styles.card__bottom}>
-					<p className={styles['card__bottom-text']}>{chat.last_message.text}</p>
+					<p className={styles["card__bottom-text"]}>{chat.last_message?.text}</p>
 				</div>
 			</div>
 		</div>

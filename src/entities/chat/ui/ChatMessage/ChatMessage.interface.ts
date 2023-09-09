@@ -1,6 +1,6 @@
 import { IMessage } from "@/shared/interfaces/message.interface";
 
-export interface ChatMessageProps {
+export interface IChatMessageProps {
 	message: IMessage;
 	isOwn: boolean;
 	className?: string;

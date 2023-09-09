@@ -2,17 +2,13 @@ import React from "react";
 
 import { useTemporaryChat } from "@/entities/chat/lib/hooks/useTemporaryChat";
 
-import { useStoreDispatch } from "@/shared/lib/hooks";
 import { Field } from "@/shared/ui";
 
 import { useSearch } from "../lib/hooks";
 
-import { SearchProps } from "./Search.interface";
-
 import styles from "./Search.module.scss";
 
-const Search: React.FC<SearchProps> = ({}) => {
-	const dispatch = useStoreDispatch();
+const Search: React.FC = () => {
 	const {
 		handleSearch,
 		response: { data: users, isLoading, isSuccess },

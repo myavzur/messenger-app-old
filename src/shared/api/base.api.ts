@@ -1,6 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import { IChat } from "../interfaces/chat.interface";
 import {
 	IAuthResponse,
 	ISignInBody,

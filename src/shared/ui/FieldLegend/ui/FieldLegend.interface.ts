@@ -1,4 +1,4 @@
-export interface FieldLegendProps {
+export interface IFieldLegendProps {
 	legend: string;
 	description?: string;
 	withAsterisk?: boolean;

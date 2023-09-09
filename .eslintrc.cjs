@@ -1,4 +1,9 @@
 module.exports = {
+  settings: {
+    react: {
+      version: "^18.2.0"
+    }
+  },
   parser: "@typescript-eslint/parser",
   parserOptions: { ecmaVersion: "latest", sourceType: "module" },
   plugins: ["react-refresh", "prettier"],
@@ -7,10 +12,12 @@ module.exports = {
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
+    "plugin:prettier/recommended"
   ],
   env: { browser: true, es2020: true },
   ignorePatterns: [".eslintrc.cjs", "vite.config.ts"],
   rules: {
+    "prettier/prettier": "error",
     "@typescript-eslint/naming-convention": [
       "error",
       {

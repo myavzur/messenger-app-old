@@ -1,12 +1,11 @@
 import cn from "classnames";
 import React from "react";
 
-import { ChatMessageProps } from "./ChatMessage.interface";
+import { IChatMessageProps } from "./ChatMessage.interface";
 
 import styles from "./ChatMessage.module.scss";
-import { getCreatedAtTime } from "@/shared/lib/helpers";
 
-const ChatMessage: React.FC<ChatMessageProps> = ({
+const ChatMessage: React.FC<IChatMessageProps> = ({
 	message,
 	className,
 	isOwn,
@@ -16,16 +15,13 @@ const ChatMessage: React.FC<ChatMessageProps> = ({
 	return (
 		<div
 			data-message-id={message.id}
-			className={cn(styles.message, className,
-				{ [styles.message_own]: isOwn }
-			)}
+			className={cn(styles.message, className, { [styles.message_own]: isOwn })}
 		>
+			{withAuthorAvatar && <p>AVA</p>}
 			{withAuthorName && (
 				<h2 className={styles.message__author}>{message.user.account_name}</h2>
 			)}
-			<div className={styles.message__text}>
-				{message.text}
-			</div>
+			<div className={styles.message__text}>{message.text}</div>
 		</div>
 	);
 };

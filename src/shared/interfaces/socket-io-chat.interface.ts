@@ -3,7 +3,7 @@ import { IMessage } from "./message.interface";
 import { IUser } from "./user.interface";
 
 // * Server
-export interface ChatServerToClientEvents {
+export interface IChatServerToClientEvents {
 	chats: (data: {
 		chats: IChat[];
 		totalItems: number;
@@ -23,7 +23,7 @@ export interface ChatServerToClientEvents {
 }
 
 // * Client
-export interface ChatClientToServerEvents {
+export interface IChatClientToServerEvents {
 	"get-chats": (params: { page: number; limit: number }) => void;
 	"get-chat": (params: { chatId: IChat["id"] }) => void;
 	"get-chat-history": (params: {

@@ -1,4 +1,4 @@
-export interface TextAnchorProps {
+export interface ITextAnchorProps {
 	children: string;
 	to: string;
 }

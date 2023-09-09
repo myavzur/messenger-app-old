@@ -2,11 +2,11 @@ import React from "react";
 
 import { Avatar } from "@/shared/ui";
 
-import { UserInfoProps } from "./UserInfo.interface";
+import { IUserInfoProps } from "./UserInfo.interface";
 
 import styles from "./UserInfo.module.scss";
 
-const UserInfo: React.FC<UserInfoProps> = ({ user }) => {
+const UserInfo: React.FC<IUserInfoProps> = ({ user }) => {
 	return (
 		<div className={styles.info}>
 			<Avatar
