@@ -1,28 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import { MainLayout } from "@/layouts";
 
-import { useSockets } from "@/shared/lib/hooks";
-
-import ChatActive from "./ui/ChatActive";
-import ChatAside from "./ui/ChatAside";
+import { Content } from "./ui/Content";
+import { Sidebar } from "./ui/Sidebar";
 
 const Chats: React.FC = () => {
-	const { chatSocket } = useSockets();
-
-	useEffect(() => {
-		if (chatSocket) {
-			chatSocket.emit("get-chats", {
-				page: 1,
-				limit: 30
-			});
-		}
-	}, [chatSocket]);
-
 	return (
 		<MainLayout
-			asideContent={<ChatAside />}
-			mainContent={<ChatActive />}
+			asideContent={<Sidebar />}
+			mainContent={<Content />}
 		/>
 	);
 };

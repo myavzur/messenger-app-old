@@ -1,4 +1,6 @@
 .field {
+	@apply w-full;
+
 	&__label {
 		@apply font-medium text-base;
 		color: var(--color-primary-100);

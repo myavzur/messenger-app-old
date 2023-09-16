@@ -1,3 +1,4 @@
+import { animated, config, useTransition } from "@react-spring/web";
 import cn from "classnames";
 import React from "react";
 
@@ -24,7 +25,24 @@ const fillColors = [
 	"#577889"
 ];
 
-const Avatar: React.FC<IAvatarProps> = ({ children, src, alt, size, className }) => {
+const Avatar: React.FC<IAvatarProps> = ({
+	children,
+	src,
+	alt,
+	size,
+	status,
+	className
+}) => {
+	const indicatorTransition = useTransition(
+		typeof status === "number" && status > 0,
+		{
+			from: { scale: 0 },
+			enter: { scale: 1 },
+			leave: { scale: 0 },
+			config: config.wobbly
+		}
+	);
+
 	let content = null;
 
 	if (src) {
@@ -50,6 +68,17 @@ const Avatar: React.FC<IAvatarProps> = ({ children, src, alt, size, className })
 			})}
 		>
 			{content}
+
+			{indicatorTransition(
+				(style, isIndicatorVisible) =>
+					isIndicatorVisible && (
+						<animated.div
+							className={cn(styles.avatar__indicator)}
+							data-type={status || 0}
+							style={style}
+						/>
+					)
+			)}
 		</div>
 	);
 };

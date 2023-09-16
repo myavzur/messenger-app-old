@@ -1,2 +1,3 @@
 export { getChatTitle } from "./get-chat-title";
-export { separateMessagesByDate } from './separate-messages-by-date';
+export { getChatUserStatus } from "./get-chat-user-status";
+export { separateMessagesByDate } from "./separate-messages-by-date";

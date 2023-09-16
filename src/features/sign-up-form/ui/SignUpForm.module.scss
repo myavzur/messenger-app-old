@@ -1,0 +1,7 @@
+.form {
+	@apply flex items-center flex-col gap-5;
+
+	&__header {
+		@apply flex items-center;
+	}
+}

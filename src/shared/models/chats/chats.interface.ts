@@ -2,6 +2,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 
 import { IChat } from "@/shared/interfaces/chat.interface";
 import { IMessage } from "@/shared/interfaces/message.interface";
+import { IUser } from "@/shared/interfaces/user.interface";
 
 export interface ITemporaryChat extends Omit<IChat, "id" | "updated_at"> {
 	id?: IChat["id"];
@@ -29,4 +30,10 @@ export type IUpdateChatAction = PayloadAction<{
 export type IAddMessageAction = PayloadAction<{
 	chatId: IChat["id"];
 	message: IMessage;
+}>;
+
+export type IUpdateLocalChatPresenceAction = PayloadAction<{
+	chatId: IChat["id"];
+	userId: IUser["id"];
+	status: 0 | 1;
 }>;

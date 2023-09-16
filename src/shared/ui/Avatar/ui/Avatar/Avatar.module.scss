@@ -1,15 +1,32 @@
 .avatar {
-	--size: 50px;
+	--size: 45px;
 	--font-size: 1.3rem;
 
-	@apply flex items-center justify-center rounded-full overflow-hidden;
+	@apply relative flex items-center justify-center rounded-full;
 	min-width: var(--size);
 	width: var(--size);
 	height: var(--size);
 	font-size: var(--font-size);
+	border: 3px solid var(--color-primary-600);
 
 	img {
-		@apply block w-full h-full object-cover;
+		@apply block w-full h-full object-cover rounded-full;
+	}
+
+	&__indicator {
+		@apply transition-colors;
+		position: absolute;
+		width: calc(var(--size) / 3.7);
+		height: calc(var(--size) / 3.7);
+		background-color: #9b9b9b;
+		border-radius: 50%;
+		border: 2px solid var(--color-primary-600);
+		right: -1px;
+		bottom: -1px;
+
+		&[data-type="1"] {
+			background-color: var(--color-util-success);
+		}
 	}
 
 	&_size_sm {

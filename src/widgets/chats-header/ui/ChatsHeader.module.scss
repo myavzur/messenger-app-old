@@ -1,0 +1,6 @@
+.header {
+	@apply flex items-center justify-between px-5 py-4;
+	border-bottom: 1px solid var(--color-primary-600);
+	background-color: var(--color-app-background);
+	min-height: 5rem;
+}

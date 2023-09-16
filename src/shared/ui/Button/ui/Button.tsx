@@ -14,13 +14,9 @@ const Button: React.FC<IButtonProps> = ({
 			{...buttonProps}
 			className={styles.button}
 		>
-			{Icon && (
-				<div className={styles.button__icon}>{Icon}</div>
-			)}
+			{Icon && <div className={styles.button__icon}>{Icon}</div>}
 
-			{children && (
-				<span className={styles.button__text}>{children}</span>
-			)}
+			{children && <span className={styles.button__text}>{children}</span>}
 		</button>
 	);
 };

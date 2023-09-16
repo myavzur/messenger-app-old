@@ -1,3 +1,4 @@
-import ChatCard from "./ui/ChatCard";
+export { ChatCard } from "./ui/ChatCard";
+export { ChatMessage } from "./ui/ChatMessage";
 
-export { ChatCard };
+export { getChatTitle, getChatUserStatus } from "./lib/helpers";

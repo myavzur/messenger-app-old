@@ -5,12 +5,16 @@
 	color: var(--color-accent-1000);
 
 	&__icon {
-		@apply mr-1.5;
+		@apply flex items-center justify-center;
 		color: inherit;
 		min-width: 22px;
 		width: 22px;
 		height: 22px;
 		color: var(--color-accent-1000);
+	}
+
+	&__icon + &__text {
+		@apply ml-1.5;
 	}
 
 	&:hover,

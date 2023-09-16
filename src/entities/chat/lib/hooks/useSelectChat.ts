@@ -9,10 +9,10 @@ export const useSelectChat = () => {
 
 	const selectChat = useCallback(
 		(id: IChat["id"]) => {
-			if (activeChat?.id === id) return;
+			if (activeChat && activeChat.id === id) return;
 			chatSocket?.emit("get-chat", { chatId: id });
 		},
-		[chatSocket]
+		[activeChat, chatSocket]
 	);
 
 	return { selectChat };

@@ -6,15 +6,17 @@ import { useStoreSelector } from "@/shared/lib/hooks";
 import { Avatar } from "@/shared/ui";
 
 import { getChatTitle } from "../../lib/helpers";
+import { getChatUserStatus } from "../../lib/helpers/get-chat-user-status";
 
 import { IChatCardProps } from "./ChatCard.interface";
 
 import styles from "./ChatCard.module.scss";
 
-const ChatCard: React.FC<IChatCardProps> = ({ chat, onClick }) => {
+export const ChatCard: React.FC<IChatCardProps> = ({ chat, onClick }) => {
 	const { activeChat } = useStoreSelector(state => state.chats);
 
 	const title = getChatTitle(chat);
+	const status = getChatUserStatus(chat);
 	const isSelected = Boolean(activeChat && activeChat.id === chat.id);
 
 	return (
@@ -24,6 +26,7 @@ const ChatCard: React.FC<IChatCardProps> = ({ chat, onClick }) => {
 		>
 			<Avatar
 				className={styles.card__image}
+				status={status}
 				src={undefined}
 				alt={undefined}
 			>
@@ -45,5 +48,3 @@ const ChatCard: React.FC<IChatCardProps> = ({ chat, onClick }) => {
 		</div>
 	);
 };
-
-export default ChatCard;

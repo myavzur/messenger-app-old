@@ -6,7 +6,8 @@ import {
 	IAddMessageAction,
 	IChatsState,
 	ITemporaryChat,
-	IUpdateChatAction
+	IUpdateChatAction,
+	IUpdateLocalChatPresenceAction
 } from "./chats.interface";
 
 const initialState: IChatsState = {
@@ -18,6 +19,10 @@ const appSettings = createSlice({
 	name: "chats",
 	initialState,
 	reducers: {
+		clearChats: state => {
+			state.chats = [];
+			state.activeChat = null;
+		},
 		setActiveChat: (state, action: PayloadAction<ITemporaryChat>) => {
 			state.activeChat = action.payload;
 		},
@@ -29,6 +34,21 @@ const appSettings = createSlice({
 
 			if (state.activeChat?.id === action.payload.id) {
 				state.activeChat = action.payload;
+			}
+		},
+		updateLocalChatPresence: (state, action: IUpdateLocalChatPresenceAction) => {
+			state.chats = state.chats.map(chat => {
+				if (chat.is_group || chat.id !== action.payload.chatId) return chat;
+
+				chat.users[0].status = action.payload.status;
+				return chat;
+			});
+
+			if (
+				state.activeChat?.is_group ||
+				state.activeChat?.id === action.payload.chatId
+			) {
+				state.activeChat.users[0].status = action.payload.status;
 			}
 		},
 		updateChat: (state, action: IUpdateChatAction) => {
@@ -80,9 +100,11 @@ const appSettings = createSlice({
 });
 
 export const {
+	clearChats,
 	setActiveChat,
 	setChats,
 	addChat,
+	updateLocalChatPresence,
 	updateChat,
 	updateChatCarefully,
 	addMessage

@@ -1,3 +1,1 @@
-import LogoutButton from "./ui/LogoutButton";
-
-export { LogoutButton };
+export { Logout } from "./ui/Logout";

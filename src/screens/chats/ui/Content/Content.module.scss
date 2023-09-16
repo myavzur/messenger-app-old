@@ -1,0 +1,26 @@
+.content {
+	@apply relative flex flex-col;
+	background-image: url('https://pixelbox.ru/wp-content/uploads/2021/09/background-chat-vk-75.jpg');
+	flex: 1 1 auto;
+
+	&__background-filter {
+		@apply absolute w-full h-full;
+		background-color: #000;
+		opacity: 0.5;
+	}
+
+	&__form {
+		@apply grid self-center pb-5 w-full;
+	}
+
+	&__messages,
+	&__form {
+		max-width: 48%;
+	}
+
+	&__header,
+	&__messages,
+	&__form {
+		z-index: var(--z-active-chat-elements);
+	}
+}

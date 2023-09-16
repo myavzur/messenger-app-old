@@ -10,6 +10,8 @@ import "@/app/styles/index.scss";
 
 import { SocketsProvider } from "@/shared/contexts/SocketsContext";
 
+import AppPresenceSocketHandler from "./providers/AppPresenceSocketHandler";
+
 function App() {
 	useEffect(() => {
 		document.title = import.meta.env.VITE_APP_TITLE;
@@ -18,11 +20,13 @@ function App() {
 	return (
 		<SocketsProvider>
 			<AppStore>
-				<AppChatSocketHandler>
-					<AppTheme>
-						<AppRouter />
-					</AppTheme>
-				</AppChatSocketHandler>
+				<AppPresenceSocketHandler>
+					<AppChatSocketHandler>
+						<AppTheme>
+							<AppRouter />
+						</AppTheme>
+					</AppChatSocketHandler>
+				</AppPresenceSocketHandler>
 			</AppStore>
 		</SocketsProvider>
 	);

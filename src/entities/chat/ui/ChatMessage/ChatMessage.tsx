@@ -5,7 +5,7 @@ import { IChatMessageProps } from "./ChatMessage.interface";
 
 import styles from "./ChatMessage.module.scss";
 
-const ChatMessage: React.FC<IChatMessageProps> = ({
+export const ChatMessage: React.FC<IChatMessageProps> = ({
 	message,
 	className,
 	isOwn,
@@ -25,5 +25,3 @@ const ChatMessage: React.FC<IChatMessageProps> = ({
 		</div>
 	);
 };
-
-export default ChatMessage;

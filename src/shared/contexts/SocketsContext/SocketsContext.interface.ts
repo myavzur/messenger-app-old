@@ -5,9 +5,16 @@ import {
 	IChatClientToServerEvents,
 	IChatServerToClientEvents
 } from "@/shared/interfaces/socket-io-chat.interface";
+import {
+	IPresenceClientToServerEvents,
+	IPresenceServerToClientEvents
+} from "@/shared/interfaces/socket-io-presence.interface";
 
 export interface ISocketsContext {
-	presenceSocket: Socket | null;
+	presenceSocket: Socket<
+		IPresenceServerToClientEvents,
+		IPresenceClientToServerEvents
+	> | null;
 	chatSocket: Socket<IChatServerToClientEvents, IChatClientToServerEvents> | null;
 	sockets: {
 		name: "chat" | "presence";

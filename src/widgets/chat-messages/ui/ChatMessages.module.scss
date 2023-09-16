@@ -1,0 +1,18 @@
+@import '@/app/styles/mixins';
+
+.messages {
+	@apply flex flex-col-reverse grow self-center w-full py-4 gap-1;
+	@include hide-scrollbar();
+	overflow-y: scroll;
+
+	&__message {
+		@apply select-none rounded-2xl;
+		width: max-content;
+		max-width: 50%;
+
+		&_own {
+			@apply self-end;
+			background-color: var(--color-accent-1000)
+		}
+	}
+}

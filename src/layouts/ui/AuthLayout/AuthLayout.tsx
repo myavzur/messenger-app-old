@@ -7,7 +7,9 @@ import styles from "./AuthLayout.module.scss";
 const AuthLayout: React.FC<IAuthLayoutProps> = ({ children }) => {
 	return (
 		<div className={styles.layout}>
-			<main className={styles.layout__content}> {children} </main>
+			<main className={styles.layout__main}>
+				<div className={styles.layout__content}>{children}</div>
+			</main>
 			<aside className={styles.layout__view} />
 		</div>
 	);

@@ -1,3 +1,3 @@
-export interface ScrollButtonProps {
+export interface IScrollButtonProps {
 	onClick: () => void;
 }

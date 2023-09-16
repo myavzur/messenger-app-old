@@ -2,25 +2,18 @@ import React from "react";
 
 import { IAvatarSvgProps } from "./AvatarSvg.interface";
 
-const AvatarSvg: React.FC<IAvatarSvgProps> = ({
-	strokeColor = "#FFFFFF",
-	fillColor,
-	text
-}) => {
+const AvatarSvg: React.FC<IAvatarSvgProps> = ({ fillColor, text }) => {
 	return (
 		<svg
-			className="vjs-chat-avatar-svg"
 			viewBox="0 0 100 100"
 			xmlns="http://www.w3.org/2000/svg"
 			width="100%"
 		>
 			<circle
-				r="48"
+				r="50"
 				cx="50"
 				cy="50"
 				fill={fillColor}
-				stroke={strokeColor}
-				strokeWidth="4"
 			/>
 
 			<text
@@ -28,8 +21,8 @@ const AvatarSvg: React.FC<IAvatarSvgProps> = ({
 				y="50%"
 				dominantBaseline="mathematical"
 				textAnchor="middle"
-				fill={strokeColor}
-				style={{ fontSize: "32px" }}
+				fill="#FFF"
+				style={{ fontSize: "35px" }}
 			>
 				{text}
 			</text>

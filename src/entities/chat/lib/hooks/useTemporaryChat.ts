@@ -9,6 +9,7 @@ import { setActiveChat } from "@/shared/models/chats";
  * только на стороне клиента, без использования сервера. */
 export const useTemporaryChat = () => {
 	const dispatch = useStoreDispatch();
+
 	const { chats, activeChat } = useStoreSelector(state => state.chats);
 	const { chatSocket } = useSockets();
 

@@ -1,3 +1,1 @@
-import ChatCard from "./ChatCard";
-
-export default ChatCard;
+export { ChatCard } from "./ChatCard";

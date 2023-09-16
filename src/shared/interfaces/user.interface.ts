@@ -3,6 +3,7 @@ export interface IUser {
 	created_at: Date;
 	email: string;
 	account_name: string;
+	status?: 0 | 1;
 }
 
 // API

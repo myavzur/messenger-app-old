@@ -1,0 +1,16 @@
+.card {
+	@apply flex items-center;
+
+	&__right {
+		@apply ml-2;
+	}
+
+	&__account-name {
+		@apply text-sm;
+	}
+
+	&__last-seen {
+		@apply text-sm;
+		color: var(--color-primary-400);
+	}
+}

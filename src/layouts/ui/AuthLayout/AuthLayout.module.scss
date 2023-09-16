@@ -3,9 +3,14 @@
 .layout {
 	@apply flex w-screen h-screen;
 
-	&__content {
+	&__main {
 		@apply flex items-center justify-center;
 		flex: 1;
+	}
+
+	&__content {
+		width: 100%;
+		max-width: 360px;
 	}
 
 	&__view {

@@ -1,3 +1,1 @@
-import UserInfo from "./ui/UserInfo";
-
-export { UserInfo };
+export { UserCard } from "./ui/UserCard";
