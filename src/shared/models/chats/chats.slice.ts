@@ -5,7 +5,6 @@ import { IChat } from "@/shared/interfaces/chat.interface";
 import {
 	IAddMessageAction,
 	IChatsState,
-	ITemporaryChat,
 	IUpdateChatAction,
 	IUpdateLocalChatPresenceAction
 } from "./chats.interface";
@@ -23,7 +22,7 @@ const appSettings = createSlice({
 			state.chats = [];
 			state.activeChat = null;
 		},
-		setActiveChat: (state, action: PayloadAction<ITemporaryChat>) => {
+		setActiveChat: (state, action: PayloadAction<IChat>) => {
 			state.activeChat = action.payload;
 		},
 		setChats: (state, action: PayloadAction<IChat[]>) => {

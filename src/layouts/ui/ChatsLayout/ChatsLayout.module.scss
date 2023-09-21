@@ -1,0 +1,21 @@
+.layout {
+	@apply flex h-screen px-32 py-5;
+
+	&__aside {
+		@apply flex flex-col rounded-l-xl overflow-hidden;
+		background-color: var(--color-app-background);
+		width: 20vw;
+	}
+
+	&__header {
+		@apply flex items-center justify-between px-5 py-4;
+		border-bottom: 1px solid var(--color-primary-600);
+		background-color: var(--color-app-background);
+		min-height: 5rem;
+	}
+
+	&__main {
+		@apply flex grow rounded-r-xl overflow-hidden;
+		border-left: 1px solid var(--color-primary-600);
+	}
+}

@@ -1,8 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { AuthLayout } from "@/layouts";
-
 import { SignInForm } from "@/features/sign-in-form";
 
 import { baseApi } from "@/shared/api";
@@ -20,17 +18,15 @@ const SignIn: React.FC = () => {
 			.unwrap()
 			.then(data => {
 				updateSocketsAccessToken(data.access_token);
-				navigate("/");
+				navigate("/chats");
 			});
 	};
 
 	return (
-		<AuthLayout>
-			<SignInForm
-				onSubmit={handleSignIn}
-				isSubmitting={signInStatus.isLoading}
-			/>
-		</AuthLayout>
+		<SignInForm
+			onSubmit={handleSignIn}
+			isSubmitting={signInStatus.isLoading}
+		/>
 	);
 };
 

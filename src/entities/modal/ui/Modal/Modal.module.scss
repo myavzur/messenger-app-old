@@ -1,0 +1,26 @@
+.modal {
+  @apply fixed top-0 left-0 w-screen h-screen flex items-center justify-center;
+  background-color: rgba(0 0 0 / 0.4);
+  z-index: var(--z-modal);
+
+  &__dialog {
+    @apply rounded-md;
+    background-color: var(--color-primary-900)
+  }
+
+  &__header,
+  &__content,
+  &__footer {
+    @apply p-4;
+  }
+
+  &__header {
+    border-bottom-width: 2px;
+    border-bottom-color: var(--color-primary-800);
+  }
+
+  &__footer {
+    border-top-width: 2px;
+    border-top-color: var(--color-primary-800);
+  }
+}

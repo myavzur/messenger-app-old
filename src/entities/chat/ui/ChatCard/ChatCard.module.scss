@@ -9,15 +9,21 @@
 	&__top {
 		@apply flex justify-between items-center w-full;
 
+		&-title {
+			@apply text-sm font-bold;
+		}
+
 		&-updated {
 			@apply text-xs;
 		}
 	}
 
 	&__bottom {
-		@apply w-full;
+		@apply w-full mt-0.5;
 
 		&-text {
+			@apply text-sm;
+			color: var(--color-primary-200);
 			max-width: 90%;
 			@include line-clamp(1);
 		}
@@ -25,5 +31,9 @@
 
 	&_selected {
 		background-color: var(--color-accent-1000);
+
+		.card__bottom-text {
+			color: #FFF;
+		}
 	}
 }

@@ -1,14 +1,15 @@
 import React from "react";
-
-import { IAuthLayoutProps } from "./AuthLayout.interface";
+import { Outlet } from "react-router-dom";
 
 import styles from "./AuthLayout.module.scss";
 
-const AuthLayout: React.FC<IAuthLayoutProps> = ({ children }) => {
+const AuthLayout: React.FC = () => {
 	return (
 		<div className={styles.layout}>
 			<main className={styles.layout__main}>
-				<div className={styles.layout__content}>{children}</div>
+				<div className={styles.layout__content}>
+					<Outlet />
+				</div>
 			</main>
 			<aside className={styles.layout__view} />
 		</div>

@@ -1,4 +1,4 @@
 import AuthLayout from "./ui/AuthLayout";
-import MainLayout from "./ui/MainLayout";
+import ChatsLayout from "./ui/ChatsLayout";
 
-export { AuthLayout, MainLayout };
+export { AuthLayout, ChatsLayout };

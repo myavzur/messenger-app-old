@@ -1,0 +1,11 @@
+.header {
+  @apply flex items-center justify-between;
+
+  &__close {
+    @apply text-lg;
+
+    &:hover {
+      color: var(--color-accent-1000);
+    }
+  }
+}

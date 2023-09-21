@@ -1,7 +1,7 @@
 .button {
-	@apply flex items-center rounded-md px-2 py-1.5 select-none outline-none cursor-pointer;
-	background-color: var(--color-app-background);
-	border: 1px solid var(--color-accent-1000);
+	@apply transition-colors flex items-center rounded-md px-2 py-1.5;
+	@apply relative overflow-hidden select-none outline-none cursor-pointer;
+
 	color: var(--color-accent-1000);
 
 	&__icon {
@@ -19,8 +19,24 @@
 
 	&:hover,
 	&:active {
-		background-color: var(--color-accent-1000);
+		background-color: var(--color-accent-glassed-1000);
+	}
+
+	&_outlined {
+		border: 1px solid var(--color-accent-1000);
 	}
 }
 
-// TODO DELETE
+.ripple {
+	@apply absolute rounded-full transition-opacity;
+	transform: scale(0);
+	opacity: 1;
+	animation: scaleAndDisappear 0.6s linear;
+}
+
+@keyframes scaleAndDisappear {
+	to {
+		transform: scale(2.5);
+		opacity: 0;
+	}
+}

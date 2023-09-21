@@ -1,23 +1,24 @@
 import cn from "classnames";
 import React from "react";
 
-import { getLastUpdatedTime } from "@/shared/lib/helpers";
 import { useStoreSelector } from "@/shared/lib/hooks";
 import { Avatar } from "@/shared/ui";
 
 import { getChatTitle } from "../../lib/helpers";
+import { formatUpdatedDate } from "../../lib/helpers/format-updated-date";
 import { getChatUserStatus } from "../../lib/helpers/get-chat-user-status";
 
 import { IChatCardProps } from "./ChatCard.interface";
 
 import styles from "./ChatCard.module.scss";
 
-export const ChatCard: React.FC<IChatCardProps> = ({ chat, onClick }) => {
-	const { activeChat } = useStoreSelector(state => state.chats);
-
+export const ChatCard: React.FC<IChatCardProps> = ({
+	chat,
+	onClick,
+	isSelected
+}) => {
 	const title = getChatTitle(chat);
 	const status = getChatUserStatus(chat);
-	const isSelected = Boolean(activeChat && activeChat.id === chat.id);
 
 	return (
 		<div
@@ -35,9 +36,9 @@ export const ChatCard: React.FC<IChatCardProps> = ({ chat, onClick }) => {
 
 			<div className={styles.card__info}>
 				<div className={styles.card__top}>
-					<p>{title}</p>
+					<p className={styles["card__top-title"]}>{title}</p>
 					<p className={styles["card__top-updated"]}>
-						{getLastUpdatedTime(chat.updated_at)}
+						{formatUpdatedDate(chat.updated_at)}
 					</p>
 				</div>
 

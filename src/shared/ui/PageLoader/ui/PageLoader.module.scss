@@ -1,4 +1,23 @@
-.page-loader {
+.page {
+}
+
+.loader {
 	@apply absolute left-0 top-0 flex items-center justify-center w-screen h-screen;
-	color: var(--color-accent-1000);
+
+  &__circle {
+		@apply absolute rounded-full;
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border: 3px solid transparent;
+    border-top-color: var(--color-accent-1000);
+    border-bottom-color: var(--color-accent-1000);
+    animation: spin  1s infinite;
+	}
+}
+
+@keyframes spin {
+  to {
+    transform: rotateZ(360deg)
+	}
 }

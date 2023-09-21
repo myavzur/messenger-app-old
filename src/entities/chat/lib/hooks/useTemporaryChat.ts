@@ -19,6 +19,8 @@ export const useTemporaryChat = () => {
 		if (!isAlreadyOpened) {
 			dispatch(
 				setActiveChat({
+					id: Date.now(),
+					updated_at: new Date(),
 					users: [user],
 					messages: [],
 					is_group: false

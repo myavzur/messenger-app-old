@@ -69,7 +69,8 @@ export const SignInForm: React.FC<ISignInFormProps> = ({
 			</Button>
 
 			<span>
-				Don&apos;t have an account? <TextAnchor to="/sign-up">Sign Up</TextAnchor>
+				Don&apos;t have an account?{" "}
+				<TextAnchor to="/auth/sign-up">Sign Up</TextAnchor>
 			</span>
 		</form>
 	);

@@ -164,7 +164,7 @@ export const SignUpForm: React.FC<ISignUpFormProps> = ({
 			</Button>
 
 			<span>
-				Already have an account? <TextAnchor to="/sign-in">Sign In</TextAnchor>
+				Already have an account? <TextAnchor to="/auth/sign-in">Sign In</TextAnchor>
 			</span>
 		</form>
 	);

@@ -1,11 +1,14 @@
+import cn from "classnames";
 import React from "react";
+
+import { ILogoProps } from "./Logo.interface";
 
 import styles from "./Logo.module.scss";
 
-const Logo: React.FC = () => {
+const Logo: React.FC<ILogoProps> = ({ className }) => {
 	return (
 		<svg
-			className={styles.svg}
+			className={cn(styles.svg, className)}
 			viewBox="0 0 88 82"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"

@@ -22,7 +22,6 @@ const AvatarSvg: React.FC<IAvatarSvgProps> = ({ fillColor, text }) => {
 				dominantBaseline="mathematical"
 				textAnchor="middle"
 				fill="#FFF"
-				style={{ fontSize: "35px" }}
 			>
 				{text}
 			</text>
