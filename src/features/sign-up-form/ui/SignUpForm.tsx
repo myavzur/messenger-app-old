@@ -157,7 +157,6 @@ export const SignUpForm: React.FC<ISignUpFormProps> = ({
 
 			<Button
 				disabled={isSubmitting}
-				icon={<Icon name="identity-card" />}
 				type="submit"
 			>
 				Sign Up

@@ -21,6 +21,10 @@
 	&:active {
 		background-color: var(--color-accent-glassed-1000);
 	}
+
+	&_increased-px {
+		@apply px-3.5;
+	}
 }
 
 .ripple {

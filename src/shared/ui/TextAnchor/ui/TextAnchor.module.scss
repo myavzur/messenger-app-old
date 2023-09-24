@@ -1,10 +1,14 @@
 .anchor {
 	text-decoration: none;
 	color: var(--color-accent-1000);
+	border-bottom: 2px solid transparent;
+	transition:
+		border-bottom 0.3s,
+		color 0.3s;
 
 	&:hover,
 	&:focus {
-		border-bottom: 1px solid var(--color-accent-1000);
+		border-bottom: 2px solid var(--color-accent-1000);
 	}
 
 	&:visited {

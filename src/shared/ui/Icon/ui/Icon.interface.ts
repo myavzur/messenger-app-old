@@ -1,9 +1,3 @@
 export interface IIconProps {
-	name:
-		| "eye"
-		| "eye-crossed"
-		| "user-activity"
-		| "identity-card"
-		| "double-arrow"
-		| "search-eye";
+	name: "eye" | "eye-crossed" | "double-arrow" | "search-eye";
 }

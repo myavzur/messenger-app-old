@@ -10,7 +10,6 @@ const MAX_RIPPLE_ELEMENTS = 5;
 
 const Button: React.FC<IButtonProps> = ({
 	icon: Icon,
-	withOutline = false,
 	withRipple = true,
 	onClick,
 	children,
@@ -68,7 +67,8 @@ const Button: React.FC<IButtonProps> = ({
 				}
 			}}
 			className={cn(styles.button, {
-				[styles.button_outlined]: withOutline
+				// Increase paddings on x axis if there is only text present
+				[styles["button_increased-px"]]: !Icon
 			})}
 		>
 			{Icon && <div className={styles.button__icon}>{Icon}</div>}

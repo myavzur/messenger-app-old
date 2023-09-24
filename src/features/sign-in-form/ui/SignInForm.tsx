@@ -62,7 +62,6 @@ export const SignInForm: React.FC<ISignInFormProps> = ({
 
 			<Button
 				disabled={isSubmitting}
-				icon={<Icon name="user-activity" />}
 				type="submit"
 			>
 				Sign In
