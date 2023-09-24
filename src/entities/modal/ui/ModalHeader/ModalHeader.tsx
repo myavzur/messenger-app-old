@@ -1,5 +1,7 @@
 import React from "react";
 
+import { Icon } from "@/shared/ui";
+
 import { IModalHeaderProps } from "./ModalHeader.interface";
 
 import styles from "./ModalHeader.module.scss";
@@ -13,7 +15,7 @@ const ModalHeader: React.FC<IModalHeaderProps> = ({ onClose, children }) => {
 				className={styles.header__close}
 				onClick={onClose}
 			>
-				X
+				<Icon name="close" />
 			</button>
 		</div>
 	);

@@ -2,7 +2,7 @@ import React from "react";
 
 import { useTemporaryChat } from "@/entities/chat/lib/hooks/useTemporaryChat";
 
-import { Field } from "@/shared/ui";
+import { Field, Icon } from "@/shared/ui";
 
 import { useSearch } from "../lib/hooks";
 
@@ -43,7 +43,13 @@ const Search: React.FC = () => {
 			<Field
 				value={accountName}
 				onChange={handleSearch}
-			/>
+				placeholder="Enter account name or chat name..."
+			>
+				<Icon
+					name="search-eye"
+					className={styles.search__icon}
+				/>
+			</Field>
 			<div>{resultElement}</div>
 		</div>
 	);
