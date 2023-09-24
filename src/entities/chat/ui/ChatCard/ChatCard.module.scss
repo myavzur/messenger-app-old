@@ -32,6 +32,8 @@
 	&_selected {
 		background-color: var(--color-accent-1000);
 
+		.card__top-title,
+		.card__top-updated,
 		.card__bottom-text {
 			color: #FFF;
 		}

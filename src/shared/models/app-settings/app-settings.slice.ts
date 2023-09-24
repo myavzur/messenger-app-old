@@ -5,7 +5,7 @@ import { ITheme } from "@/shared/interfaces/theme.interface";
 import { IAppSettingsState } from "./app-settings.interface";
 
 const initialState: IAppSettingsState = {
-	theme: "insomnia"
+	theme: (localStorage.getItem("theme") as ITheme) || "insomnia"
 };
 
 const appSettings = createSlice({

@@ -1,0 +1,37 @@
+.switch {
+	@apply inline-block cursor-pointer;
+	width: 40px;
+	height: 24px;
+
+	input {
+		@apply invisible absolute;
+		z-index: -1;
+
+		&:checked {
+			& + .switch__button {
+				background-color: var(--color-accent-1000);
+			}
+
+			& + .switch__button::before {
+				@apply left-auto right-0.5;
+			}
+		}
+	}
+
+	&__button {
+		@apply relative inline-block rounded-3xl transition-colors;
+		width: inherit;
+		height: inherit;
+		background-color: var(--color-primary-600);
+
+		&::before {
+			@apply inline-block absolute left-0.5 top-1/2 rounded-full transition-all;
+			content: '';
+			width: 20px;
+			height: 20px;
+			background-color: white;
+			transform: translateY(-50%);
+		}
+	}
+
+}

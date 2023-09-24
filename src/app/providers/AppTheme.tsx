@@ -20,6 +20,7 @@ const AppTheme: React.FC<IAppThemeProps> = ({ children }) => {
 		});
 
 		classList.add(`theme_${theme}`);
+		localStorage.setItem("theme", theme);
 	}, [theme]);
 
 	return <React.Fragment>{children}</React.Fragment>;
