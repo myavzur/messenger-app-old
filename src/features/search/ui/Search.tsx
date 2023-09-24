@@ -1,6 +1,5 @@
 import React from "react";
-
-import { useTemporaryChat } from "@/entities/chat/lib/hooks/useTemporaryChat";
+import { useNavigate } from "react-router-dom";
 
 import { Field, Icon } from "@/shared/ui";
 
@@ -9,13 +8,14 @@ import { useSearch } from "../lib/hooks";
 import styles from "./Search.module.scss";
 
 const Search: React.FC = () => {
+	const navigate = useNavigate();
+
 	const {
 		handleSearch,
 		response: { data: users, isLoading, isSuccess },
 		accountName,
 		accountNameDebounced
 	} = useSearch(500);
-	const { openTemporaryChat } = useTemporaryChat();
 
 	let resultElement: React.ReactNode | null = null;
 
@@ -27,7 +27,7 @@ const Search: React.FC = () => {
 		resultElement = users.map(user => (
 			<div
 				key={user.id}
-				onClick={() => openTemporaryChat(user)}
+				onClick={() => navigate(`/chats/${user.id}`)}
 			>
 				{user.account_name}
 			</div>

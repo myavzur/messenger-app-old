@@ -3,6 +3,7 @@
 	@apply relative overflow-hidden select-none outline-none cursor-pointer;
 
 	color: var(--color-accent-1000);
+	border: 1px solid transparent;
 
 	&__icon {
 		@apply flex items-center justify-center;
@@ -20,6 +21,10 @@
 	&:hover,
 	&:active {
 		background-color: var(--color-accent-glassed-1000);
+	}
+
+	&:focus {
+		border: 1px solid var(--color-accent-glassed-1000);
 	}
 
 	&_increased-px {

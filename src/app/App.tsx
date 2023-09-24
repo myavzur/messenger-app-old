@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 
 import {
 	AppChatSocketHandler,
+	AppPresenceSocketHandler,
 	AppRouter,
 	AppStore,
 	AppTheme
@@ -9,8 +10,6 @@ import {
 import "@/app/styles/index.scss";
 
 import { SocketsProvider } from "@/shared/contexts/SocketsContext";
-
-import AppPresenceSocketHandler from "./providers/AppPresenceSocketHandler";
 
 function App() {
 	useEffect(() => {

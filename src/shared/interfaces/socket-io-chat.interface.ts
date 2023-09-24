@@ -25,7 +25,7 @@ export interface IChatServerToClientEvents {
 // * Client
 export interface IChatClientToServerEvents {
 	"get-chats": (params: { page: number; limit: number }) => void;
-	"get-chat": (params: { chatId: IChat["id"] }) => void;
+	"get-chat": (params: { chatId?: IChat["id"]; userId?: IUser["id"] }) => void;
 	"get-chat-history": (params: {
 		chatId: IChat["id"];
 		page: number;

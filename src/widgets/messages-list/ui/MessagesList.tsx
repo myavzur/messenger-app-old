@@ -15,8 +15,10 @@ export const MessagesList: React.FC<IMessagesListProps> = ({
 	userId,
 	className
 }) => {
-	const messagesTransition = useTransition(messages, {
-		trail: 400 / messages.length,
+	const transitionTrail = messages?.length ? 400 / messages.length : 0;
+
+	const messagesTransition = useTransition(messages ? messages : [], {
+		trail: transitionTrail,
 		from: { opacity: 0, y: -5 },
 		enter: { opacity: 1, y: 0 },
 		leave: { opacity: 0, y: -5 }

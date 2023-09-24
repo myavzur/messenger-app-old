@@ -1,5 +1,12 @@
 import React, { Suspense } from "react";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import {
+	BrowserRouter,
+	Navigate,
+	NavigateFunction,
+	Route,
+	Routes,
+	useNavigate
+} from "react-router-dom";
 
 import { AuthLayout, ChatsLayout } from "@/layouts";
 
@@ -10,6 +17,19 @@ const Chats = React.lazy(() => import("@/screens/chats"));
 const Chat = React.lazy(() => import("@/screens/chat"));
 const SignIn = React.lazy(() => import("@/screens/sign-in"));
 const SignUp = React.lazy(() => import("@/screens/sign-up"));
+
+export const History: {
+	navigate: (path: string) => void | NavigateFunction;
+} = {
+	navigate: path => {
+		return;
+	}
+};
+
+const NavigateSetter = () => {
+	History.navigate = useNavigate();
+	return null;
+};
 
 const ProtectedRoute: React.FC<{
 	redirectPath: string;
@@ -32,6 +52,7 @@ const AppRouter: React.FC = () => {
 
 	return (
 		<BrowserRouter>
+			<NavigateSetter />
 			<Suspense fallback={<PageLoader />}>
 				<Routes>
 					<Route
@@ -49,7 +70,7 @@ const AppRouter: React.FC = () => {
 							element={<Chats />}
 						/>
 						<Route
-							path=":id"
+							path=":chatOrUserId"
 							element={<Chat />}
 						/>
 					</Route>
@@ -67,6 +88,11 @@ const AppRouter: React.FC = () => {
 							element={<SignUp />}
 						/>
 					</Route>
+
+					<Route
+						index
+						element={<Navigate to="/chats" />}
+					/>
 				</Routes>
 			</Suspense>
 		</BrowserRouter>

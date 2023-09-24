@@ -6,9 +6,14 @@
 		border-bottom 0.3s,
 		color 0.3s;
 
-	&:hover,
-	&:focus {
+	&:hover {
 		border-bottom: 2px solid var(--color-accent-1000);
+	}
+
+	&:focus,
+	&:active {
+		outline-offset: 2px;
+		outline-color: var(--color-accent-glassed-1000);
 	}
 
 	&:visited {

@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 import { MessagesList } from "@/widgets/messages-list";
@@ -13,17 +13,18 @@ import { Header } from "../Header/Header";
 import styles from "./Chat.module.scss";
 
 const Chat: React.FC = () => {
-	const params = useParams<{ id: string }>();
+	const params = useParams<{ chatOrUserId: string }>();
 
 	const { chatSocket } = useSockets();
 	const { activeChat } = useStoreSelector(state => state.chats);
 	const { currentUser } = useAuth();
 
-	useLayoutEffect(() => {
-		if (!params.id) throw new Error("No params for /chat/:id specified");
+	useEffect(() => {
+		if (!params.chatOrUserId) throw new Error("No params for /chat/:id specified");
 
 		chatSocket?.emit("get-chat", {
-			chatId: Number(params.id)
+			chatId: Number(params.chatOrUserId),
+			userId: Number(params.chatOrUserId)
 		});
 	}, [chatSocket, params]);
 
@@ -38,13 +39,11 @@ const Chat: React.FC = () => {
 				chat={activeChat}
 			/>
 
-			{activeChat.messages?.length > 0 && (
-				<MessagesList
-					className={styles.page__messages}
-					messages={activeChat.messages}
-					userId={currentUser!.id}
-				/>
-			)}
+			<MessagesList
+				className={styles.page__messages}
+				messages={activeChat.messages}
+				userId={currentUser!.id}
+			/>
 
 			<SendMessageForm className={styles.page__form} />
 		</div>
