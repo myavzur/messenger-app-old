@@ -6,6 +6,8 @@ import { IButtonProps } from "./Button.interface";
 
 import styles from "./Button.module.scss";
 
+const MAX_RIPPLE_ELEMENTS = 5;
+
 const Button: React.FC<IButtonProps> = ({
 	icon: Icon,
 	withOutline = false,
@@ -42,8 +44,9 @@ const Button: React.FC<IButtonProps> = ({
 	const handleRippleEffect = (
 		event: React.MouseEvent<HTMLButtonElement, MouseEvent>
 	) => {
-		const currentTargetEl = event.currentTarget;
+		if (rippleElements.length >= MAX_RIPPLE_ELEMENTS) return;
 
+		const currentTargetEl = event.currentTarget;
 		const currentTargetRect = currentTargetEl.getBoundingClientRect();
 
 		const size = Math.max(currentTargetEl.clientHeight, currentTargetEl.clientWidth);

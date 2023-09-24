@@ -21,15 +21,11 @@
 	&:active {
 		background-color: var(--color-accent-glassed-1000);
 	}
-
-	&_outlined {
-		border: 1px solid var(--color-accent-1000);
-	}
 }
 
 .ripple {
 	@apply absolute rounded-full transition-opacity;
-	background-color: green;
+	background-color: var(--color-accent-glassed-1000);
 	transform: scale(0);
 	opacity: 1;
 	animation: scaleAndDisappear 0.6s linear;
