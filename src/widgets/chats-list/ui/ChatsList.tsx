@@ -5,6 +5,7 @@ import { ChatCard } from "@/entities/chat";
 
 import { IChat } from "@/shared/interfaces/chat.interface";
 import { useSockets, useStoreSelector } from "@/shared/lib/hooks";
+import { Button } from "@/shared/ui";
 
 import styles from "./ChatsList.module.scss";
 
@@ -48,6 +49,7 @@ export const ChatsList: React.FC = () => {
 						)}
 					</NavLink>
 				))}
+			<Button>NAHUY RIPPLE LOL</Button>
 		</div>
 	);
 };

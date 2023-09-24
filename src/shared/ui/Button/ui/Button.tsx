@@ -16,7 +16,7 @@ const Button: React.FC<IButtonProps> = ({
 }) => {
 	const [rippleElements, setRippleElements] = useState<JSX.Element[]>([]);
 
-	const createRippleEl = (delta: number, left: string, top: string) => {
+	const createRippleEl = (size: number, left: string, top: string) => {
 		// TODO: Replace nanoid, to not depend on redux toolkit lib.
 		const key = nanoid();
 
@@ -25,8 +25,8 @@ const Button: React.FC<IButtonProps> = ({
 				key={key}
 				className={styles.ripple}
 				style={{
-					width: delta,
-					height: delta,
+					width: size,
+					height: size,
 					left,
 					top
 				}}
@@ -46,13 +46,10 @@ const Button: React.FC<IButtonProps> = ({
 
 		const currentTargetRect = currentTargetEl.getBoundingClientRect();
 
-		const delta = Math.max(
-			currentTargetEl.clientHeight,
-			currentTargetEl.clientWidth
-		);
-		const left = event.clientX - currentTargetRect.left - delta / 2 + "px";
-		const top = event.clientY - currentTargetRect.top - delta / 2 + "px";
-		const rippleEl = createRippleEl(delta, left, top);
+		const size = Math.max(currentTargetEl.clientHeight, currentTargetEl.clientWidth);
+		const left = event.clientX - currentTargetRect.left - size / 2 + "px";
+		const top = event.clientY - currentTargetRect.top - size / 2 + "px";
+		const rippleEl = createRippleEl(size, left, top);
 
 		setRippleElements(state => [...state, rippleEl]);
 	};
