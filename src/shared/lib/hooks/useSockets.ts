@@ -1,7 +1,7 @@
 import { useContext } from "react";
 
-import { ISocketsContext } from "@/shared/contexts/SocketsContext";
+import { ISocketsContext } from "@/shared/contexts/SocketsContextProvider";
 
-import { SocketsContext } from "../../contexts/SocketsContext/SocketsContext";
+import { SocketsContext } from "../../contexts/SocketsContextProvider/SocketsContext";
 
 export const useSockets = () => useContext(SocketsContext) as ISocketsContext;

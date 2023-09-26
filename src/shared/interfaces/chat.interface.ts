@@ -10,3 +10,5 @@ export interface IChat {
 	messages: IMessage[];
 	last_message?: IMessage;
 }
+
+export const TEMPORARY_CHAT_ID = -1;

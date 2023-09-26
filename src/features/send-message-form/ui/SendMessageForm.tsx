@@ -19,17 +19,13 @@ export const SendMessageForm: React.FC<ISendMessageFormProps> = ({ className }) 
 	} = useForm<{ text: string }>({ mode: "onChange" });
 
 	const handleSendMessage: SubmitHandler<{ text: string }> = message => {
-		if (!isValid || !activeChat) return;
+		if (!chatSocket?.connected || !isValid || !activeChat) return;
 
-		if (activeChat.id) {
-			const oppositeUser = activeChat.users[0];
-
-			chatSocket?.emit("send-message", {
-				chatId: activeChat.id,
-				userId: oppositeUser.id,
-				text: message.text
-			});
-		}
+		chatSocket?.emit("send-message", {
+			chatId: activeChat.id,
+			userId: activeChat.users[0].id,
+			text: message.text
+		});
 
 		reset();
 	};

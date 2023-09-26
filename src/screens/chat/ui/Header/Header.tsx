@@ -10,8 +10,6 @@ import { IHeaderProps } from "./Header.interface";
 import styles from "./Header.module.scss";
 
 export const Header: React.FC<IHeaderProps> = ({ chat, className }) => {
-	const oppositeUser = chat.users[0];
-
 	return (
 		<header className={cn(styles.header, className)}>
 			{chat.is_group ? (
@@ -20,7 +18,7 @@ export const Header: React.FC<IHeaderProps> = ({ chat, className }) => {
 					onClick={() => console.log("chat clicked lol")}
 				/>
 			) : (
-				<UserCard user={oppositeUser} />
+				<UserCard user={chat.users[0]} />
 			)}
 
 			<div className={styles.chat__actions}>

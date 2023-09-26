@@ -1,32 +1,46 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import { io } from "socket.io-client";
 
+import { History } from "@/app/providers/AppRouter";
+
+import { TEMPORARY_CHAT_ID } from "@/shared/interfaces/chat.interface";
 import { getAccessToken, getSocketOptions } from "@/shared/lib/helpers";
+import { useStoreSelector } from "@/shared/lib/hooks";
+import {
+	addChat,
+	addMessage,
+	setActiveChat,
+	setChats,
+	updateChatCarefully,
+	updateLocalChatPresence
+} from "@/shared/models/chats";
 
-import { ISocketsContext, ISocketsProviderProps } from "./SocketsContext.interface";
+import { SocketsContext } from "./SocketsContext";
+import { ISocketsContext } from "./SocketsContext.interface";
+import { ISocketsContextProviderProps } from "./SocketsContextProvider.interface";
 
-const PRESENCE_BASE_URL = import.meta.env.VITE_PRESENCE_BASE_URL;
-const CHAT_BASE_URL = import.meta.env.VITE_CHAT_BASE_URL;
+export const SocketsContextProvider: React.FC<ISocketsContextProviderProps> = ({
+	chatServerUrl,
+	presenceServerUrl,
+	children
+}) => {
+	const dispatch = useDispatch();
+	const { activeChat } = useStoreSelector(state => state.chats);
 
-export const SocketsContext = React.createContext<ISocketsContext>({
-	presenceSocket: null,
-	chatSocket: null,
-	sockets: [],
-	updateSocketsAccessToken: () => {
-		return;
-	},
-	disconnectAll: () => {
-		return;
-	}
-});
-
-export const SocketsProvider: React.FC<ISocketsProviderProps> = props => {
 	const [accessToken, setAccessToken] = useState(getAccessToken());
 	const socketRefs = useRef<ISocketsContext["sockets"]>([]);
 
+	// Presence Socket
 	const presenceSocket = useMemo<ISocketsContext["presenceSocket"]>(() => {
 		if (accessToken) {
-			const socket = io(PRESENCE_BASE_URL, getSocketOptions(accessToken));
+			const socket = io(presenceServerUrl, getSocketOptions(accessToken));
+
+			socket.on("new-status-in-local-chat", data => {
+				dispatch(updateLocalChatPresence(data));
+			});
+
 			socketRefs.current.push({ name: "presence", socket });
 			return socket;
 		}
@@ -35,9 +49,54 @@ export const SocketsProvider: React.FC<ISocketsProviderProps> = props => {
 		return null;
 	}, [accessToken]);
 
+	// Chat Socket
 	const chatSocket = useMemo<ISocketsContext["chatSocket"]>(() => {
 		if (accessToken) {
-			const socket = io(CHAT_BASE_URL, getSocketOptions(accessToken));
+			const socket = io(chatServerUrl, getSocketOptions(accessToken));
+
+			socket.on("chats", data => {
+				dispatch(setChats(data.chats));
+			});
+			socket.on("chat", chat => {
+				dispatch(setActiveChat(chat));
+
+				// Don't request chat history of temporary chat, because it's null.
+				if (chat.id === TEMPORARY_CHAT_ID) return;
+
+				socket.emit("get-chat-history", {
+					chatId: chat.id,
+					page: 1,
+					limit: 25
+				});
+			});
+			socket.on("chat-created", chat => {
+				dispatch(addChat(chat));
+
+				// Request new chat again if he is opened as temporary.
+				const shouldRequestNewChat = activeChat?.users[0].id === chat.users[0].id;
+				if (shouldRequestNewChat) {
+					History.navigate(`/chats/${chat.id}`);
+				}
+			});
+			socket.on("new-message", data => {
+				dispatch(
+					addMessage({
+						chatId: data.chat_id,
+						message: data.message
+					})
+				);
+			});
+			socket.on("chat-history", data => {
+				dispatch(
+					updateChatCarefully({
+						chatId: data.chat_id,
+						updatedData: {
+							messages: data.messages
+						}
+					})
+				);
+			});
+
 			socketRefs.current.push({ name: "chat", socket });
 			return socket;
 		}
@@ -80,7 +139,7 @@ export const SocketsProvider: React.FC<ISocketsProviderProps> = props => {
 		socketRefs.current.forEach(({ name, socket }) => {
 			console.log(`Disconnecting ${name} Socket. 🔁`);
 
-			// * Delete socket from socketRefs if socket disconnected by himself (on client).
+			// * Delete socket from socketRefs if socket disconnected on client.
 			socketRefs.current = socketRefs.current.filter(socket => socket.name !== name);
 			socket.disconnect();
 		});
@@ -102,7 +161,7 @@ export const SocketsProvider: React.FC<ISocketsProviderProps> = props => {
 				disconnectAll
 			}}
 		>
-			{props.children}
+			{children}
 		</SocketsContext.Provider>
 	);
 };

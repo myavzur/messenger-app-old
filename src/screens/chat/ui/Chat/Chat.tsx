@@ -21,12 +21,13 @@ const Chat: React.FC = () => {
 
 	useEffect(() => {
 		if (!params.chatOrUserId) throw new Error("No params for /chat/:id specified");
+		if (!chatSocket?.connected) return;
 
 		chatSocket?.emit("get-chat", {
 			chatId: Number(params.chatOrUserId),
 			userId: Number(params.chatOrUserId)
 		});
-	}, [params]);
+	}, [params, chatSocket?.connected]);
 
 	if (!activeChat) return <PageLoader />;
 

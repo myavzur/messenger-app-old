@@ -8,7 +8,7 @@ import {
 } from "../interfaces/user.interface";
 import { getAccessToken, setAccessToken } from "../lib/helpers";
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_SERVER_URL = import.meta.env.VITE_API_SERVER_URL;
 
 enum ApiTags {
 	USER = "user",
@@ -19,7 +19,7 @@ export const baseApi = createApi({
 	tagTypes: [ApiTags.USER, ApiTags.CHAT],
 	reducerPath: "api",
 	baseQuery: fetchBaseQuery({
-		baseUrl: BASE_URL,
+		baseUrl: API_SERVER_URL,
 		prepareHeaders: headers => {
 			const accessToken = getAccessToken();
 
