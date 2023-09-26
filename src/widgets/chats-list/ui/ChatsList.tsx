@@ -23,13 +23,11 @@ export const ChatsList: React.FC = () => {
 	};
 
 	useEffect(() => {
-		if (chatSocket) {
-			chatSocket.emit("get-chats", {
-				page: 1,
-				limit: 30
-			});
-		}
-	}, [chatSocket]);
+		chatSocket?.emit("get-chats", {
+			page: 1,
+			limit: 30
+		});
+	}, []);
 
 	return (
 		<div className={styles.sidebar__chats}>

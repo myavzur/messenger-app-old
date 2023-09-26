@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
 import { useSockets, useStoreDispatch, useStoreSelector } from "@/shared/lib/hooks";
 import {
@@ -26,53 +25,53 @@ const AppChatSocketHandler: React.FC<IAppChatSocketHandlerProps> = ({
 	const { chatSocket } = useSockets();
 
 	useEffect(() => {
-		if (chatSocket) {
-			chatSocket.on("chats", data => {
-				dispatch(setChats(data.chats));
+		if (!chatSocket) return;
+
+		chatSocket.on("chats", data => {
+			dispatch(setChats(data.chats));
+		});
+
+		chatSocket.on("chat", chat => {
+			dispatch(setActiveChat(chat));
+
+			// Don't request chat history of temporary chat, because it's null.
+			if (chat.id === TEMPORARY_CHAT) return;
+
+			chatSocket.emit("get-chat-history", {
+				chatId: chat.id,
+				page: 1,
+				limit: 25
 			});
+		});
 
-			chatSocket.on("chat", chat => {
-				dispatch(setActiveChat(chat));
+		chatSocket.on("chat-created", chat => {
+			dispatch(addChat(chat));
 
-				// Don't request chat history of temporary chat, because it's null.
-				if (chat.id === TEMPORARY_CHAT) return;
+			if (activeChat?.users[0].id === chat.users[0].id) {
+				History.navigate(`/chats/${chat.id}`);
+			}
+		});
 
-				chatSocket.emit("get-chat-history", {
-					chatId: chat.id,
-					page: 1,
-					limit: 25
-				});
-			});
+		chatSocket.on("new-message", data => {
+			dispatch(
+				addMessage({
+					chatId: data.chat_id,
+					message: data.message
+				})
+			);
+		});
 
-			chatSocket.on("chat-created", chat => {
-				dispatch(addChat(chat));
-
-				if (activeChat?.users[0].id === chat.users[0].id) {
-					History.navigate(`/chats/${chat.id}`);
-				}
-			});
-
-			chatSocket.on("new-message", data => {
-				dispatch(
-					addMessage({
-						chatId: data.chat_id,
-						message: data.message
-					})
-				);
-			});
-
-			chatSocket.on("chat-history", data => {
-				dispatch(
-					updateChatCarefully({
-						chatId: data.chat_id,
-						updatedData: {
-							messages: data.messages
-						}
-					})
-				);
-			});
-		}
-	}, [chatSocket]);
+		chatSocket.on("chat-history", data => {
+			dispatch(
+				updateChatCarefully({
+					chatId: data.chat_id,
+					updatedData: {
+						messages: data.messages
+					}
+				})
+			);
+		});
+	}, []);
 
 	return <React.Fragment>{children}</React.Fragment>;
 };

@@ -14,12 +14,12 @@ const AppPresenceSocketHandler: React.FC<IAppPresenceSocketHandlerProps> = ({
 	const { presenceSocket } = useSockets();
 
 	useEffect(() => {
-		if (presenceSocket) {
-			presenceSocket.on("new-status-in-local-chat", data => {
-				dispatch(updateLocalChatPresence(data));
-			});
-		}
-	}, [presenceSocket]);
+		if (!presenceSocket) return;
+
+		presenceSocket.on("new-status-in-local-chat", data => {
+			dispatch(updateLocalChatPresence(data));
+		});
+	}, []);
 
 	return <React.Fragment>{children}</React.Fragment>;
 };

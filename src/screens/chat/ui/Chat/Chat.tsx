@@ -26,7 +26,7 @@ const Chat: React.FC = () => {
 			chatId: Number(params.chatOrUserId),
 			userId: Number(params.chatOrUserId)
 		});
-	}, [chatSocket, params]);
+	}, [params]);
 
 	if (!activeChat) return <PageLoader />;
 
