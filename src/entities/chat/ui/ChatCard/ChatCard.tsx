@@ -1,24 +1,24 @@
 import cn from "classnames";
 import React from "react";
 
-import { useStoreSelector } from "@/shared/lib/hooks";
 import { Avatar } from "@/shared/ui";
 
-import { getChatTitle } from "../../lib/helpers";
-import { formatUpdatedDate } from "../../lib/helpers/format-updated-date";
-import { getChatUserStatus } from "../../lib/helpers/get-chat-user-status";
+import { formatUpdatedDate, serializeChat } from "../../lib/helpers";
 
 import { IChatCardProps } from "./ChatCard.interface";
 
 import styles from "./ChatCard.module.scss";
 
 export const ChatCard: React.FC<IChatCardProps> = ({
+	currentUserId,
 	chat,
 	onClick,
 	isSelected
 }) => {
-	const title = getChatTitle(chat);
-	const status = getChatUserStatus(chat);
+	const { serializedChat, userStatus } = serializeChat({
+		currentUserId,
+		chat
+	});
 
 	return (
 		<div
@@ -27,23 +27,25 @@ export const ChatCard: React.FC<IChatCardProps> = ({
 		>
 			<Avatar
 				className={styles.card__image}
-				status={status}
+				status={userStatus}
 				src={undefined}
 				alt={undefined}
 			>
-				{title}
+				{serializedChat.title!}
 			</Avatar>
 
 			<div className={styles.card__info}>
 				<div className={styles.card__top}>
-					<p className={styles["card__top-title"]}>{title}</p>
+					<p className={styles["card__top-title"]}>{serializedChat.title}</p>
 					<p className={styles["card__top-updated"]}>
-						{formatUpdatedDate(chat.updated_at)}
+						{formatUpdatedDate(serializedChat.updated_at)}
 					</p>
 				</div>
 
 				<div className={styles.card__bottom}>
-					<p className={styles["card__bottom-text"]}>{chat.last_message?.text}</p>
+					<p className={styles["card__bottom-text"]}>
+						{serializedChat.last_message?.text}
+					</p>
 				</div>
 			</div>
 		</div>

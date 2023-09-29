@@ -1,3 +1,3 @@
-export { getChatTitle } from "./get-chat-title";
-export { getChatUserStatus } from "./get-chat-user-status";
+export { formatUpdatedDate } from "./format-updated-date";
+export { serializeChat } from "./serialize-chat";
 export { separateMessagesByDate } from "./separate-messages-by-date";

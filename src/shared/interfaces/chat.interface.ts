@@ -4,7 +4,7 @@ import { IUser } from "./user.interface";
 export interface IChat {
 	id: number;
 	updated_at: Date;
-	title?: string;
+	title: string | null;
 	is_group: boolean;
 	users: IUser[];
 	messages: IMessage[];

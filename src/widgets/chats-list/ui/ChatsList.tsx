@@ -4,7 +4,7 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { ChatCard } from "@/entities/chat";
 
 import { IChat } from "@/shared/interfaces/chat.interface";
-import { useSockets, useStoreSelector } from "@/shared/lib/hooks";
+import { useAuth, useSockets, useStoreSelector } from "@/shared/lib/hooks";
 
 import styles from "./ChatsList.module.scss";
 
@@ -14,6 +14,7 @@ export const ChatsList: React.FC = () => {
 
 	const { chatSocket } = useSockets();
 	const { chats } = useStoreSelector(state => state.chats);
+	const { currentUser } = useAuth();
 
 	const handleSelectChat = (chatId: IChat["id"]) => {
 		// Do nothing if chat already opened.
@@ -41,6 +42,7 @@ export const ChatsList: React.FC = () => {
 					>
 						{status => (
 							<ChatCard
+								currentUserId={currentUser!.id}
 								isSelected={status.isActive}
 								chat={chat}
 								onClick={handleSelectChat}
