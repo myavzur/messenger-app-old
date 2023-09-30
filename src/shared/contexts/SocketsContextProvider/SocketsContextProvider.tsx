@@ -72,11 +72,9 @@ export const SocketsContextProvider: React.FC<ISocketsContextProviderProps> = ({
 			socket.on("chat-created", chat => {
 				dispatch(addChat(chat));
 
-				// Request new chat again if he is opened as temporary.
-				const shouldRequestNewChat = activeChat?.id != TEMPORARY_CHAT_ID;
-				if (shouldRequestNewChat) {
-					History.navigate(`/chats/${chat.id}`);
-				}
+				if (chat.id === TEMPORARY_CHAT_ID) return;
+
+				History.navigate(`/chats/${chat.id}`);
 			});
 			socket.on("new-message", data => {
 				dispatch(

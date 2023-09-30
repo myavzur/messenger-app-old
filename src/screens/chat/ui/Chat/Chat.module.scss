@@ -11,6 +11,10 @@
 		opacity: 0.25;
 	}
 
+	&__messages {
+		@apply py-4;
+	}
+
 	&__form {
 		@apply grid self-center pb-5 w-full;
 	}

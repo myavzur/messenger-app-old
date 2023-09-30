@@ -6,9 +6,12 @@ import { IUserCardProps } from "./UserCard.interface";
 
 import styles from "./UserCard.module.scss";
 
-export const UserCard: React.FC<IUserCardProps> = ({ user }) => {
+export const UserCard: React.FC<IUserCardProps> = ({ user, onClick }) => {
 	return (
-		<div className={styles.card}>
+		<div
+			className={styles.card}
+			onClick={() => onClick?.(user)}
+		>
 			<Avatar
 				src={undefined}
 				alt={user.account_name}

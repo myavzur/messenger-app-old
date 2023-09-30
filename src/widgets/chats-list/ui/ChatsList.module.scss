@@ -1,5 +1,8 @@
+@import '@/app/styles/_mixins';
+
 .sidebar {
 	&__chats {
-		@apply grow px-4 py-4;
+		@apply grow px-4 py-4 overflow-y-scroll;
+		@include custom-scrollbar();
 	}
 }

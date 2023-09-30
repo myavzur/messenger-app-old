@@ -1,9 +1,5 @@
 .search {
-	@apply w-full;
-
-	input {
-		@apply relative;
-	}
+	@apply relative;
 
 	&__icon {
 		@apply absolute p-1.5 transition-colors;

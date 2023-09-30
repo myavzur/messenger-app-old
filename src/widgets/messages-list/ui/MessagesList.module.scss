@@ -1,7 +1,7 @@
 @import '@/app/styles/mixins';
 
 .messages {
-	@apply flex flex-col-reverse grow self-center w-full py-4 gap-1;
+	@apply flex flex-col-reverse grow self-center w-full gap-1;
 	@include hide-scrollbar();
 	overflow-y: scroll;
 

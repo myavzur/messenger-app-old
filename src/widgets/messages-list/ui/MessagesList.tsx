@@ -19,9 +19,9 @@ export const MessagesList: React.FC<IMessagesListProps> = ({
 
 	const messagesTransition = useTransition(messages ? messages : [], {
 		trail: transitionTrail,
-		from: { opacity: 0, y: -5 },
-		enter: { opacity: 1, y: 0 },
-		leave: { opacity: 0, y: -5 }
+		from: { opacity: 0 },
+		enter: { opacity: 1 },
+		leave: { opacity: 0, immediate: true }
 	});
 
 	const { windowRef, isFocusing, scrollWindow } = useScrollButton({

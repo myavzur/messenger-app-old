@@ -1,5 +1,5 @@
 .card {
-	@apply flex items-center;
+	@apply flex items-center cursor-pointer;
 
 	&__right {
 		@apply ml-2;

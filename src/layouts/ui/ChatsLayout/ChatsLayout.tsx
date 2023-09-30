@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 
 import { ChatsList } from "@/widgets/chats-list";
+import { SearchChatsModal } from "@/widgets/search-chats-modal";
 
 import { Logout } from "@/features/logout";
-import { SearchChatsModal } from "@/features/search-chats-modal";
 
 import { useTheme } from "@/shared/lib/hooks";
 import { Button, Icon, Switch } from "@/shared/ui";

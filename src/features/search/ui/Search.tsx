@@ -1,46 +1,29 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { ChangeEvent, useState } from "react";
 
+import { baseApi } from "@/shared/api";
+import { useDebounce } from "@/shared/lib/hooks";
 import { Field, Icon } from "@/shared/ui";
 
-import { useSearch } from "../lib/hooks";
+import { ISearchProps } from "./Search.interface";
 
 import styles from "./Search.module.scss";
 
-const Search: React.FC = () => {
-	const navigate = useNavigate();
+const Search: React.FC<ISearchProps> = ({ children }) => {
+	const [accountName, setAccountName] = useState("");
+	const accountNameDebounced = useDebounce(accountName, 500);
 
-	const {
-		handleSearch,
-		response: { data: users, isLoading, isSuccess },
-		accountName,
-		accountNameDebounced
-	} = useSearch(500);
+	const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+		setAccountName(e.target.value);
+	};
 
-	let resultElement: React.ReactNode | null = null;
-
-	if (isLoading) {
-		resultElement = <div>Loading...</div>;
-	}
-
-	if (isSuccess && users?.length) {
-		resultElement = users.map(user => (
-			<div
-				key={user.id}
-				onClick={() => navigate(`/chats/${user.id}`)}
-			>
-				{user.account_name}
-			</div>
-		));
-	}
-
-	if (isSuccess && users?.length === 0) {
-		resultElement = <div>Users with {accountNameDebounced} account not found.</div>;
-	}
+	const response = baseApi.useSearchUsersByAccountNameQuery(accountNameDebounced, {
+		skip: !accountNameDebounced
+	});
 
 	return (
-		<div className={styles.search}>
+		<>
 			<Field
+				className={styles.search}
 				value={accountName}
 				onChange={handleSearch}
 				placeholder="Enter account name or chat name..."
@@ -50,8 +33,9 @@ const Search: React.FC = () => {
 					className={styles.search__icon}
 				/>
 			</Field>
-			<div>{resultElement}</div>
-		</div>
+
+			{children?.(response, accountNameDebounced)}
+		</>
 	);
 };
 
