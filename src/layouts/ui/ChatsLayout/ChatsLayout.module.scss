@@ -2,9 +2,13 @@
 	@apply flex h-screen px-32 py-5;
 
 	&__aside {
-		@apply flex flex-col rounded-l-xl overflow-hidden;
+		@apply flex flex-col rounded-l-xl overflow-hidden relative;
 		background-color: var(--color-app-background);
 		width: 20vw;
+
+		.create-chat-button {
+			@apply absolute right-5 bottom-5;
+		}
 	}
 
 	&__header {

@@ -28,9 +28,8 @@ export const SignInForm: React.FC<ISignInFormProps> = ({
 	} = useForm<ISignInBody>({ mode: "onChange" });
 
 	const handleSignUp: SubmitHandler<ISignInBody> = credentials => {
-		if (isValid) {
-			onSubmit(credentials);
-		}
+		if (!isValid) return;
+		onSubmit(credentials);
 	};
 
 	return (

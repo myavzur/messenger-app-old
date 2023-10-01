@@ -10,7 +10,7 @@ import { useSockets } from "@/shared/lib/hooks";
 const SignIn: React.FC = () => {
 	const navigate = useNavigate();
 
-	const [signIn, signInStatus] = baseApi.useSignInMutation();
+	const [signIn, status] = baseApi.useSignInMutation();
 	const { updateSocketsAccessToken } = useSockets();
 
 	const handleSignIn = (credentials: ISignInBody) => {
@@ -25,7 +25,7 @@ const SignIn: React.FC = () => {
 	return (
 		<SignInForm
 			onSubmit={handleSignIn}
-			isSubmitting={signInStatus.isLoading}
+			isSubmitting={status.isLoading}
 		/>
 	);
 };

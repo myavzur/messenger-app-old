@@ -33,6 +33,7 @@ export const serializeChat = ({
 
 	const serializedChat: IChat = { ...chat };
 	serializedChat.title = oppositeUser.account_name;
+	serializedChat.image_url = oppositeUser.avatar_url;
 
 	return { serializedChat, userStatus: oppositeUser.status };
 };

@@ -30,6 +30,10 @@
 	&_increased-px {
 		@apply px-3.5;
 	}
+
+	&_fully-rounded {
+		@apply rounded-full;
+	}
 }
 
 .ripple {

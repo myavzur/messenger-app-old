@@ -1,6 +1,7 @@
 export interface IUser {
 	id: number;
 	created_at: Date;
+	avatar_url?: string;
 	email: string;
 	account_name: string;
 	status?: 0 | 1;

@@ -37,9 +37,8 @@ export const SignUpForm: React.FC<ISignUpFormProps> = ({
 	const passwordConfirmationError = errors.password_confirmation?.message;
 
 	const handleSignUp: SubmitHandler<ISignUpBody> = credentials => {
-		if (isValid) {
-			onSubmit(credentials);
-		}
+		if (!isValid) return;
+		onSubmit(credentials);
 	};
 
 	const matchesPasswordConfirmation = (passwordValue: string) => {

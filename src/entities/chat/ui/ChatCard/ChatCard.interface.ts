@@ -6,4 +6,6 @@ export interface IChatCardProps {
 	chat: IChat;
 	onClick: (id: IChat["id"]) => void;
 	isSelected?: boolean;
+	withUpdatedTime?: boolean;
+	customBottomText?: string;
 }

@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+import { IChat, ICreateGroupChatBody } from "../interfaces/chat.interface";
 import {
 	IAuthResponse,
 	ISignInBody,
@@ -71,6 +72,15 @@ export const baseApi = createApi({
 		// * Users
 		searchUsersByAccountName: builder.query<IUser[], IUser["account_name"]>({
 			query: account_name => `/users/search?account_name=${account_name}`
+		}),
+
+		// * Chats
+		createGroupChat: builder.mutation<IChat, ICreateGroupChatBody>({
+			query: chat => ({
+				method: "POST",
+				url: "/chats/group",
+				body: chat
+			})
 		})
 	})
 });

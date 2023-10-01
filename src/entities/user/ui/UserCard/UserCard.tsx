@@ -13,7 +13,7 @@ export const UserCard: React.FC<IUserCardProps> = ({ user, onClick }) => {
 			onClick={() => onClick?.(user)}
 		>
 			<Avatar
-				src={undefined}
+				src={user.avatar_url}
 				alt={user.account_name}
 				size="sm"
 				status={user.status}

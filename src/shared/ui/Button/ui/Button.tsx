@@ -11,7 +11,9 @@ const MAX_RIPPLE_ELEMENTS = 5;
 const Button: React.FC<IButtonProps> = ({
 	icon: Icon,
 	withRipple = true,
+	isFullyRounded = false,
 	onClick,
+	className,
 	children,
 	...buttonProps
 }) => {
@@ -66,9 +68,10 @@ const Button: React.FC<IButtonProps> = ({
 					handleRippleEffect(event);
 				}
 			}}
-			className={cn(styles.button, {
+			className={cn(styles.button, className, {
 				// Increase paddings on x axis if there is only text present
-				[styles["button_increased-px"]]: !Icon
+				[styles["button_increased-px"]]: !Icon,
+				[styles["button_fully-rounded"]]: isFullyRounded
 			})}
 		>
 			{Icon && <div className={styles.button__icon}>{Icon}</div>}

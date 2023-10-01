@@ -19,6 +19,7 @@ export const Header: React.FC<IHeaderProps> = ({ chat, className }) => {
 			{chat.is_group ? (
 				<ChatCard
 					currentUserId={currentUser!.id}
+					customBottomText={`${chat.users_count} members`}
 					chat={chat}
 					onClick={() => console.log("chat clicked lol")}
 				/>
