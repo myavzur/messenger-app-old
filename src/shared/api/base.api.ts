@@ -74,6 +74,13 @@ export const baseApi = createApi({
 			query: account_name => `/users/search?account_name=${account_name}`
 		}),
 
+		getUsersBasedOnLocalChats: builder.query<
+			Pick<IUser, "id" | "account_name" | "avatar_url">[],
+			void | null
+		>({
+			query: () => "/users/local-chats"
+		}),
+
 		// * Chats
 		createGroupChat: builder.mutation<IChat, ICreateGroupChatBody>({
 			query: chat => ({

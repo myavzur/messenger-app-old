@@ -1,11 +1,7 @@
 import React from "react";
 import useMeasure from "react-use-measure";
 
-import { UserBadge } from "@/entities/user";
-
 import { useClickOutside } from "@/shared/lib/hooks";
-
-import { Checkbox, Field } from "../..";
 
 import { IMultipleSelectFieldProps } from "./MultipleSelectField.interface";
 
@@ -14,11 +10,12 @@ import styles from "./MultipleSelectField.module.scss";
 const safeDropdownBottomOffset = 25; // Pixels
 
 export const MultipleSelectField: React.FC<IMultipleSelectFieldProps> = ({
+	value,
+	setValue,
 	selectedOptions,
+	renderSelectedOption,
 	options,
-	onSelectOption,
-	onDeleteOption,
-	setSearchValue
+	renderOption
 }) => {
 	const [selectRef, isDropdownOpen, setDropdownOpen] = useClickOutside();
 	const [dropdownRef, dropdownBounds] = useMeasure();
@@ -34,18 +31,10 @@ export const MultipleSelectField: React.FC<IMultipleSelectFieldProps> = ({
 			onClick={() => setDropdownOpen(true)}
 		>
 			<div className={styles.select__field}>
-				{selectedOptions.map(option => (
-					<UserBadge
-						key={option.value}
-						className={styles["select__selected-option"]}
-						onClick={() => onDeleteOption?.(option)}
-						account_name={option.label}
-						avatar_url={option.image_url}
-					/>
-				))}
+				{selectedOptions.map(option => renderSelectedOption(option))}
 			</div>
 
-			{isDropdownOpen && options.length > 0 && (
+			{isDropdownOpen && options && options.length > 0 && (
 				<div
 					className={styles.select__dropdown}
 					ref={dropdownRef}
@@ -53,22 +42,12 @@ export const MultipleSelectField: React.FC<IMultipleSelectFieldProps> = ({
 				>
 					<input
 						className={styles.select__input}
+						value={value}
+						onChange={e => setValue(e.target.value)}
 						placeholder="Search"
 					/>
 					<div className={styles.select__options}>
-						{options.map(option => (
-							<label
-								className={styles.select__option}
-								key={option.value}
-								onClick={() => onSelectOption?.(option)}
-							>
-								<Checkbox />
-								<UserBadge
-									account_name={option.label}
-									avatar_url={option.image_url}
-								/>
-							</label>
-						))}
+						{options.map(option => renderOption(option))}
 					</div>
 				</div>
 			)}

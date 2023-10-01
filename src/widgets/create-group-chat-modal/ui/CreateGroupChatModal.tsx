@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { Modal, ModalHeader } from "@/entities/modal";
@@ -10,19 +10,21 @@ import {
 	Button,
 	ButtonGroup,
 	Field,
-	FieldLegend,
-	MultipleSelectField
+	FieldLegend
 } from "@/shared/ui";
 
 import { ICreateGroupChatModalProps } from "./CreateGroupChatModal.interface";
 
 import styles from "./CreateGroupChatModal.module.scss";
+import { SelectMultipleUsersField } from "@/features/select-multiple-users-field/ui";
+import { ISelectFieldOption } from "@/shared/interfaces/select-field-option.interface";
 
 export const CreateGroupChatModal: React.FC<ICreateGroupChatModalProps> = ({
 	onClose
 }) => {
 	const { chatSocket } = useSockets();
 	const [createGroupChat, status] = baseApi.useCreateGroupChatMutation();
+	const [selectedUsers, setSelectedUsers] = useState<ISelectFieldOption[]>([]);
 
 	const {
 		register,
@@ -34,7 +36,7 @@ export const CreateGroupChatModal: React.FC<ICreateGroupChatModalProps> = ({
 
 	const handleCreateGroupChat: SubmitHandler<ICreateGroupChatBody> = data => {
 		if (!isValid) return;
-		createGroupChat({ ...data, userIds: Array.from(Array(1005).keys()) })
+		createGroupChat({ ...data, userIds: [] })
 			.unwrap()
 			.then(() => {
 				if (!chatSocket?.connected) return;
@@ -53,10 +55,11 @@ export const CreateGroupChatModal: React.FC<ICreateGroupChatModalProps> = ({
 			headerElement={<ModalHeader onClose={onClose}>New group chat</ModalHeader>}
 			footerElement={
 				<ButtonGroup>
-					<Button onClick={onClose}>Cancel</Button>
+					<Button onClick={onClose} disabled={status.isLoading}>Cancel</Button>
 					<Button
 						form="chat-form"
 						type="submit"
+						disabled={status.isLoading}
 					>
 						Create
 					</Button>
@@ -89,14 +92,9 @@ export const CreateGroupChatModal: React.FC<ICreateGroupChatModalProps> = ({
 					legend="Members"
 					description="You can invite only those people with whom you spoke earlier."
 				>
-					<MultipleSelectField
-						options={[
-							{ value: "richthegxd", label: "richthegxd" },
-							{ value: "aly", label: "aly" }
-						]}
-						selectedOptions={[{ value: "myavzur", label: "myavzur" }]}
+					<SelectMultipleUsersField
+						value={sele}
 					/>
-				</FieldLegend>
 			</form>
 		</Modal>
 	);

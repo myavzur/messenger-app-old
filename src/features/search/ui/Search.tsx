@@ -1,7 +1,7 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent } from "react";
 
-import { baseApi } from "@/shared/api";
-import { useDebounce } from "@/shared/lib/hooks";
+import { useSearchUsers } from "@/entities/user";
+
 import { Field, Icon } from "@/shared/ui";
 
 import { ISearchProps } from "./Search.interface";
@@ -9,16 +9,12 @@ import { ISearchProps } from "./Search.interface";
 import styles from "./Search.module.scss";
 
 const Search: React.FC<ISearchProps> = ({ children }) => {
-	const [accountName, setAccountName] = useState("");
-	const accountNameDebounced = useDebounce(accountName, 500);
+	const { accountName, setAccountName, accountNameDebounced, response } =
+		useSearchUsers();
 
 	const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
 		setAccountName(e.target.value);
 	};
-
-	const response = baseApi.useSearchUsersByAccountNameQuery(accountNameDebounced, {
-		skip: !accountNameDebounced
-	});
 
 	return (
 		<>

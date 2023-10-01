@@ -1,16 +1,12 @@
 import { ReactNode } from "react";
 
-export interface IMultipleSelectFieldProps {
-	selectedOptions: IOption[];
-	options: IOption[];
-	onSelectOption?: (option: IOption) => void;
-	onDeleteOption?: (option: IOption) => void;
-	setSearchValue?: (value: string) => void;
-	optionElement?: ReactNode;
-}
+import { ISelectFieldOption } from "@/shared/interfaces/select-field-option.interface";
 
-interface IOption {
+export interface IMultipleSelectFieldProps {
 	value: string;
-	label: string;
-	image_url?: string;
+	setValue: (value: string) => void;
+	selectedOptions: ISelectFieldOption[];
+	renderSelectedOption: (option: ISelectFieldOption) => ReactNode;
+	options?: ISelectFieldOption[];
+	renderOption: (option: ISelectFieldOption) => ReactNode;
 }
