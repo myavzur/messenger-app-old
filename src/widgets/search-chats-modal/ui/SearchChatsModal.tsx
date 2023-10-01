@@ -7,6 +7,7 @@ import { Modal, ModalHeader } from "@/entities/modal";
 import { UserCard } from "@/entities/user";
 
 import { IUser } from "@/shared/interfaces/user.interface";
+import { Button, ButtonGroup } from "@/shared/ui";
 
 import { ISearchChatsModalProps } from "./SearchChatsModal.interface";
 
@@ -18,8 +19,11 @@ export const SearchChatsModal: React.FC<ISearchChatsModalProps> = ({ onClose }) 
 	return (
 		<Modal
 			onClose={onClose}
-			headerElement={
-				<ModalHeader onClose={onClose}>Find Serenity in Communion</ModalHeader>
+			headerElement={<ModalHeader onClose={onClose}>New local chat</ModalHeader>}
+			footerElement={
+				<ButtonGroup>
+					<Button onClick={onClose}>Close</Button>
+				</ButtonGroup>
 			}
 		>
 			<div className={styles.modal}>

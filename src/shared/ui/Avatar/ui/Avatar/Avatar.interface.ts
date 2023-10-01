@@ -3,6 +3,6 @@ export interface IAvatarProps {
 	src?: string;
 	alt?: string;
 	className?: string;
-	size?: "sm" | "base";
+	size?: "xs" | "sm" | "base";
 	status?: 0 | 1 | null;
 }

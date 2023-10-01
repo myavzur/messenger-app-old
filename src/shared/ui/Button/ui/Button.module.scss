@@ -1,5 +1,5 @@
 .button {
-	@apply transition-colors flex items-center rounded-md px-2 py-1.5;
+	@apply transition-colors flex items-center justify-center rounded-md px-2 py-1.5;
 	@apply relative overflow-hidden select-none outline-none cursor-pointer;
 
 	color: var(--color-accent-1000);

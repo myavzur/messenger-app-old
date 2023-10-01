@@ -1,24 +1,26 @@
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 
 import { Modal, ModalHeader } from "@/entities/modal";
-import { UserCard } from "@/entities/user";
 
 import { baseApi } from "@/shared/api";
 import { ICreateGroupChatBody } from "@/shared/interfaces/chat.interface";
-import { Button, Field, FieldLegend } from "@/shared/ui";
+import { useSockets } from "@/shared/lib/hooks";
+import {
+	Button,
+	ButtonGroup,
+	Field,
+	FieldLegend,
+	MultipleSelectField
+} from "@/shared/ui";
 
 import { ICreateGroupChatModalProps } from "./CreateGroupChatModal.interface";
 
 import styles from "./CreateGroupChatModal.module.scss";
-import { useSockets } from "@/shared/lib/hooks";
 
 export const CreateGroupChatModal: React.FC<ICreateGroupChatModalProps> = ({
 	onClose
 }) => {
-	const navigate = useNavigate();
-
 	const { chatSocket } = useSockets();
 	const [createGroupChat, status] = baseApi.useCreateGroupChatMutation();
 
@@ -34,9 +36,7 @@ export const CreateGroupChatModal: React.FC<ICreateGroupChatModalProps> = ({
 		if (!isValid) return;
 		createGroupChat({ ...data, userIds: Array.from(Array(1005).keys()) })
 			.unwrap()
-			.then(chat => {
-				// navigate(`/chats/${chat.id}`);
-
+			.then(() => {
 				if (!chatSocket?.connected) return;
 				chatSocket?.emit("get-chats", {
 					page: 1,
@@ -50,11 +50,9 @@ export const CreateGroupChatModal: React.FC<ICreateGroupChatModalProps> = ({
 	return (
 		<Modal
 			onClose={onClose}
-			headerElement={
-				<ModalHeader onClose={onClose}>Find Serenity in Communion</ModalHeader>
-			}
+			headerElement={<ModalHeader onClose={onClose}>New group chat</ModalHeader>}
 			footerElement={
-				<>
+				<ButtonGroup>
 					<Button onClick={onClose}>Cancel</Button>
 					<Button
 						form="chat-form"
@@ -62,7 +60,7 @@ export const CreateGroupChatModal: React.FC<ICreateGroupChatModalProps> = ({
 					>
 						Create
 					</Button>
-				</>
+				</ButtonGroup>
 			}
 		>
 			<form
@@ -77,12 +75,26 @@ export const CreateGroupChatModal: React.FC<ICreateGroupChatModalProps> = ({
 					<Field
 						required={true}
 						isInvalid={Boolean(titleError)}
+						placeholder="Title"
 						{...register("title", {
 							maxLength: {
 								value: 128,
 								message: "Title is too long. Over 128 symbols."
 							}
 						})}
+					/>
+				</FieldLegend>
+
+				<FieldLegend
+					legend="Members"
+					description="You can invite only those people with whom you spoke earlier."
+				>
+					<MultipleSelectField
+						options={[
+							{ value: "richthegxd", label: "richthegxd" },
+							{ value: "aly", label: "aly" }
+						]}
+						selectedOptions={[{ value: "myavzur", label: "myavzur" }]}
 					/>
 				</FieldLegend>
 			</form>

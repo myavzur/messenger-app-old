@@ -2,7 +2,7 @@
 
 .modal {
 	@apply flex gap-10;
-	width: 48rem;
+	width: 25rem;
 	height: 35rem;
 }
 
@@ -10,7 +10,7 @@
 	@apply w-full;
 
 	&__result {
-		@apply grid grid-cols-3 gap-4 mt-4 overflow-y-scroll;
+		@apply grid grid-cols-2 gap-4 mt-4 overflow-y-scroll;
 		@include custom-scrollbar();
 		max-height: 31rem; // Хардкод б****, да! Но во благо сокращения трудозатрат на этот пет проект.
 		padding-bottom: 1px; // Need to prevent last User's cards in list from cut.

@@ -1,0 +1,51 @@
+.select {
+	@apply relative;
+
+	&__field {
+		@apply px-5 py-3;
+		border-radius: 0.45rem;
+		border: 1px solid var(--color-primary-500);
+		background-color: var(--color-inputs-background);
+	}
+
+	&__selected-option {
+		@apply cursor-pointer select-none rounded-md;
+		transition: 0.3s background-color;
+
+		&:hover {
+			background-color: var(--color-util-error);
+		}
+	}
+
+	&__dropdown {
+		@apply absolute w-full py-3 px-5;
+		border-radius: 0.45rem;
+		top: calc(100% + 12px);
+		background-color: var(--color-primary-700);
+		z-index: var(--z-multiselect-dropdown);
+	}
+
+	&__input {
+		@apply w-full pb-2 px-0 outline-none bg-transparent;
+		border-bottom: 1px solid var(--color-primary-400);
+
+		&::placeholder {
+			color: var(--color-primary-400);
+		}
+	}
+
+	&__options {
+		@apply mt-3;
+	}
+
+	&__option {
+		@apply flex items-center gap-2 p-2 cursor-pointer select-none rounded-md;
+		color: var(--color-primary-600);
+		width: max-content;
+		transition: 0.3s background-color;
+
+		&:hover {
+			background-color: var(--color-primary-500);
+		}
+	}
+}

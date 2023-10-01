@@ -1,8 +1,8 @@
 @import "@/app/styles/_mixins";
 
-.modal {
-	@apply flex gap-10;
-	width: 48rem;
+.form {
+	@apply flex flex-col gap-5;
+	width: 25rem;
 	height: 35rem;
 }
 

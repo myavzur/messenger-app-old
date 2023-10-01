@@ -1,0 +1,12 @@
+@import "@/app/styles/_mixins";
+
+.badge {
+	@apply flex items-center gap-2;
+	width: max-content;
+
+	&__avatar {}
+	&__name {
+		color: var(--color-primary-100);
+		@include line-clamp(1);
+	}
+}

@@ -1,7 +1,7 @@
 .field {
 	@apply w-full;
 
-	&__label {
+	&__legend {
 		@apply font-medium text-base;
 		color: var(--color-primary-100);
 	}
@@ -17,7 +17,7 @@
 	}
 
 	&_with-asterisk {
-		.field__label::after {
+		.field__legend::after {
 			@apply pl-1;
 			content: '*';
 			color: var(--color-util-error);
