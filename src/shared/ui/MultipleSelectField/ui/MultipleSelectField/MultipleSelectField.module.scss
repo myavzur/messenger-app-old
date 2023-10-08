@@ -1,8 +1,10 @@
 .select {
 	@apply relative;
 
-	&__field {
-		@apply px-5 py-3;
+	&__selected-options {
+		@apply px-5 py-1.5 flex items-center gap-2 flex-wrap;
+		cursor: pointer;
+		min-height: 60px;
 		border-radius: 0.45rem;
 		border: 1px solid var(--color-primary-500);
 		background-color: var(--color-inputs-background);
@@ -18,7 +20,7 @@
 	}
 
 	&__dropdown {
-		@apply absolute w-full py-3 px-5;
+		@apply absolute py-3 px-5;
 		border-radius: 0.45rem;
 		top: calc(100% + 12px);
 		background-color: var(--color-primary-700);
@@ -26,7 +28,7 @@
 	}
 
 	&__input {
-		@apply w-full pb-2 px-0 outline-none bg-transparent;
+		@apply w-full pb-2 mb-3 px-0 outline-none bg-transparent;
 		border-bottom: 1px solid var(--color-primary-400);
 
 		&::placeholder {
@@ -34,13 +36,9 @@
 		}
 	}
 
-	&__options {
-		@apply mt-3;
-	}
-
 	&__option {
 		@apply flex items-center gap-2 p-2 cursor-pointer select-none rounded-md;
-		color: var(--color-primary-600);
+		color: var(--color-secondary-1000);
 		width: max-content;
 		transition: 0.3s background-color;
 

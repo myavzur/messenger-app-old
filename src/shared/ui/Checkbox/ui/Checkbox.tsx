@@ -12,6 +12,10 @@ export const Checkbox: React.FC<ICheckboxProps> = props => {
 		<label className={classNames(styles.checkbox, className)}>
 			<input
 				{...checkboxInputAttributes}
+				onClick={e => {
+					e.stopPropagation();
+					e.preventDefault();
+				}}
 				className={styles.checkbox__input}
 				type="checkbox"
 			/>

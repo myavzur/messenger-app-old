@@ -6,7 +6,7 @@ import Field from "./Field";
 import FieldLegend from "./FieldLegend";
 import Icon from "./Icon";
 import Logo from "./Logo";
-import MultipleSelectField from "./MultipleSelectField";
+import { MultipleSelectField } from "./MultipleSelectField";
 import PageLoader from "./PageLoader";
 import PasswordField from "./PasswordField";
 import ScrollButton from "./ScrollButton";
