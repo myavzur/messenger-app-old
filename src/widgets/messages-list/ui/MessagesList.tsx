@@ -54,6 +54,7 @@ export const MessagesList: React.FC<IMessagesListProps> = ({
 							key={message.id}
 							isOwn={isOwn}
 							message={message}
+							withAuthorAvatar={true}
 						/>
 					</animated.div>
 				);

@@ -4,7 +4,12 @@ export interface IUser {
 	avatar_url?: string;
 	email: string;
 	account_name: string;
-	status?: 0 | 1;
+	status?: UserStatus;
+}
+
+export enum UserStatus {
+	OFFLINE = 0,
+	ONLINE = 1
 }
 
 // API

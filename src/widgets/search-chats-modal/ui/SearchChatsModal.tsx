@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Search } from "@/features/search";
 
 import { Modal, ModalHeader } from "@/entities/modal";
-import { UserCard } from "@/entities/user";
+import { UserInfoBlock } from "@/entities/user";
 
 import { IUser } from "@/shared/interfaces/user.interface";
 import { Button, ButtonGroup } from "@/shared/ui";
@@ -53,7 +53,7 @@ export const SearchChatsModal: React.FC<ISearchChatsModalProps> = ({ onClose }) 
 							return (
 								<div className={styles.search__result}>
 									{users.map((user: IUser) => (
-										<UserCard
+										<UserInfoBlock
 											key={user.id}
 											user={user}
 											onClick={() => navigate(`/chats/${user.id}`)}

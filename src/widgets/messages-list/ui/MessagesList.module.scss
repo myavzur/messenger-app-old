@@ -6,8 +6,7 @@
 	overflow-y: scroll;
 
 	&__message {
-		@apply select-none rounded-2xl;
-		width: max-content;
+		@apply select-none rounded-2xl break-all;
 		max-width: 50%;
 
 		&_own {

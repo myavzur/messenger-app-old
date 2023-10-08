@@ -1,4 +1,6 @@
-.card {
+@import "@/app/styles/_mixins";
+
+.info {
 	@apply flex items-center cursor-pointer;
 
 	&__right {
@@ -6,11 +8,13 @@
 	}
 
 	&__account-name {
+		@include line-clamp(1);
 		@apply text-sm font-bold;
 	}
 
 	&__last-seen {
 		@apply text-sm;
 		color: var(--color-primary-400);
+		@include line-clamp(1);
 	}
 }

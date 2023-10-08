@@ -2,7 +2,7 @@ import { PayloadAction } from "@reduxjs/toolkit";
 
 import { IChat } from "@/shared/interfaces/chat.interface";
 import { IMessage } from "@/shared/interfaces/message.interface";
-import { IUser } from "@/shared/interfaces/user.interface";
+import { IUser, UserStatus } from "@/shared/interfaces/user.interface";
 
 export interface IChatsState {
 	/** У чата в состоянии может быть моковый id и updated_at, поскольку на клиенте при выборе пользователя
@@ -30,5 +30,5 @@ export type IAddMessageAction = PayloadAction<{
 export type IUpdateLocalChatPresenceAction = PayloadAction<{
 	chatId: IChat["id"];
 	userId: IUser["id"];
-	status: 0 | 1;
+	status: UserStatus;
 }>;

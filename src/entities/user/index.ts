@@ -1,3 +1,3 @@
-export { UserCard } from "./ui/UserCard";
+export { UserInfoBlock } from "./ui/UserInfoBlock";
 
 export * from "./lib/hooks";

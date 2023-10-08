@@ -2,8 +2,8 @@ import { VideoCameraAddOutlined } from "@ant-design/icons";
 import cn from "classnames";
 import React from "react";
 
-import { ChatCard, serializeChat } from "@/entities/chat";
-import { UserCard } from "@/entities/user/ui/UserCard";
+import { ChatCard, ChatInfoBlock, serializeChat } from "@/entities/chat";
+import { UserInfoBlock } from "@/entities/user/ui/UserInfoBlock";
 
 import { useAuth } from "@/shared/lib/hooks";
 
@@ -13,19 +13,14 @@ import styles from "./Header.module.scss";
 
 export const Header: React.FC<IHeaderProps> = ({ chat, className }) => {
 	const { currentUser } = useAuth();
+	const currentUserId = currentUser!.id;
 
 	return (
 		<header className={cn(styles.header, className)}>
-			{chat.is_group ? (
-				<ChatCard
-					currentUserId={currentUser!.id}
-					customBottomText={`${chat.users_count} members`}
-					chat={chat}
-					onClick={() => console.log("chat clicked lol")}
-				/>
-			) : (
-				<UserCard user={chat.users.find(user => user.id !== currentUser!.id)!} />
-			)}
+			<ChatInfoBlock
+				currentUserId={currentUserId}
+				chat={chat}
+			/>
 
 			<div className={styles.chat__actions}>
 				<VideoCameraAddOutlined size={20} />

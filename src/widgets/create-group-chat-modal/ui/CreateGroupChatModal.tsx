@@ -7,7 +7,7 @@ import { baseApi } from "@/shared/api";
 import { ICreateGroupChatBody } from "@/shared/interfaces/chat.interface";
 import { useSockets } from "@/shared/lib/hooks";
 import { Button, ButtonGroup, Field, FieldLegend } from "@/shared/ui";
-import { IOption, MultipleSelectField } from "@/shared/ui/MultipleSelectField";
+import MultipleSelectField, { IOption } from "@/shared/ui/MultipleSelectField";
 
 import { ICreateGroupChatModalProps } from "./CreateGroupChatModal.interface";
 
@@ -57,12 +57,10 @@ export const CreateGroupChatModal: React.FC<ICreateGroupChatModalProps> = ({
 			});
 	};
 
-	console.log(selectedUsers);
-
 	return (
 		<Modal
 			onClose={onClose}
-			headerElement={<ModalHeader onClose={onClose}>Chat</ModalHeader>}
+			headerElement={<ModalHeader onClose={onClose}>New group chat</ModalHeader>}
 			footerElement={
 				<ButtonGroup>
 					<Button
@@ -93,7 +91,6 @@ export const CreateGroupChatModal: React.FC<ICreateGroupChatModalProps> = ({
 					<Field
 						required={true}
 						isInvalid={Boolean(titleError)}
-						placeholder="Title"
 						{...register("title", {
 							maxLength: {
 								value: 128,

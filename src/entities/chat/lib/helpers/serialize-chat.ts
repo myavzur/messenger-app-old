@@ -1,5 +1,7 @@
 import { IChat } from "@/shared/interfaces/chat.interface";
-import { IUser } from "@/shared/interfaces/user.interface";
+import { IUser, UserStatus } from "@/shared/interfaces/user.interface";
+
+type SerializedChat = IChat & { title: string };
 
 interface ISerializeChatParams {
 	currentUserId: IUser["id"];
@@ -7,8 +9,8 @@ interface ISerializeChatParams {
 }
 
 interface ISerializeChatResult {
-	serializedChat: IChat;
-	userStatus?: IUser["status"];
+	serializedChat: SerializedChat;
+	userStatus?: UserStatus;
 }
 
 export const serializeChat = ({
@@ -17,23 +19,29 @@ export const serializeChat = ({
 }: ISerializeChatParams): ISerializeChatResult => {
 	if (chat.is_group) {
 		return {
-			serializedChat: chat
+			serializedChat: {
+				...chat,
+				title: chat.title || "WARNING: Group chat without title!"
+			}
 		};
 	}
 
 	const oppositeUser = chat.users.find(user => user.id !== currentUserId);
 	if (!oppositeUser) {
-		console.log(chat);
-		console.log("for", currentUserId);
-		console.error("Oops...something gone wrong");
 		return {
-			serializedChat: chat
+			serializedChat: {
+				...chat,
+				title: chat.title || "WARNING: Group chat without title!"
+			}
 		};
 	}
 
-	const serializedChat: IChat = { ...chat };
-	serializedChat.title = oppositeUser.account_name;
-	serializedChat.image_url = oppositeUser.avatar_url;
-
-	return { serializedChat, userStatus: oppositeUser.status };
+	return {
+		serializedChat: {
+			...chat,
+			title: oppositeUser.account_name,
+			image_url: oppositeUser.avatar_url
+		},
+		userStatus: oppositeUser.status
+	};
 };

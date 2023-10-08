@@ -12,7 +12,6 @@ import styles from "./ChatCard.module.scss";
 export const ChatCard: React.FC<IChatCardProps> = ({
 	currentUserId,
 	withUpdatedTime = false,
-	customBottomText,
 	chat,
 	onClick,
 	isSelected
@@ -33,7 +32,7 @@ export const ChatCard: React.FC<IChatCardProps> = ({
 				src={serializedChat.image_url}
 				alt={undefined}
 			>
-				{serializedChat.title!}
+				{serializedChat.title}
 			</Avatar>
 
 			<div className={styles.card__info}>
@@ -48,7 +47,7 @@ export const ChatCard: React.FC<IChatCardProps> = ({
 
 				<div className={styles.card__bottom}>
 					<p className={styles["card__bottom-text"]}>
-						{customBottomText ? customBottomText : serializedChat.last_message?.text}
+						{serializedChat.last_message?.text}
 					</p>
 				</div>
 			</div>
