@@ -1,39 +1,47 @@
-import { IChat } from "./chat.interface";
-import { IMessage } from "./message.interface";
-import { IUser } from "./user.interface";
+import { IChat, IMessage } from "@/entities/chat/interfaces";
+import { IUser } from "@/entities/user/interfaces";
 
-// * Server
-export interface IChatServerToClientEvents {
-	chats: (data: {
-		chats: IChat[];
-		totalItems: number;
-		totalPages: number;
-		currentPage: number;
-	}) => void;
-	chat: (data: IChat) => void;
-	"chat-created": (data: IChat) => void;
-	"chat-history": (data: {
-		chat_id: IChat["id"];
-		messages: IMessage[];
-		totalItems: number;
-		totalPages: number;
-		currentPage: number;
-	}) => void;
-	"new-message": (data: { chat_id: IChat["id"]; message: IMessage }) => void;
+import { IPaginatedData, IPaginationBody } from "./pagination.interface";
+
+interface IPaginatedChatsData extends IPaginatedData {
+	chats: IChat[];
 }
 
-// * Client
+interface IPaginatedMessagesData extends IPaginatedData {
+	messages: IMessage[];
+}
+
+interface INewMessageData {
+	chat_id: IChat["id"];
+	message: IMessage;
+}
+
+export interface IChatServerToClientEvents {
+	chats: (data: IPaginatedChatsData) => void;
+	chat: (data: IChat) => void;
+	"chat-created": (data: IChat) => void;
+	"chat-history": (data: IPaginatedMessagesData) => void;
+	"new-message": (data: INewMessageData) => void;
+}
+
+interface IGetChatParams {
+	polymorphicId: IChat["id"] | IUser["id"];
+}
+
+interface IGetChatHistoryParams extends IPaginationBody {
+	chatId: IChat["id"];
+}
+
+export interface ISendMessageParams {
+	chatId?: IChat["id"];
+	userId?: IUser["id"];
+	replyForId?: IMessage["id"];
+	text: IMessage["text"];
+}
+
 export interface IChatClientToServerEvents {
-	"get-chats": (params: { page: number; limit: number }) => void;
-	"get-chat": (params: { chatId?: IChat["id"]; userId?: IUser["id"] }) => void;
-	"get-chat-history": (params: {
-		chatId: IChat["id"];
-		page: number;
-		limit: number;
-	}) => void;
-	"send-message": (params: {
-		chatId?: IChat["id"];
-		userId?: IUser["id"];
-		text: IMessage["text"];
-	}) => void;
+	"get-chats": (params: IPaginationBody) => void;
+	"get-chat": (params: IGetChatParams) => void;
+	"get-chat-history": (params: IGetChatHistoryParams) => void;
+	"send-message": (params: ISendMessageParams) => void;
 }

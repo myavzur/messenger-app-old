@@ -5,7 +5,7 @@ import { ILogoProps } from "./Logo.interface";
 
 import styles from "./Logo.module.scss";
 
-const Logo: React.FC<ILogoProps> = ({ className }) => {
+export const Logo: React.FC<ILogoProps> = ({ className }) => {
 	return (
 		<svg
 			className={cn(styles.svg, className)}
@@ -28,5 +28,3 @@ const Logo: React.FC<ILogoProps> = ({ className }) => {
 		</svg>
 	);
 };
-
-export default Logo;

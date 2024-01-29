@@ -1,39 +1,32 @@
 import React, { forwardRef, useState } from "react";
 
-import { Field, Icon } from "@/shared/ui";
+import { Field, FieldAction, IFieldProps, Icon } from "@/shared/ui";
 
-import { IFieldProps } from "../../Field";
+export const PasswordField = forwardRef<
+	HTMLInputElement,
+	Omit<IFieldProps, "children">
+>((props, ref) => {
+	const [isVisible, setVisibility] = useState(false);
 
-import styles from "./PasswordField.module.scss";
+	const handleToggleVisibility = () => {
+		setVisibility(visibility => !visibility);
+	};
 
-const PasswordField = forwardRef<HTMLInputElement, Omit<IFieldProps, "children">>(
-	(props, ref) => {
-		const [isVisible, setVisibility] = useState(false);
+	const iconElement = isVisible ? <Icon name="eye" /> : <Icon name="eye-crossed" />;
 
-		const handleToggleVisibility = () => {
-			setVisibility(visibility => !visibility);
-		};
-
-		return (
-			<Field
-				{...props}
-				className={styles.field}
-				ref={ref}
-				type={isVisible ? "text" : "password"}
-				autoComplete="new-off"
-			>
-				<button
-					type="button"
-					className={styles.field__toggler}
-					onClick={handleToggleVisibility}
-				>
-					{isVisible ? <Icon name="eye" /> : <Icon name="eye-crossed" />}
-				</button>
-			</Field>
-		);
-	}
-);
+	return (
+		<Field
+			{...props}
+			ref={ref}
+			type={isVisible ? "text" : "password"}
+			autoComplete="new-off"
+		>
+			<FieldAction
+				iconElement={iconElement}
+				onClick={handleToggleVisibility}
+			/>
+		</Field>
+	);
+});
 
 PasswordField.displayName = "PasswordField";
-
-export default PasswordField;

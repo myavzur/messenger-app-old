@@ -4,7 +4,7 @@ import { ISwitchProps } from "./Switch.interface";
 
 import styles from "./Switch.module.scss";
 
-const Switch: React.FC<ISwitchProps> = props => {
+export const Switch: React.FC<ISwitchProps> = props => {
 	return (
 		<label className={styles.switch}>
 			<input
@@ -15,5 +15,3 @@ const Switch: React.FC<ISwitchProps> = props => {
 		</label>
 	);
 };
-
-export default Switch;

@@ -1,0 +1,17 @@
+@import "@/app/styles/_mixins";
+
+.reply {
+	@apply rounded-md px-2 py-1 cursor-pointer;
+	border-left: 3px solid #FFFFFF;
+	background-color: rgba(210, 210, 210, 0.227);
+
+	&__author {
+		@apply text-sm font-bold;
+		@include line-clamp(1);
+	}
+
+	&__text {
+		@apply text-sm font-light;
+		@include line-clamp(1);
+	}
+}

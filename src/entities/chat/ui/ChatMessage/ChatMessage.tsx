@@ -1,7 +1,9 @@
 import cn from "classnames";
 import React from "react";
 
-import { Avatar } from "@/shared/ui";
+import { ChatMessageEmbedded } from "@/entities/chat/ui";
+
+import { Avatar, Icon } from "@/shared/ui";
 
 import { IChatMessageProps } from "./ChatMessage.interface";
 
@@ -9,14 +11,32 @@ import styles from "./ChatMessage.module.scss";
 
 export const ChatMessage: React.FC<IChatMessageProps> = ({
 	message,
-	className,
 	isOwn,
+	className,
 	withAuthorAvatar = false,
-	withAuthorName = false
+	withAuthorName = false,
+	withAppendix = true,
+	onScrollToMessage,
+	onContextMenu
 }) => {
+	const handleContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
+		if (!onContextMenu) return;
+		e.preventDefault();
+		onContextMenu({
+			message,
+			mousePosition: {
+				x: e.clientX,
+				y: e.clientY
+			}
+		});
+	};
+
 	return (
-		<div className={styles["message-wrapper"]}>
-			{withAuthorAvatar && !isOwn && (
+		<div
+			className={cn(styles.message, { [styles.message_own]: isOwn })}
+			onContextMenu={handleContextMenu}
+		>
+			{withAuthorAvatar && (
 				<Avatar
 					className={styles.avatar}
 					size="xs"
@@ -29,12 +49,30 @@ export const ChatMessage: React.FC<IChatMessageProps> = ({
 
 			<div
 				data-message-id={message.id}
-				className={cn(styles.message, className, { [styles.message_own]: isOwn })}
+				className={cn(styles.content, className)}
 			>
 				{withAuthorName && (
-					<h2 className={styles.message__author}>{message.user.account_name}</h2>
+					<h2 className={styles.content__author}>{message.user.account_name}</h2>
 				)}
-				<div className={styles.message__text}>{message.text}</div>
+
+				{message.reply_for && (
+					<ChatMessageEmbedded
+						onClick={message => onScrollToMessage?.(message)}
+						className={styles.content__embedded}
+						message={message.reply_for}
+					/>
+				)}
+
+				<p className={styles.content__text}>{message.text}</p>
+
+				{withAppendix && (
+					<Icon
+						className={styles.content__appendix}
+						name="appendix"
+						width="10"
+						height="18"
+					/>
+				)}
 			</div>
 		</div>
 	);

@@ -1,25 +1,19 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 
-import { IChat } from "@/shared/interfaces/chat.interface";
-import { IMessage } from "@/shared/interfaces/message.interface";
-import { IUser, UserStatus } from "@/shared/interfaces/user.interface";
+import { IChat, IMessage } from "@/entities/chat/interfaces";
+import { IUser, UserStatus } from "@/entities/user/interfaces";
 
 export interface IChatsState {
-	/** У чата в состоянии может быть моковый id и updated_at, поскольку на клиенте при выборе пользователя
-	 * из результата поиска, нам нужно устанавливаем для activeChat
-	 * временную конфигурацию чата без указа его реального id и updated_at, чтобы открыть чат
-	 * только у данного пользователя, без создания его на сервере.
-	 *
-	 * Для отправки сообщения в таком чате на сервер - нужно использовать ID юзера
-	 * с которым открыта переписка.
-	 * */
-	activeChat: IChat | null;
-	chats: IChat[];
+	currentChat: {
+		data: IChat | null;
+		embeddedMessage: IMessage | null;
+	};
+	chatList: IChat[];
 }
 
 export type IUpdateChatAction = PayloadAction<{
 	chatId: IChat["id"];
-	updatedData: Partial<IChat>;
+	newData: Partial<IChat>;
 }>;
 
 export type IAddMessageAction = PayloadAction<{

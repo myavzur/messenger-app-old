@@ -1,11 +1,11 @@
 import { combineReducers } from "@reduxjs/toolkit";
 
 import { baseApi } from "@/shared/api";
-import { reducer as appSettingsReducer } from "@/shared/models/app-settings";
-import { reducer as chatsReducer } from "@/shared/models/chats";
+import { chatReducer } from "@/shared/models/chats";
+import { settingsReducer } from "@/shared/models/settings";
 
 export const rootReducer = combineReducers({
 	[baseApi.reducerPath]: baseApi.reducer,
-	appSettings: appSettingsReducer,
-	chats: chatsReducer
+	settings: settingsReducer,
+	chats: chatReducer
 });

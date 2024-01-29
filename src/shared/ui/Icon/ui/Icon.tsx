@@ -5,16 +5,21 @@ import sprite from "../assets/sprite.svg";
 
 import { IIconProps } from "./Icon.interface";
 
-const Icon: React.FC<IIconProps> = ({ name, className }) => {
+export const Icon: React.FC<IIconProps> = ({
+	name,
+	className,
+	width,
+	height,
+	onClick
+}) => {
 	return (
 		<svg
-			width="100%"
-			height="100%"
+			width={width || "100%"}
+			height={height || "100%"}
 			className={cn(className)}
+			onClick={onClick}
 		>
 			<use href={sprite + `#${name}`} />
 		</svg>
 	);
 };
-
-export default Icon;

@@ -6,6 +6,21 @@ export interface IIconProps {
 		| "search-eye"
 		| "close"
 		| "generate"
-		| "phone";
+		| "phone"
+		| "attach"
+		| "pin"
+		| "verified"
+		| "check"
+		| "door-out"
+		| "appendix"
+		| "reply"
+		| "edit"
+		| "copy"
+		| "image"
+		| "file"
+		| "trash-bin";
 	className?: string;
+	width?: string;
+	height?: string;
+	onClick?: () => void;
 }

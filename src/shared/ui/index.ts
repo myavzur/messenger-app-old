@@ -1,35 +1,18 @@
-import Avatar from "./Avatar";
-import Button from "./Button";
-import ButtonGroup from "./ButtonGroup";
-import Checkbox from "./Checkbox";
-import Field from "./Field";
-import FieldLegend from "./FieldLegend";
-import Icon from "./Icon";
-import InfoBlock from "./InfoBlock";
-import Logo from "./Logo";
-import MultipleSelectField from "./MultipleSelectField";
-import PageLoader from "./PageLoader";
-import PasswordField from "./PasswordField";
-import ScrollButton from "./ScrollButton";
-import Switch from "./Switch";
-import TextAnchor from "./TextAnchor";
-import Title from "./Title";
-
-export {
-	Avatar,
-	Icon,
-	Button,
-	ButtonGroup,
-	Checkbox,
-	Field,
-	FieldLegend,
-	Logo,
-	InfoBlock,
-	MultipleSelectField,
-	PageLoader,
-	PasswordField,
-	ScrollButton,
-	Switch,
-	TextAnchor,
-	Title
-};
+export * from "./Avatar/ui";
+export * from "./Button/ui";
+export * from "./ButtonGroup/ui";
+export * from "./Checkbox/ui";
+export * from "./Field/ui";
+export * from "./FieldAction/ui";
+export * from "./FieldLegend/ui";
+export * from "./Icon/ui";
+export * from "./InfoBlock/ui";
+export * from "./InlineInput/ui";
+export * from "./Logo/ui";
+export * from "./Menu/ui";
+export * from "./PageLoader/ui";
+export * from "./PasswordField/ui";
+export * from "./Switch/ui";
+export * from "./TextAnchor/ui";
+export * from "./TextAreaField/ui";
+export * from "./Title/ui";

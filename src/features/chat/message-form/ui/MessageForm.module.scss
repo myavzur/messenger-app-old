@@ -1,0 +1,24 @@
+.embedded {
+	@apply flex items-center rounded-t-md py-2 px-3;
+	border-radius: 0.45rem 0.45rem 0 0;
+	border: 1px solid var(--color-primary-500);
+	border-bottom: none;
+	background-color: var(--color-inputs-background);
+	z-index: -20;
+
+	&__icon {
+		@apply mr-3 p-1;
+		min-width: 2rem;
+		width: 2rem;
+		height: 2rem;
+	}
+	&__message {
+		flex-grow: 1;
+	}
+	&__close {
+		@apply ml-3 p-0.5;
+		min-width: 2rem;
+		width: 2rem;
+		height: 2rem;
+	}
+}

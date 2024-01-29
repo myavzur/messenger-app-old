@@ -1,0 +1,48 @@
+.field {
+	@apply overflow-hidden w-full flex items-center items-center;
+	border-radius: 0.45rem;
+	border: 1px solid var(--color-primary-500);
+	background-color: var(--color-inputs-background);
+
+	input,
+	textarea {
+		@apply w-full transition-colors text-base font-normal px-5 py-3;
+
+		outline: none;
+		background: none;
+		appearance: none;
+
+		color: #9aa1b6;
+
+		&::placeholder {
+			color: var(--color-primary-400);
+		}
+
+		&:hover,
+		&:focus {
+			border-color: var(--color-accent-1000);
+		}
+	}
+
+	&_invalid {
+		border-color: var(--color-util-error);
+
+		input {
+			color: var(--color-util-error);
+
+			&:hover,
+			&:focus {	border-color: var(--color-util-error); }
+		}
+	}
+
+	&_prevent-pl {
+		input, textarea { @apply pl-0; }
+	}
+	&_prevent-pr {
+		input, textarea { @apply pr-0; }
+	}
+	&_prevent-border-t {
+		@apply rounded-t-none;
+		border-top: none;
+	}
+}

@@ -7,12 +7,12 @@ const ONE_HOUR_IN_MINUTES = 60;
 const ONE_DAY_IN_MINUTES = 1440;
 const ONE_YEAR_IN_MINUTES = 525600;
 
-// date: Date
-export const getLastSeenFromDate = () => {
+export const getLastSeenFromDate = (date: Date) => {
+	// return dayjs(date).fromNow();
 	const nowDate = dayjs();
-	const lastDate = dayjs(Date.now());
+	const lastSeenDate = dayjs(date);
 
-	const timeDifference = lastDate.diff(nowDate, "minute");
+	const timeDifference = nowDate.diff(lastSeenDate, "minute");
 
 	if (timeDifference <= 5) {
 		return "last seen recently";

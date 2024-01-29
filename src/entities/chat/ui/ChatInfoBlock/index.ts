@@ -1,1 +1,0 @@
-export { ChatInfoBlock } from "./ChatInfoBlock";

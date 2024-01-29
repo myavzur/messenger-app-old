@@ -1,8 +1,10 @@
 import React, { ButtonHTMLAttributes } from "react";
 
 export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-	icon?: React.ReactNode;
+	iconElement?: React.ReactNode;
 	children?: string;
 	withRipple?: boolean;
-	isFullyRounded?: boolean;
+	isFullRounded?: boolean;
+	isFullWidth?: boolean;
+	color?: "dangerous";
 }

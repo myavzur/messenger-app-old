@@ -1,0 +1,5 @@
+@import "@/app/styles/_mixins";
+
+.textarea {
+	@include custom-scrollbar();
+}

@@ -5,17 +5,10 @@ import { io } from "socket.io-client";
 
 import { History } from "@/app/providers/AppRouter";
 
-import { TEMPORARY_CHAT_ID } from "@/shared/interfaces/chat.interface";
+import { ChatType } from "@/entities/chat/interfaces";
+
 import { getAccessToken, getSocketOptions } from "@/shared/lib/helpers";
-import { useStoreSelector } from "@/shared/lib/hooks";
-import {
-	addChat,
-	addMessage,
-	setActiveChat,
-	setChats,
-	updateChatCarefully,
-	updateLocalChatPresence
-} from "@/shared/models/chats";
+import { chatActions } from "@/shared/models/chats";
 
 import { SocketsContext } from "./SocketsContext";
 import { ISocketsContext } from "./SocketsContext.interface";
@@ -27,7 +20,6 @@ export const SocketsContextProvider: React.FC<ISocketsContextProviderProps> = ({
 	children
 }) => {
 	const dispatch = useDispatch();
-	const { activeChat } = useStoreSelector(state => state.chats);
 
 	const [accessToken, setAccessToken] = useState(getAccessToken());
 	const socketRefs = useRef<ISocketsContext["sockets"]>([]);
@@ -38,7 +30,7 @@ export const SocketsContextProvider: React.FC<ISocketsContextProviderProps> = ({
 			const socket = io(presenceServerUrl, getSocketOptions(accessToken));
 
 			socket.on("new-status-in-local-chat", data => {
-				dispatch(updateLocalChatPresence(data));
+				dispatch(chatActions.updateLocalChatPresence(data));
 			});
 
 			socketRefs.current.push({ name: "presence", socket });
@@ -47,7 +39,9 @@ export const SocketsContextProvider: React.FC<ISocketsContextProviderProps> = ({
 
 		console.log("Create connection Presence: No token.");
 		return null;
-	}, [accessToken]);
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [presenceServerUrl, accessToken]);
 
 	// Chat Socket
 	const chatSocket = useMemo<ISocketsContext["chatSocket"]>(() => {
@@ -55,13 +49,13 @@ export const SocketsContextProvider: React.FC<ISocketsContextProviderProps> = ({
 			const socket = io(chatServerUrl, getSocketOptions(accessToken));
 
 			socket.on("chats", data => {
-				dispatch(setChats(data.chats));
+				dispatch(chatActions.setChats(data.chats));
 			});
 			socket.on("chat", chat => {
-				dispatch(setActiveChat(chat));
+				dispatch(chatActions.setCurrentChat(chat));
 
-				// Don't request chat history of temporary chat, because it's null.
-				if (chat.id === TEMPORARY_CHAT_ID) return;
+				// Don't request chat history of temporary chat, because it's doesn't exist.
+				if (chat.type === ChatType.TEMP) return;
 
 				socket.emit("get-chat-history", {
 					chatId: chat.id,
@@ -70,15 +64,12 @@ export const SocketsContextProvider: React.FC<ISocketsContextProviderProps> = ({
 				});
 			});
 			socket.on("chat-created", chat => {
-				dispatch(addChat(chat));
-
-				if (chat.id === TEMPORARY_CHAT_ID) return;
-
+				dispatch(chatActions.addChat(chat));
 				History.navigate(`/chats/${chat.id}`);
 			});
 			socket.on("new-message", data => {
 				dispatch(
-					addMessage({
+					chatActions.addMessage({
 						chatId: data.chat_id,
 						message: data.message
 					})
@@ -86,9 +77,9 @@ export const SocketsContextProvider: React.FC<ISocketsContextProviderProps> = ({
 			});
 			socket.on("chat-history", data => {
 				dispatch(
-					updateChatCarefully({
+					chatActions.updateChatCarefully({
 						chatId: data.chat_id,
-						updatedData: {
+						newData: {
 							messages: data.messages
 						}
 					})
@@ -101,7 +92,9 @@ export const SocketsContextProvider: React.FC<ISocketsContextProviderProps> = ({
 
 		console.log("Create connection Chat: No token.");
 		return null;
-	}, [accessToken]);
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [chatServerUrl, accessToken]);
 
 	console.log("RENDER SOCKETS Provider");
 

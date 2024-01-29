@@ -5,7 +5,10 @@ import { IButtonGroupProps } from "./ButtonGroup.interface";
 
 import styles from "./ButtonGroup.module.scss";
 
-const ButtonGroup: React.FC<IButtonGroupProps> = ({ className, ...ulProps }) => {
+export const ButtonGroup: React.FC<IButtonGroupProps> = ({
+	className,
+	...ulProps
+}) => {
 	return (
 		<ul
 			{...ulProps}
@@ -13,5 +16,3 @@ const ButtonGroup: React.FC<IButtonGroupProps> = ({ className, ...ulProps }) => 
 		/>
 	);
 };
-
-export default ButtonGroup;

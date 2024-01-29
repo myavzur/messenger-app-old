@@ -21,12 +21,16 @@
 
 	&__messages,
 	&__form {
-		max-width: 48%;
+		max-width: 55%;
 	}
 
 	&__header,
 	&__messages,
 	&__form {
 		z-index: var(--z-active-chat-elements);
+	}
+
+	&_loading {
+		@apply items-center justify-center;
 	}
 }

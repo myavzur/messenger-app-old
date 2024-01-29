@@ -1,1 +1,1 @@
-export { getLastSeenFromDate } from "./get-last-seen-from-date";
+export * from "./get-last-seen-from-date";

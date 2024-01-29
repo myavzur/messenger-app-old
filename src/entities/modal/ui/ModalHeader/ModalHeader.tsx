@@ -6,10 +6,10 @@ import { IModalHeaderProps } from "./ModalHeader.interface";
 
 import styles from "./ModalHeader.module.scss";
 
-const ModalHeader: React.FC<IModalHeaderProps> = ({ onClose, children }) => {
+export const ModalHeader: React.FC<IModalHeaderProps> = ({ onClose, children }) => {
 	return (
 		<div className={styles.header}>
-			<span className={styles.header__title}>{children}</span>
+			<h1 className={styles.header__title}>{children}</h1>
 
 			<button
 				className={styles.header__close}
@@ -20,5 +20,3 @@ const ModalHeader: React.FC<IModalHeaderProps> = ({ onClose, children }) => {
 		</div>
 	);
 };
-
-export default ModalHeader;

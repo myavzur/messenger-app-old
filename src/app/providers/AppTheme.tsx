@@ -7,19 +7,19 @@ interface IAppThemeProps {
 }
 
 const AppTheme: React.FC<IAppThemeProps> = ({ children }) => {
-	const { theme } = useStoreSelector(state => state.appSettings);
+	const theme = useStoreSelector(state => state.settings.theme);
 
 	useLayoutEffect(() => {
-		const classList = document.body.classList;
+		const bodyClassList = document.body.classList;
 
 		// Delete all themes classes
-		classList.forEach(className => {
+		bodyClassList.forEach(className => {
 			if (className.startsWith("theme")) {
-				classList.remove(className);
+				bodyClassList.remove(className);
 			}
 		});
 
-		classList.add(`theme_${theme}`);
+		bodyClassList.add(`theme_${theme}`);
 		localStorage.setItem("theme", theme);
 	}, [theme]);
 

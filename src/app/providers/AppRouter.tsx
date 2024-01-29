@@ -8,7 +8,8 @@ import {
 	useNavigate
 } from "react-router-dom";
 
-import { AuthLayout, ChatsLayout } from "@/layouts";
+import { AuthLayout } from "@/layouts/auth-layout/ui";
+import { ChatsLayout } from "@/layouts/chats-layout/ui";
 
 import { useAuth } from "@/shared/lib/hooks";
 import { PageLoader } from "@/shared/ui";
@@ -21,7 +22,7 @@ const SignUp = React.lazy(() => import("@/screens/sign-up"));
 export const History: {
 	navigate: (path: string) => void | NavigateFunction;
 } = {
-	navigate: path => {
+	navigate: () => {
 		return;
 	}
 };
@@ -44,10 +45,10 @@ const ProtectedRoute: React.FC<{
  * * Loading lazy page
  */
 const AppRouter: React.FC = () => {
-	const { isAuthorized, isCurrentUserLoading } = useAuth();
+	const { isAuthorized, isCurrentUserFetching } = useAuth();
 
-	if (isCurrentUserLoading) {
-		return <PageLoader />;
+	if (isCurrentUserFetching) {
+		return <PageLoader isFullScreen={true} />;
 	}
 
 	return (
@@ -70,7 +71,7 @@ const AppRouter: React.FC = () => {
 							element={<Chats />}
 						/>
 						<Route
-							path=":chatOrUserId"
+							path=":polymorphicId"
 							element={<Chat />}
 						/>
 					</Route>

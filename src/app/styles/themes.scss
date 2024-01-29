@@ -5,6 +5,7 @@ body {
   --color-accent-glassed-1000: #3659ba36;
 
   --color-util-error:  #EE5252;
+  --color-util-error-glassed:  #be242436;
   --color-util-success:#52EE79;
   --color-util-warn:   #DEEE52;
 }
@@ -28,6 +29,7 @@ body[class="theme_insomnia"] {
   --color-background: var(--color-primary-1000);
   --color-app-background: var(--color-primary-700);
   --color-inputs-background: var(--color-primary-700);
+  --color-context-menu-background: #1A1B1E90;// var(--color-primary-800) + "opacity: 0.9";
 
   // Images
   --image-authorization: url("@/app/assets/images/insomnia_authorization.gif");
@@ -52,6 +54,7 @@ body[class="theme_winter"] {
   --color-background: var(--color-primary-800);
   --color-app-background: var(--color-primary-1000);
   --color-inputs-background: var(--color-primary-1000);
+  --color-context-menu-background: #E9ECEF90;// var(--color-primary-800) + "opacity: 0.9";
 
   // Images
   --image-authorization: url("@/app/assets/images/winter_authorization.gif");

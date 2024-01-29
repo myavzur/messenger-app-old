@@ -1,1 +1,1 @@
-export { useSearchUsers } from "./useSearchUsers";
+export * from "./use-search-users";

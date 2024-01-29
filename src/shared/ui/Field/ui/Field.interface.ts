@@ -1,6 +1,8 @@
-import { InputHTMLAttributes, ReactNode } from "react";
+import { InputHTMLAttributes } from "react";
+
+import { FieldAction } from "../../FieldAction/ui";
 
 export interface IFieldProps extends InputHTMLAttributes<HTMLInputElement> {
 	isInvalid?: boolean;
-	children?: ReactNode;
+	children?: ReturnType<typeof FieldAction>;
 }

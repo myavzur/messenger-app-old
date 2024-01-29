@@ -1,25 +1,65 @@
-.message-wrapper {
-	@apply flex;
+@import "@/app/styles/_mixins";
+
+.message {
+	--appendix-offset: 9px;
+	display: flex;
 
 	.avatar {
 		@apply self-end mr-2;
 	}
 
-	.message {
-		@apply select-none p-2.5 rounded-2xl;
-		background-color: var(--color-primary-800);
+	.content {
+		@apply relative select-none p-2.5 rounded-2xl;
 
 		&__author {
-			@apply text-xs;
+			@apply text-sm font-bold;
+			@include line-clamp(1);
+		}
+
+		.content__author + .content__embedded {
+			@apply mt-2.5;
+		}
+
+		.content__embedded + .content__text {
+			@apply mt-2.5;
 		}
 
 		&__text {
 			@apply select-text text-base;
+			word-break: break-word;
 		}
 
-		&_own {
+		&__appendix {
+			@apply absolute bottom-0;
+		}
+	}
+
+	&:not(.message_own) {
+		.content {
+			border-bottom-left-radius: 0;
+			background-color: var(--color-primary-800);
+
+			&__appendix {
+				transform: rotateY(-180deg);
+				left: calc(var(--appendix-offset) * -1);
+				color: var(--color-primary-800);
+			}
+		}
+	}
+
+	&_own {
+		padding-right: var(--appendix-offset);
+
+		.content {
+			border-bottom-right-radius: 0;
 			background-color: var(--color-accent-1000);
+			margin-right: var(--appendix-offset);
 			color: #FFF;
+
+			&__appendix {
+				right: -9px;
+				color: var(--color-accent-1000);
+			}
 		}
 	}
 }

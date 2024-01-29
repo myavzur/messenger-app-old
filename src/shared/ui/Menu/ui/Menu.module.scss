@@ -1,0 +1,10 @@
+@import "@/app/styles/variables";
+
+.menu {
+	@apply p-1.5 rounded-lg absolute;
+	z-index: var(--z-active-chat-elements);
+	width: 235px;
+
+	background-color: var(--color-context-menu-background);
+	backdrop-filter: blur(10px);
+}

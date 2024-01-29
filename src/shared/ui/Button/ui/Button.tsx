@@ -1,4 +1,3 @@
-import { nanoid } from "@reduxjs/toolkit";
 import cn from "classnames";
 import React, { useState } from "react";
 
@@ -8,10 +7,12 @@ import styles from "./Button.module.scss";
 
 const MAX_RIPPLE_ELEMENTS = 5;
 
-const Button: React.FC<IButtonProps> = ({
-	icon: Icon,
+export const Button: React.FC<IButtonProps> = ({
+	iconElement: Icon,
 	withRipple = true,
-	isFullyRounded = false,
+	isFullRounded = false,
+	isFullWidth = false,
+	color,
 	onClick,
 	className,
 	children,
@@ -20,13 +21,12 @@ const Button: React.FC<IButtonProps> = ({
 	const [rippleElements, setRippleElements] = useState<JSX.Element[]>([]);
 
 	const createRippleEl = (size: number, left: string, top: string) => {
-		// TODO: Replace nanoid, to not depend on redux toolkit lib.
-		const key = nanoid();
+		const key = String(Date.now());
 
 		return (
 			<div
 				key={key}
-				className={styles.ripple}
+				className={styles.button__ripple}
 				style={{
 					width: size,
 					height: size,
@@ -71,7 +71,9 @@ const Button: React.FC<IButtonProps> = ({
 			className={cn(styles.button, className, {
 				// Increase paddings on x axis if there is only text present
 				[styles["button_increased-px"]]: !Icon,
-				[styles["button_fully-rounded"]]: isFullyRounded
+				[styles["button_full-rounded"]]: isFullRounded,
+				[styles["button_full-width"]]: isFullWidth,
+				[styles[`button_color-${color}`]]: Boolean(color)
 			})}
 		>
 			{Icon && <div className={styles.button__icon}>{Icon}</div>}
@@ -82,5 +84,3 @@ const Button: React.FC<IButtonProps> = ({
 		</button>
 	);
 };
-
-export default Button;

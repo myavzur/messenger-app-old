@@ -1,52 +1,70 @@
+import cn from "classnames";
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
-import { MessagesList } from "@/widgets/messages-list";
+import { ChatHeader } from "@/widgets/chat/chat-header/ui";
+import { MessageList } from "@/widgets/chat/message-list/ui";
 
-import { SendMessageForm } from "@/features/send-message-form";
+import { MessageForm } from "@/features/chat/message-form/ui";
 
-import { useAuth, useSockets, useStoreSelector } from "@/shared/lib/hooks";
+import {
+	useAuth,
+	useSockets,
+	useStoreDispatch,
+	useStoreSelector
+} from "@/shared/lib/hooks";
+import { chatActions } from "@/shared/models/chats";
 import { PageLoader } from "@/shared/ui";
-
-import { Header } from "../Header/Header";
 
 import styles from "./Chat.module.scss";
 
 const Chat: React.FC = () => {
-	const params = useParams<{ chatOrUserId: string }>();
+	const dispatch = useStoreDispatch();
 
-	const { chatSocket } = useSockets();
-	const { activeChat } = useStoreSelector(state => state.chats);
+	const params = useParams<{ polymorphicId: string }>();
+
 	const { currentUser } = useAuth();
+	const { chatSocket } = useSockets();
+	const currentChat = useStoreSelector(state => state.chats.currentChat.data);
 
 	useEffect(() => {
-		if (!params.chatOrUserId) throw new Error("No params for /chat/:id specified");
+		dispatch(chatActions.clearCurrentChat());
+
+		if (!params.polymorphicId) throw new Error("No param for /chat/:polymorphicId");
 		if (!chatSocket?.connected) return;
 
-		chatSocket?.emit("get-chat", {
-			chatId: Number(params.chatOrUserId),
-			userId: Number(params.chatOrUserId)
+		chatSocket.emit("get-chat", {
+			polymorphicId: params.polymorphicId
 		});
-	}, [params, chatSocket?.connected]);
 
-	if (!activeChat) return <PageLoader />;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [params, chatSocket]);
+
+	if (!currentChat || !currentUser) {
+		return (
+			<div className={cn(styles.page, styles.page_loading)}>
+				<div className={styles.page__background}></div>
+				<PageLoader />
+			</div>
+		);
+	}
 
 	return (
 		<div className={styles.page}>
-			<div className={styles["page__background"]} />
+			<div className={styles.page__background}></div>
 
-			<Header
+			<ChatHeader
 				className={styles.page__header}
-				chat={activeChat}
+				chat={currentChat}
 			/>
 
-			<MessagesList
+			<MessageList
+				chat={currentChat}
+				currentUserId={currentUser.id}
 				className={styles.page__messages}
-				messages={activeChat.messages}
-				userId={currentUser!.id}
 			/>
 
-			<SendMessageForm className={styles.page__form} />
+			<MessageForm className={styles.page__form} />
 		</div>
 	);
 };

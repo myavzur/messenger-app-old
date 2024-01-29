@@ -2,12 +2,10 @@ import { Socket } from "socket.io-client";
 
 import {
 	IChatClientToServerEvents,
-	IChatServerToClientEvents
-} from "@/shared/interfaces/socket-io-chat.interface";
-import {
+	IChatServerToClientEvents,
 	IPresenceClientToServerEvents,
 	IPresenceServerToClientEvents
-} from "@/shared/interfaces/socket-io-presence.interface";
+} from "@/shared/interfaces";
 
 export interface ISocketsContext {
 	presenceSocket: Socket<

@@ -1,11 +1,11 @@
 import cn from "classnames";
-import React, { forwardRef } from "react";
+import React, { Children, forwardRef } from "react";
+
+import styles from "@/shared/styles/Field.module.scss";
 
 import { IFieldProps } from "./Field.interface";
 
-import styles from "./Field.module.scss";
-
-const Field = forwardRef<HTMLInputElement, IFieldProps>((props, ref) => {
+export const Field = forwardRef<HTMLInputElement, IFieldProps>((props, ref) => {
 	const { isInvalid, className, type, children, ...inputProps } = props;
 
 	return (
@@ -13,7 +13,8 @@ const Field = forwardRef<HTMLInputElement, IFieldProps>((props, ref) => {
 			className={cn(
 				styles.field,
 				{
-					[styles.field_invalid]: isInvalid
+					[styles.field_invalid]: isInvalid,
+					[styles["field_prevent-pr"]]: Children.count(children) > 0
 				},
 				className
 			)}
@@ -30,5 +31,3 @@ const Field = forwardRef<HTMLInputElement, IFieldProps>((props, ref) => {
 });
 
 Field.displayName = "Field";
-
-export default Field;

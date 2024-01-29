@@ -1,13 +1,14 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import { IChat, ICreateGroupChatBody } from "../interfaces/chat.interface";
+import { IChat, ICreateGroupChatBody } from "@/entities/chat/interfaces";
 import {
 	IAuthResponse,
 	ISignInBody,
 	ISignUpBody,
 	IUser
-} from "../interfaces/user.interface";
-import { getAccessToken, setAccessToken } from "../lib/helpers";
+} from "@/entities/user/interfaces";
+
+import { getAccessToken, setAccessToken } from "@/shared/lib/helpers";
 
 const API_SERVER_URL = import.meta.env.VITE_API_SERVER_URL;
 

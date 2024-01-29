@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 
-import { IMessage } from "@/shared/interfaces/message.interface";
+import { IMessage } from "@/entities/chat/interfaces";
 
 interface IMessagesBlock {
 	date: Date;

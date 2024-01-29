@@ -1,8 +1,7 @@
-export { useAuth } from "./useAuth";
-export { useClickOutside } from "./useClickOutside";
-export { useDebounce } from "./useDebounce";
-export { useSockets } from "./useSockets";
-export { useStoreDispatch } from "./useStoreDispatch";
-export { useStoreSelector } from "./useStoreSelector";
-export { useScrollButton } from "./useScrollButton";
-export { useTheme } from "./useTheme";
+export * from "./use-auth";
+export * from "./use-click-outside";
+export * from "./use-debounce";
+export * from "./use-scroll-button";
+export * from "./use-sockets";
+export * from "./use-store-dispatch";
+export * from "./use-store-selector";

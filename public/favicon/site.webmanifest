@@ -1,6 +1,6 @@
 {
-    "name": "VideosHub",
-    "short_name": "VideosHub",
+    "name": "Messenger",
+    "short_name": "Messenger",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",
@@ -13,7 +13,7 @@
             "type": "image/png"
         }
     ],
-    "theme_color": "#131319",
-    "background_color": "#131319",
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
     "display": "standalone"
 }

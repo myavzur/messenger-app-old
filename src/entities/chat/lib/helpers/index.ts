@@ -1,3 +1,5 @@
-export { formatUpdatedDate } from "./format-updated-date";
-export { serializeChat } from "./serialize-chat";
-export { separateMessagesByDate } from "./separate-messages-by-date";
+export * from "./copy-to-clipboard";
+export * from "./format-updated-date";
+export * from "./get-last-message-text";
+export * from "./serialize-chat";
+export * from "./separate-messages-by-date";

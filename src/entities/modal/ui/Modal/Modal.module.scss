@@ -1,7 +1,7 @@
 .modal {
   @apply fixed top-0 left-0 w-screen h-screen flex items-center justify-center;
   background-color: rgba(0 0 0 / 0.4);
-  z-index: var(--z-modal);
+  z-index: var(--z-modal-element);
 
   &__dialog {
     @apply rounded-md;

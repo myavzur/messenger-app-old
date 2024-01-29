@@ -5,6 +5,10 @@
 	color: var(--color-accent-1000);
 	border: 1px solid transparent;
 
+	&:hover,
+	&:active { background-color: var(--color-accent-glassed-1000); }
+	&:focus {	border: 1px solid var(--color-accent-1000); }
+
 	&__icon {
 		@apply flex items-center justify-center;
 		color: inherit;
@@ -14,34 +18,34 @@
 		color: var(--color-accent-1000);
 	}
 
-	&__icon + &__text {
-		@apply ml-1.5;
-	}
+	&__icon + &__text {	@apply ml-1.5; }
 
-	&:hover,
-	&:active {
+	&__ripple {
+		@apply absolute rounded-full transition-opacity;
 		background-color: var(--color-accent-glassed-1000);
+		transform: scale(0);
+		opacity: 1;
+		animation: scaleAndDisappear 0.6s linear;
 	}
 
-	&:focus {
-		border: 1px solid var(--color-accent-glassed-1000);
-	}
-
+	// * Mods
 	&_increased-px {
 		@apply px-3.5;
 	}
 
-	&_fully-rounded {
-		@apply rounded-full;
-	}
-}
+	&_full-rounded { @apply rounded-full;	}
+	&_full-width { @apply w-full;	}
 
-.ripple {
-	@apply absolute rounded-full transition-opacity;
-	background-color: var(--color-accent-glassed-1000);
-	transform: scale(0);
-	opacity: 1;
-	animation: scaleAndDisappear 0.6s linear;
+	&_color-dangerous {
+		color: var(--color-util-error);
+
+		.button__icon { color: var(--color-util-error);	}
+		.button__ripple { background-color: var(--color-util-error-glassed); }
+
+		&:hover,
+		&:active { background-color: var(--color-util-error-glassed); }
+		&:focus { border: 1px solid var(--color-util-error); }
+	}
 }
 
 @keyframes scaleAndDisappear {

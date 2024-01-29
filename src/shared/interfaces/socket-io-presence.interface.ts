@@ -1,16 +1,19 @@
-import { IChat } from "./chat.interface";
-import { IUser, UserStatus } from "./user.interface";
+import { IChat } from "@/entities/chat/interfaces";
+import { UserStatus } from "@/entities/user/interfaces";
 
-// * Server
-export interface IPresenceServerToClientEvents {
-	"new-status-in-local-chat": (data: {
-		userId: IUser["id"];
-		chatId: IChat["id"];
-		status: UserStatus;
-	}) => void;
+interface INewStatusInLocalChatData {
+	chatId: IChat["id"];
+	status: UserStatus;
 }
 
-// * Client
+export interface IPresenceServerToClientEvents {
+	"new-status-in-local-chat": (data: INewStatusInLocalChatData) => void;
+}
+
+interface IChangeStatusParams {
+	status: UserStatus;
+}
+
 export interface IPresenceClientToServerEvents {
-	"change-status": (params: { status: UserStatus }) => void;
+	"change-status": (params: IChangeStatusParams) => void;
 }

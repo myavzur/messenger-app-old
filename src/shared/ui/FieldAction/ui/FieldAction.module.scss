@@ -1,0 +1,15 @@
+.action {
+	@apply p-1.5 mx-2 transition-colors;
+
+	outline: none;
+	cursor: pointer;
+	border-radius: 0.25rem;
+	min-width: 2rem;
+	width: 2rem;
+	height: 2rem;
+
+	&:hover,
+	&:focus {
+		background-color: var(--color-primary-600) !important;
+	}
+}

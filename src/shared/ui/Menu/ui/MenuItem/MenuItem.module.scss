@@ -1,0 +1,36 @@
+.item {
+	@apply px-4 py-2 cursor-pointer transition-colors rounded-md flex items-center w-full;
+
+	&__icon {
+		@apply mr-4;
+		color: var(--color-primary-400);
+		min-width: 20px;
+		width: 20px;
+		height: 20px;
+	}
+
+	&__label {
+		@apply font-bold text-base;
+		color: var(--color-secondary-1000);
+	}
+
+	&:hover,
+	&:focus,
+	&:active {
+		background-color: var(--color-primary-900);
+	}
+
+	& + & {
+		@apply mt-1;
+	}
+
+	// * Mods
+	&_dangerous {
+		.action {
+			&__icon,
+			&__label {
+				color: var(--color-util-error);
+			}
+		}
+	}
+}

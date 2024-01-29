@@ -1,8 +1,5 @@
-.page {
-}
-
 .loader {
-	@apply absolute left-0 top-0 flex items-center justify-center w-screen h-screen;
+	@apply flex items-center justify-center;
 
   &__circle {
 		@apply absolute rounded-full;
@@ -14,6 +11,10 @@
     border-bottom-color: var(--color-accent-1000);
     animation: spin  1s infinite;
 	}
+
+  &_fullscreen {
+    @apply w-screen h-screen absolute top-0 left-0;
+  }
 }
 
 @keyframes spin {

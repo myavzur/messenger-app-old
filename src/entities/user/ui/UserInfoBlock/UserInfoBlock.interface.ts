@@ -1,4 +1,4 @@
-import { IUser } from "@/shared/interfaces/user.interface";
+import { IUser } from "@/entities/user/interfaces";
 
 export interface IUserInfoBlockProps {
 	user: IUser;

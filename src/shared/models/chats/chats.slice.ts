@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import { IChat } from "@/shared/interfaces/chat.interface";
+import { ChatType, IChat, IMessage } from "@/entities/chat/interfaces";
 
 import {
 	IAddMessageAction,
@@ -9,104 +9,129 @@ import {
 	IUpdateLocalChatPresenceAction
 } from "./chats.interface";
 
-const initialState: IChatsState = {
-	activeChat: null,
-	chats: []
+const defaultCurrentChat: IChatsState["currentChat"] = {
+	data: null,
+	embeddedMessage: null
 };
 
-const appSettings = createSlice({
+const initialState: IChatsState = {
+	currentChat: {
+		data: null,
+		embeddedMessage: null
+	},
+	chatList: []
+};
+
+const chatSlice = createSlice({
 	name: "chats",
 	initialState,
 	reducers: {
-		clearChats: state => {
-			state.chats = [];
-			state.activeChat = null;
+		clearCurrentChat: state => {
+			state.currentChat = defaultCurrentChat;
 		},
-		setActiveChat: (state, action: PayloadAction<IChat>) => {
-			state.activeChat = action.payload;
+		setCurrentChat: (state, action: PayloadAction<IChat>) => {
+			state.currentChat.data = action.payload;
+		},
+		clearCurrentChatEmbeddedMessage: state => {
+			state.currentChat.embeddedMessage = null;
+		},
+		setCurrentChatEmbeddedMessage: (state, action: PayloadAction<IMessage>) => {
+			state.currentChat.embeddedMessage = action.payload;
+		},
+		clearChats: state => {
+			state.chatList = [];
+			state.currentChat = defaultCurrentChat;
 		},
 		setChats: (state, action: PayloadAction<IChat[]>) => {
-			state.chats = action.payload;
+			state.chatList = action.payload;
 		},
 		addChat: (state, action: PayloadAction<IChat>) => {
-			state.chats.unshift(action.payload);
+			state.chatList.unshift(action.payload);
 
-			if (state.activeChat?.id === action.payload.id) {
-				state.activeChat = action.payload;
+			const currentChat = state.currentChat.data;
+			const shouldUpdateCurrentChat = currentChat?.id === action.payload.id;
+
+			if (shouldUpdateCurrentChat) {
+				state.currentChat.data = action.payload;
 			}
 		},
 		updateLocalChatPresence: (state, action: IUpdateLocalChatPresenceAction) => {
-			state.chats = state.chats.map(chat => {
-				if (chat.is_group || chat.id !== action.payload.chatId) return chat;
+			const { chatId, status } = action.payload;
 
-				chat.users[0].status = action.payload.status;
+			state.chatList = state.chatList.map(chat => {
+				const isLocalChat = chat.type === ChatType.LOCAL;
+				const shouldUpdateChat = chat.id === chatId;
+				if (!isLocalChat || !shouldUpdateChat) return chat;
+
+				chat.user_status = status;
 				return chat;
 			});
 
-			if (
-				state.activeChat?.is_group ||
-				state.activeChat?.id === action.payload.chatId
-			) {
-				state.activeChat.users[0].status = action.payload.status;
+			const currentChat = state.currentChat.data;
+			const isLocalCurrentChat = currentChat?.type === ChatType.LOCAL;
+			const shouldUpdateCurrentChat = currentChat?.id === chatId;
+
+			if (state.currentChat.data && isLocalCurrentChat && shouldUpdateCurrentChat) {
+				state.currentChat.data.user_status = status;
 			}
 		},
 		updateChat: (state, action: IUpdateChatAction) => {
-			// Update chat from chat list.
-			const idx = state.chats.findIndex(chat => chat.id === action.payload.chatId);
-			const updatedChat = { ...state.chats[idx], ...action.payload.updatedData };
+			const { chatId, newData } = action.payload;
 
-			if (idx !== -1) {
+			const chatIdx = state.chatList.findIndex(chat => chat.id === chatId);
+			const updatedChat = { ...state.chatList[chatIdx], ...newData };
+
+			if (chatIdx !== -1) {
 				// Replace chat forwards.
-				state.chats.splice(idx, 1);
-				state.chats.unshift(updatedChat);
+				state.chatList.splice(chatIdx, 1);
+				state.chatList.unshift(updatedChat);
 			}
 
-			// Update active chat if selected.
-			if (state.activeChat?.id === action.payload.chatId) {
-				state.activeChat = updatedChat;
+			const currentChat = state.currentChat.data;
+			const shouldUpdateCurrentChat = currentChat?.id === chatId;
+
+			if (shouldUpdateCurrentChat) {
+				state.currentChat.data = updatedChat;
 			}
 		},
 		updateChatCarefully: (state, action: IUpdateChatAction) => {
-			const idx = state.chats.findIndex(chat => chat.id === action.payload.chatId);
-			const updatedChat = { ...state.chats[idx], ...action.payload.updatedData };
+			const { chatId, newData } = action.payload;
 
-			if (idx !== -1) {
-				state.chats[idx] = updatedChat;
+			const chatIdx = state.chatList.findIndex(chat => chat.id === chatId);
+			const updatedChat = { ...state.chatList[chatIdx], ...newData };
+
+			if (chatIdx !== -1) {
+				state.chatList[chatIdx] = updatedChat;
 			}
 
-			if (state.activeChat?.id === action.payload.chatId) {
-				state.activeChat = updatedChat;
+			const currentChat = state.currentChat.data;
+			const shouldUpdateCurrentChat = currentChat?.id === chatId;
+
+			if (shouldUpdateCurrentChat) {
+				state.currentChat.data = updatedChat;
 			}
 		},
 		addMessage: (state, action: IAddMessageAction) => {
-			// Update chat from chat list.
-			const idx = state.chats.findIndex(chat => chat.id === action.payload.chatId);
-			const chat = state.chats[idx];
+			const { chatId, message } = action.payload;
 
-			if (idx !== -1) {
-				chat.last_message = action.payload.message;
+			const chatIdx = state.chatList.findIndex(chat => chat.id === chatId);
+			const chat = state.chatList[chatIdx];
+
+			if (chatIdx !== -1) {
+				chat.last_message = message;
 
 				// Replace chat forwards.
-				state.chats.splice(idx, 1);
-				state.chats.unshift(chat);
+				state.chatList.splice(chatIdx, 1);
+				state.chatList.unshift(chat);
 			}
+			const currentChat = state.currentChat.data;
+			const shouldUpdateCurrentChat = currentChat?.id === chatId;
 
-			if (state.activeChat?.id === action.payload.chatId) {
-				state.activeChat.messages.unshift(action.payload.message);
+			if (state.currentChat.data && shouldUpdateCurrentChat) {
+				state.currentChat.data.messages.unshift(message);
 			}
 		}
 	}
 });
 
-export const {
-	clearChats,
-	setActiveChat,
-	setChats,
-	addChat,
-	updateLocalChatPresence,
-	updateChat,
-	updateChatCarefully,
-	addMessage
-} = appSettings.actions;
-
-export const { reducer } = appSettings;
+export const { reducer: chatReducer, actions: chatActions } = chatSlice;

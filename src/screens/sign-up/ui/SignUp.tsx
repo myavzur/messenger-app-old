@@ -1,10 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { SignUpForm } from "@/features/sign-up-form";
+import { SignUpForm } from "@/features/user/sign-up-form/ui";
+
+import { ISignUpBody } from "@/entities/user/interfaces";
 
 import { baseApi } from "@/shared/api";
-import { ISignUpBody } from "@/shared/interfaces/user.interface";
 import { useSockets } from "@/shared/lib/hooks";
 
 const SignUp: React.FC = () => {

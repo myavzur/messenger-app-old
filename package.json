@@ -9,10 +9,10 @@
     "format": "prettier --write \"src/**/*.{ts,tsx}\"",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "fix": "npm run format && npm run lint --fix",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepare": "husky install"
   },
   "dependencies": {
-    "@ant-design/icons": "^5.0.1",
     "@react-spring/web": "^9.7.3",
     "@reduxjs/toolkit": "^1.9.5",
     "classnames": "^2.3.2",
@@ -24,7 +24,8 @@
     "react-router-dom": "^6.10.0",
     "react-use-measure": "^2.1.1",
     "sass": "^1.62.1",
-    "socket.io-client": "^4.6.1"
+    "socket.io-client": "^4.6.1",
+    "use-sound": "^4.0.1"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.1.1",
@@ -40,10 +41,15 @@
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.3.4",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.2.2",
     "postcss": "^8.4.26",
     "prettier": "^2.8.8",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.0.2",
     "vite": "^4.3.2"
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": ["npm run fix"]
   }
 }

@@ -1,47 +1,27 @@
-import { IChat } from "@/shared/interfaces/chat.interface";
-import { IUser, UserStatus } from "@/shared/interfaces/user.interface";
-
-type SerializedChat = IChat & { title: string };
+import { ChatType, IChat } from "@/entities/chat/interfaces";
+import { IUser } from "@/entities/user/interfaces";
 
 interface ISerializeChatParams {
 	currentUserId: IUser["id"];
 	chat: IChat;
 }
 
-interface ISerializeChatResult {
-	serializedChat: SerializedChat;
-	userStatus?: UserStatus;
-}
-
 export const serializeChat = ({
 	currentUserId,
 	chat
-}: ISerializeChatParams): ISerializeChatResult => {
-	if (chat.is_group) {
-		return {
-			serializedChat: {
-				...chat,
-				title: chat.title || "WARNING: Group chat without title!"
-			}
-		};
-	}
+}: ISerializeChatParams): IChat => {
+	if (chat.type === ChatType.GROUP) return chat;
 
-	const oppositeUser = chat.users.find(user => user.id !== currentUserId);
-	if (!oppositeUser) {
-		return {
-			serializedChat: {
-				...chat,
-				title: chat.title || "WARNING: Group chat without title!"
-			}
-		};
-	}
+	const withUser = chat.participants.find(
+		participant => participant.user.id !== currentUserId
+	)?.user;
+
+	if (!withUser) return chat;
 
 	return {
-		serializedChat: {
-			...chat,
-			title: oppositeUser.account_name,
-			image_url: oppositeUser.avatar_url
-		},
-		userStatus: oppositeUser.status
+		...chat,
+		title: withUser.account_name,
+		image_url: withUser.avatar_url,
+		user_last_seen_at: withUser.last_seen_at
 	};
 };

@@ -9,7 +9,7 @@ import styles from "./Modal.module.scss";
 
 const MODALS_CONTAINER_ID = "modals-container";
 
-const Modal: React.FC<IModalProps> = ({
+export const Modal: React.FC<IModalProps> = ({
 	onClose,
 	headerElement,
 	children,
@@ -19,7 +19,6 @@ const Modal: React.FC<IModalProps> = ({
 	const [modalRef] = useClickOutside({ onUnmount: onClose });
 
 	useLayoutEffect(() => {
-		console.log("Layout effect");
 		let modalsContainerEl = document.getElementById(MODALS_CONTAINER_ID);
 
 		// If container exists - use it
@@ -36,15 +35,12 @@ const Modal: React.FC<IModalProps> = ({
 	}, []);
 
 	useEffect(() => {
-		console.log("Effect");
 		document.body.style.overflow = "hidden";
 
 		return () => {
 			document.body.style.overflow = "";
 		};
 	}, []);
-
-	console.log("Render");
 
 	const modalContent = (
 		<div className={styles.modal}>
@@ -67,5 +63,3 @@ const Modal: React.FC<IModalProps> = ({
 
 	return ReactDOM.createPortal(modalContent, document.body);
 };
-
-export default Modal;

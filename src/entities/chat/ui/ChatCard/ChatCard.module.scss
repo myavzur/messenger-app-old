@@ -11,6 +11,7 @@
 
 		&-title {
 			@apply text-sm font-bold;
+			@include line-clamp(1);
 		}
 
 		&-updated {
@@ -37,5 +38,9 @@
 		.card__bottom-text {
 			color: #FFF;
 		}
+	}
+
+	&:hover:not(.card_selected) {
+		background-color: var(--color-primary-600);
 	}
 }

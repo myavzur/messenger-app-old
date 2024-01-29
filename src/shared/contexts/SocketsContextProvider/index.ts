@@ -1,2 +1,2 @@
-export { SocketsContextProvider } from "./SocketsContextProvider";
-export type { ISocketsContext } from "./SocketsContext.interface";
+export * from "./SocketsContextProvider";
+export * from "./SocketsContext.interface";

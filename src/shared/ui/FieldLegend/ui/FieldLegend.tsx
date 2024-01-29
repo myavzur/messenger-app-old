@@ -5,7 +5,7 @@ import { IFieldLegendProps } from "./FieldLegend.interface";
 
 import styles from "./FieldLegend.module.scss";
 
-const FieldLegend: React.FC<IFieldLegendProps> = ({
+export const FieldLegend: React.FC<IFieldLegendProps> = ({
 	legend,
 	description,
 	withAsterisk,
@@ -25,5 +25,3 @@ const FieldLegend: React.FC<IFieldLegendProps> = ({
 		</label>
 	);
 };
-
-export default FieldLegend;

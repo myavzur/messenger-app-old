@@ -13,6 +13,8 @@ export const InfoBlock: React.FC<IInfoBlockProps> = ({
 	status,
 	onClick
 }) => {
+	const subtitleText = typeof subtitle === "function" ? subtitle() : subtitle;
+
 	return (
 		<div
 			className={styles.info}
@@ -29,7 +31,7 @@ export const InfoBlock: React.FC<IInfoBlockProps> = ({
 
 			<div className={styles.info__right}>
 				<p className={styles["info__account-name"]}>{title}</p>
-				<p className={styles["info__last-seen"]}>{subtitle}</p>
+				<p className={styles["info__last-seen"]}>{subtitleText}</p>
 			</div>
 		</div>
 	);
