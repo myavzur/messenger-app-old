@@ -16,7 +16,7 @@ export const Modal: React.FC<IModalProps> = ({
 	footerElement
 }) => {
 	const modalsContainerElRef = useRef<HTMLElement>();
-	const [modalRef] = useClickOutside({ onUnmount: onClose });
+	const [modalElementRef] = useClickOutside<HTMLDivElement>({ onUnmount: onClose });
 
 	useLayoutEffect(() => {
 		let modalsContainerEl = document.getElementById(MODALS_CONTAINER_ID);
@@ -46,7 +46,7 @@ export const Modal: React.FC<IModalProps> = ({
 		<div className={styles.modal}>
 			<div
 				className={styles.modal__dialog}
-				ref={modalRef}
+				ref={modalElementRef}
 			>
 				{headerElement && (
 					<div className={styles.modal__header}>{headerElement}</div>

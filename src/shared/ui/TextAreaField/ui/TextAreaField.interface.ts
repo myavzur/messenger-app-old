@@ -6,6 +6,6 @@ export interface ITextAreaFieldProps
 	maxGrowHeight?: number;
 	maxTextLength?: number;
 	preventBorderTop?: boolean;
-	shouldHandleEnterKey?: boolean;
+	onEnterKeyPress?: () => void;
 	children?: React.ReactNode;
 }

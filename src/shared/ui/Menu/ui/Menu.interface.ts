@@ -1,6 +1,6 @@
-import React from "react";
+import React, { HTMLAttributes } from "react";
 
-export interface IMenuProps {
+export interface IMenuProps extends HTMLAttributes<HTMLDivElement> {
 	className?: string;
 	children: React.ReactNode;
 }

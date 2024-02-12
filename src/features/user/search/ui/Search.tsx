@@ -23,7 +23,9 @@ export const Search: React.FC<ISearchProps> = ({ children }) => {
 			>
 				<FieldAction
 					iconElement={<Icon name="search-eye" />}
-					onClick={() => alert("Search")}
+					wrapperProps={{
+						onClick: () => alert("Search")
+					}}
 				/>
 			</Field>
 

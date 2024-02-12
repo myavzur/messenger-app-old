@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+
+import { FieldAttachAction } from "@/features/chat/field-attach-action/ui";
 
 import { ChatMessageEmbedded } from "@/entities/chat/ui";
 
@@ -10,7 +12,7 @@ import {
 	useStoreSelector
 } from "@/shared/lib/hooks";
 import { chatActions } from "@/shared/models/chats/chats.slice.ts";
-import { FieldAction, Icon, TextAreaField } from "@/shared/ui";
+import { Icon, TextAreaField } from "@/shared/ui";
 
 import { IMessageFormProps } from "./MessageForm.interface.ts";
 
@@ -26,6 +28,8 @@ export const MessageForm: React.FC<IMessageFormProps> = ({ className }) => {
 		state => state.chats.currentChat.embeddedMessage
 	);
 
+	const [isSendLoading, setSendLoading] = useState(false);
+
 	const {
 		register,
 		handleSubmit,
@@ -38,19 +42,30 @@ export const MessageForm: React.FC<IMessageFormProps> = ({ className }) => {
 	};
 
 	const handleSendMessage: SubmitHandler<{ text: string }> = message => {
-		if (!chatSocket?.connected || !isValid || !currentChat || !currentUser) return;
+		if (!chatSocket?.connected || !currentUser || !currentChat) return;
+		if (!isValid) return;
+		if (isSendLoading) return;
 
+		// Changing isSendLoading before reset to prevent placeholder flicks.
+		setSendLoading(true);
 		reset();
 		clearEmbeddedMessage();
 
-		chatSocket?.emit("send-message", {
-			chatId: currentChat.id,
-			userId: currentChat.participants.find(
-				participant => participant.user.id !== currentUser.id
-			)?.user.id,
-			text: message.text,
-			replyForId: embeddedMessage?.id
-		});
+		chatSocket?.emit(
+			"send-message",
+			{
+				chatId: currentChat.id,
+				userId: currentChat.participants.find(
+					participant => participant.user.id !== currentUser.id
+				)?.user.id,
+				text: message.text,
+				replyForId: embeddedMessage?.id
+			},
+			() => {
+				console.log("%c[MessageForm/send-message]: Success.", "color: green");
+				setSendLoading(false);
+			}
+		);
 
 		reset();
 	};
@@ -78,20 +93,18 @@ export const MessageForm: React.FC<IMessageFormProps> = ({ className }) => {
 				</div>
 			)}
 
-			<form onSubmit={handleSubmit(handleSendMessage)}>
+			<form className={styles.form}>
 				<TextAreaField
-					placeholder="Message"
+					placeholder={isSendLoading ? "Sending message..." : "Message"}
 					{...register("text", {
 						minLength: 1,
 						required: true
 					})}
 					maxGrowHeight={420}
 					preventBorderTop={Boolean(embeddedMessage)}
+					onEnterKeyPress={handleSubmit(handleSendMessage)}
 				>
-					<FieldAction
-						iconElement={<Icon name="attach" />}
-						onMouseOver={() => alert("Attach")}
-					/>
+					<FieldAttachAction sex={true} />
 				</TextAreaField>
 			</form>
 		</div>

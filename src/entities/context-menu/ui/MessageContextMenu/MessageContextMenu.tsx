@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 
+import { ChatParticipantRole, ChatType } from "@/entities/chat/interfaces";
 import { copyToClipboard } from "@/entities/chat/lib/helpers";
 
-import { useStoreDispatch } from "@/shared/lib/hooks";
+import { useAuth, useSockets, useStoreDispatch } from "@/shared/lib/hooks";
 import { chatActions } from "@/shared/models/chats";
 import { Icon, MenuItem } from "@/shared/ui";
 
@@ -11,11 +12,25 @@ import { ContextMenu } from "../ContextMenu";
 import { IMessageContextMenuProps } from "./MessageContextMenu.interface";
 
 export const MessageContextMenu: React.FC<IMessageContextMenuProps> = ({
+	chat,
 	message,
 	...contextMenuProps
 }) => {
 	const dispatch = useStoreDispatch();
+	const { chatSocket } = useSockets();
+	const { currentUser } = useAuth();
 	const [isCopied, setCopied] = useState(false);
+
+	const currentUserChatRole = chat.participants.find(
+		participant => participant.user.id === currentUser?.id
+	)?.role;
+	const isOwn = currentUser?.id === message.user.id;
+
+	const canEdit = isOwn;
+	const canDelete =
+		(chat.type === ChatType.GROUP &&
+			currentUserChatRole !== ChatParticipantRole.PARTICIPANT) ||
+		isOwn;
 
 	const handleReply = () => {
 		dispatch(chatActions.setCurrentChatEmbeddedMessage(message));
@@ -36,12 +51,20 @@ export const MessageContextMenu: React.FC<IMessageContextMenuProps> = ({
 	};
 
 	const handlePin = () => {
+		if (!chatSocket?.connected) return;
+
 		alert(`Pin: ${message.text}`);
 		contextMenuProps.onClose();
 	};
 
 	const handleDelete = () => {
-		alert(`Delete: ${message.text}`);
+		if (!chatSocket?.connected) return;
+
+		chatSocket?.emit("delete-messages", {
+			chatId: chat.id,
+			messageIds: [message.id]
+		});
+
 		contextMenuProps.onClose();
 	};
 
@@ -52,14 +75,16 @@ export const MessageContextMenu: React.FC<IMessageContextMenuProps> = ({
 				label="Reply"
 				onClick={handleReply}
 			/>
-			<MenuItem
-				iconElement={<Icon name="edit" />}
-				label="Edit"
-				onClick={handleEdit}
-			/>
+			{canEdit && (
+				<MenuItem
+					iconElement={<Icon name="edit" />}
+					label="Edit"
+					onClick={handleEdit}
+				/>
+			)}
 			<MenuItem
 				iconElement={<Icon name={isCopied ? "check" : "copy"} />}
-				label={isCopied ? "Saved To Clipboard" : "Copy Text"}
+				label="Copy Text"
 				onClick={handleCopyText}
 			/>
 			<MenuItem
@@ -67,12 +92,14 @@ export const MessageContextMenu: React.FC<IMessageContextMenuProps> = ({
 				label="Pin"
 				onClick={handlePin}
 			/>
-			<MenuItem
-				isDangerous={true}
-				iconElement={<Icon name="trash-bin" />}
-				label="Delete"
-				onClick={handleDelete}
-			/>
+			{canDelete && (
+				<MenuItem
+					isDangerous={true}
+					iconElement={<Icon name="trash-bin" />}
+					label="Delete"
+					onClick={handleDelete}
+				/>
+			)}
 		</ContextMenu>
 	);
 };

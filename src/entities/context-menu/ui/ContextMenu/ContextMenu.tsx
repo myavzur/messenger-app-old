@@ -38,6 +38,7 @@ export const ContextMenu: React.FC<IContextMenuProps> = ({
 		if (freeFromRightPx <= 0) transform += "translateX(-100%) "; // ContextMenu to the left of the cursor.
 		if (freeFromBottomPx <= 0) transform += "translateY(-100%)"; // ContextMenu above the cursor.
 
+		contextMenuEl.style.position = "absolute";
 		contextMenuEl.style.left = `${mouseX}px`;
 		contextMenuEl.style.top = `${mouseY + containerEl.scrollTop}px`;
 		contextMenuEl.style.transform = transform;

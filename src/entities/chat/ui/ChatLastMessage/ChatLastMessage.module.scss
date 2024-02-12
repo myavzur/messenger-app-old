@@ -1,0 +1,25 @@
+@import '@/app/styles/_mixins.scss';
+
+.last {
+	@apply flex items-center text-sm;
+
+	&__author {
+		color: var(--color-accent-1000);
+	}
+	&__colon {
+		margin-right: 0.15rem;
+		color: var(--color-primary-200);
+	}
+	&__text {
+		color: var(--color-primary-200);
+		@include line-clamp(1);
+	}
+
+	&_selected {
+		.last__author,
+		.last__colon,
+		.last__text {
+			color: #FFF;
+		}
+	}
+}

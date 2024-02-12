@@ -9,6 +9,7 @@ export const Menu = forwardRef<HTMLDivElement, IMenuProps>((props, ref) => {
 
 	return (
 		<div
+			{...props}
 			ref={ref}
 			className={styles.menu}
 		>

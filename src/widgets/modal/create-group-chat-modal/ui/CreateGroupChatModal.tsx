@@ -4,10 +4,10 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { SelectUsersField } from "@/features/user/select-users-field/ui";
 import { ISelectUserOption } from "@/features/user/select-users-field/ui";
 
-import { ICreateGroupChatBody } from "@/entities/chat/interfaces";
 import { Modal, ModalHeader } from "@/entities/modal/ui";
 
 import { baseApi } from "@/shared/api";
+import { ICreateGroupChatParams } from "@/shared/interfaces/socket.io";
 import { useAuth, useSockets } from "@/shared/lib/hooks";
 import { Button, ButtonGroup, Field, FieldLegend } from "@/shared/ui";
 
@@ -25,16 +25,16 @@ export const CreateGroupChatModal: React.FC<ICreateGroupChatModalProps> = ({
 		isLoading: isUsersLoading,
 		isFetching: isUsersFetching
 	} = baseApi.useGetUsersBasedOnLocalChatsQuery();
-	const [createGroupChat, status] = baseApi.useCreateGroupChatMutation();
 
 	const [participants, setParticipants] = useState<ISelectUserOption[]>([]);
+	const [isCreationLoading, setCreationLoading] = useState(false);
 
 	const {
 		register,
 		handleSubmit,
 		formState: { isValid, errors, touchedFields },
 		setValue
-	} = useForm<ICreateGroupChatBody>({ mode: "onChange" });
+	} = useForm<ICreateGroupChatParams>({ mode: "onChange" });
 
 	const userOptions = users?.map(user => {
 		return {
@@ -46,22 +46,25 @@ export const CreateGroupChatModal: React.FC<ICreateGroupChatModalProps> = ({
 
 	const titleError = errors.title;
 
-	const handleCreateGroupChat: SubmitHandler<ICreateGroupChatBody> = data => {
+	const handleCreateGroupChat: SubmitHandler<ICreateGroupChatParams> = data => {
 		if (!isValid) return;
-		createGroupChat({
-			...data,
-			participantsIds: participants.map(participant => participant.value)
-		})
-			.unwrap()
-			.then(() => {
-				if (!chatSocket?.connected) return;
-				chatSocket?.emit("get-chats", {
-					page: 1,
-					limit: 30
-				});
 
+		setCreationLoading(true);
+		chatSocket?.emit(
+			"create-group-chat",
+			{
+				participantsIds: participants.map(participant => participant.value),
+				title: data.title
+			},
+			() => {
+				console.log(
+					"%c[CreateGroupChatModal/handleCreateGroupChat]: Success.",
+					"color: green"
+				);
+				setCreationLoading(false);
 				onClose();
-			});
+			}
+		);
 	};
 
 	useEffect(() => {
@@ -84,18 +87,13 @@ export const CreateGroupChatModal: React.FC<ICreateGroupChatModalProps> = ({
 			headerElement={<ModalHeader onClose={onClose}>New Group Chat</ModalHeader>}
 			footerElement={
 				<ButtonGroup>
-					<Button
-						onClick={onClose}
-						disabled={status.isLoading}
-					>
-						Cancel
-					</Button>
+					<Button onClick={onClose}>Cancel</Button>
 					<Button
 						form="chat-form"
 						type="submit"
-						disabled={status.isLoading}
+						disabled={isCreationLoading}
 					>
-						Create
+						{isCreationLoading ? "Creating..." : "Create"}
 					</Button>
 				</ButtonGroup>
 			}

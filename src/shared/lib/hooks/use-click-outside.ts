@@ -18,7 +18,7 @@ export const useClickOutside = <T extends HTMLElement>(
 	const ref = useRef<T>(null);
 
 	useEffect(() => {
-		const handleClickOutside = (event: MouseEvent) => {
+		const handleClickOutside = (event: MouseEvent | TouchEvent) => {
 			if (ref.current && !ref.current.contains(event.target as Node)) {
 				setVisible(false);
 
@@ -28,11 +28,13 @@ export const useClickOutside = <T extends HTMLElement>(
 			}
 		};
 
-		document.addEventListener("click", handleClickOutside, true);
+		document.addEventListener("mousedown", handleClickOutside, true);
+		document.addEventListener("touchstart", handleClickOutside, true);
 		document.addEventListener("contextmenu", handleClickOutside, true);
 
 		return () => {
-			document.removeEventListener("click", handleClickOutside, true);
+			document.removeEventListener("mousedown", handleClickOutside, true);
+			document.removeEventListener("touchstart", handleClickOutside, true);
 			document.removeEventListener("contextmenu", handleClickOutside, true);
 		};
 	}, [params]);

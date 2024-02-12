@@ -21,6 +21,11 @@ export type IAddMessageAction = PayloadAction<{
 	message: IMessage;
 }>;
 
+export type IDeleteMessagesAction = PayloadAction<{
+	chatId: IChat["id"];
+	messageIds: IMessage["id"][];
+}>;
+
 export type IUpdateLocalChatPresenceAction = PayloadAction<{
 	chatId: IChat["id"];
 	userId: IUser["id"];

@@ -5,7 +5,7 @@ import {
 	IChatServerToClientEvents,
 	IPresenceClientToServerEvents,
 	IPresenceServerToClientEvents
-} from "@/shared/interfaces";
+} from "@/shared/interfaces/socket.io";
 
 export interface ISocketsContext {
 	presenceSocket: Socket<

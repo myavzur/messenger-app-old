@@ -1,13 +1,11 @@
 import cn from "classnames";
 import React from "react";
 
-import {
-	formatUpdatedDate,
-	getLastMessageText,
-	serializeChat
-} from "@/entities/chat/lib/helpers";
+import { formatUpdatedDate, serializeChat } from "@/entities/chat/lib/helpers";
 
 import { Avatar } from "@/shared/ui";
+
+import { ChatLastMessage } from "../ChatLastMessage";
 
 import { IChatCardProps } from "./ChatCard.interface";
 
@@ -46,9 +44,11 @@ export const ChatCard: React.FC<IChatCardProps> = ({
 				</div>
 
 				<div className={styles.card__bottom}>
-					<p className={styles["card__bottom-text"]}>
-						{getLastMessageText(serializedChat, currentUserId)}
-					</p>
+					<ChatLastMessage
+						isSelected={isSelected}
+						chat={serializedChat}
+						currentUserId={currentUserId}
+					/>
 				</div>
 			</div>
 		</div>

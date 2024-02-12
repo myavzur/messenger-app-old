@@ -1,4 +1,4 @@
-import { UserStatus } from "@/shared/interfaces/user.interface";
+import { UserStatus } from "@/entities/user/interfaces";
 
 export interface IInfoBlockProps {
 	status?: UserStatus;

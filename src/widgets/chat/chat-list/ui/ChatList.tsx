@@ -3,11 +3,19 @@ import { NavLink } from "react-router-dom";
 
 import { ChatCard } from "@/entities/chat/ui";
 
-import { useAuth, useSockets, useStoreSelector } from "@/shared/lib/hooks";
+import { IPaginationBody } from "@/shared/interfaces/pagination.interface";
+import {
+	useAuth,
+	useSockets,
+	useStoreDispatch,
+	useStoreSelector
+} from "@/shared/lib/hooks";
+import { chatActions } from "@/shared/models/chats";
 
 import styles from "./ChatList.module.scss";
 
 export const ChatList: React.FC = () => {
+	const dispatch = useStoreDispatch();
 	const { chatSocket } = useSockets();
 	const { currentUser } = useAuth();
 	const chatList = useStoreSelector(state => state.chats.chatList);
@@ -15,10 +23,16 @@ export const ChatList: React.FC = () => {
 	useEffect(() => {
 		if (!chatSocket?.connected) return;
 
-		chatSocket?.emit("get-chats", {
+		const params: IPaginationBody = {
 			page: 1,
 			limit: 30
+		};
+
+		chatSocket?.emit("get-chats", params, data => {
+			dispatch(chatActions.setChats(data.chats));
 		});
+
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [chatSocket]);
 
 	if (!currentUser?.id) return "[ChatList]: Something went wrong!";

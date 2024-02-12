@@ -26,7 +26,8 @@
 
 		&__text {
 			@apply select-text text-base;
-			word-break: break-word;
+			white-space: pre-wrap;
+			font-family: inherit;
 		}
 
 		&__appendix {

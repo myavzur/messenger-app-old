@@ -5,6 +5,7 @@ import { ChatType, IChat, IMessage } from "@/entities/chat/interfaces";
 import {
 	IAddMessageAction,
 	IChatsState,
+	IDeleteMessagesAction,
 	IUpdateChatAction,
 	IUpdateLocalChatPresenceAction
 } from "./chats.interface";
@@ -130,6 +131,33 @@ const chatSlice = createSlice({
 			if (state.currentChat.data && shouldUpdateCurrentChat) {
 				state.currentChat.data.messages.unshift(message);
 			}
+		},
+		deleteMessages: (state, action: IDeleteMessagesAction) => {
+			const stateLength = state.currentChat.data?.messages.length;
+			console.time(`Deleting messages length: ${stateLength}`);
+			const { chatId, messageIds } = action.payload;
+
+			const currentChat = state.currentChat.data;
+			const shouldUpdateCurrentChat = currentChat?.id === chatId;
+
+			if (state.currentChat.data && shouldUpdateCurrentChat) {
+				// Delete reply from message if it's in messageIds.
+				const newMessages = currentChat.messages.map(message => {
+					if (!message.reply_for) return message;
+
+					if (messageIds.includes(message.reply_for.id)) {
+						message.reply_for = null;
+					}
+
+					return message;
+				});
+
+				// Delete messages if they're in messageIds.
+				state.currentChat.data.messages = newMessages.filter(
+					message => !messageIds.includes(message.id)
+				);
+			}
+			console.timeEnd(`Deleting messages length: ${stateLength}`);
 		}
 	}
 });

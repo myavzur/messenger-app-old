@@ -3,10 +3,6 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { io } from "socket.io-client";
 
-import { History } from "@/app/providers/AppRouter";
-
-import { ChatType } from "@/entities/chat/interfaces";
-
 import { getAccessToken, getSocketOptions } from "@/shared/lib/helpers";
 import { chatActions } from "@/shared/models/chats";
 
@@ -48,24 +44,8 @@ export const SocketsContextProvider: React.FC<ISocketsContextProviderProps> = ({
 		if (accessToken) {
 			const socket = io(chatServerUrl, getSocketOptions(accessToken));
 
-			socket.on("chats", data => {
-				dispatch(chatActions.setChats(data.chats));
-			});
-			socket.on("chat", chat => {
-				dispatch(chatActions.setCurrentChat(chat));
-
-				// Don't request chat history of temporary chat, because it's doesn't exist.
-				if (chat.type === ChatType.TEMP) return;
-
-				socket.emit("get-chat-history", {
-					chatId: chat.id,
-					page: 1,
-					limit: 25
-				});
-			});
-			socket.on("chat-created", chat => {
+			socket.on("new-chat", chat => {
 				dispatch(chatActions.addChat(chat));
-				History.navigate(`/chats/${chat.id}`);
 			});
 			socket.on("new-message", data => {
 				dispatch(
@@ -75,13 +55,11 @@ export const SocketsContextProvider: React.FC<ISocketsContextProviderProps> = ({
 					})
 				);
 			});
-			socket.on("chat-history", data => {
+			socket.on("gone-messages", goneMessages => {
 				dispatch(
-					chatActions.updateChatCarefully({
-						chatId: data.chat_id,
-						newData: {
-							messages: data.messages
-						}
+					chatActions.deleteMessages({
+						chatId: goneMessages.chat_id,
+						messageIds: goneMessages.message_ids
 					})
 				);
 			});

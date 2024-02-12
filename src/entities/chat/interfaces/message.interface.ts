@@ -7,7 +7,7 @@ export interface IMessage {
 	created_at: Date;
 	text: string;
 
-	reply_for?: IMessage;
+	reply_for?: IMessage | null;
 	user: IUser;
 	chat?: IChat;
 }

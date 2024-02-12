@@ -13,6 +13,7 @@ export const MenuItem: React.FC<IMenuItemProps> = ({
 }) => {
 	return (
 		<button
+			type="button"
 			key={label}
 			className={cn(styles.item, {
 				[styles.item_dangerous]: isDangerous

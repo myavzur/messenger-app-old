@@ -2,7 +2,7 @@
 	--size: 45px;
 	--font-size: 25px;
 
-	@apply relative flex items-center justify-center rounded-full;
+	@apply relative flex items-center justify-center rounded-full select-none;
 	min-width: var(--size);
 	width: var(--size);
 	height: var(--size);

@@ -17,7 +17,7 @@ module.exports = {
   env: { browser: true, es2020: true },
   ignorePatterns: [".eslintrc.cjs", "vite.config.ts"],
   rules: {
-    "prettier/prettier": "error",
+    "prettier/prettier": "warn",
     "@typescript-eslint/naming-convention": [
       "error",
       {
@@ -32,8 +32,8 @@ module.exports = {
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-explicit-any": "off",
-    "no-trailing-spaces": "error",
+    "no-trailing-spaces": "warn",
     "semi": [ "error", "always" ],
-    "quotes": [ "error",  "double" ]
+    "quotes": [ "warn",  "double" ]
   },
 };

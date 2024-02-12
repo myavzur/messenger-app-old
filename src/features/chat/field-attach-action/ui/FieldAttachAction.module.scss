@@ -1,0 +1,9 @@
+.backdrop {
+	height: 100px;
+	width: calc(100% + 20px);
+	position: absolute;
+	top: -30px;
+	left: -10px;
+	z-index: 0;
+	cursor: default;
+}

@@ -13,8 +13,8 @@ export const useMessagesTransition = ({
 
 	return useTransition(messages ? messages : [], {
 		trail: transitionTrail,
-		from: { opacity: 0 },
-		enter: { opacity: 1 },
-		leave: { opacity: 0, immediate: true }
+		from: { opacity: 0, x: -10, y: 10, maxHeight: 400 },
+		enter: { opacity: 1, x: 0, y: 0, maxHeight: 400 },
+		leave: { opacity: 0, x: -10, y: 10, maxHeight: 0 }
 	});
 };

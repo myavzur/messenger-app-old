@@ -1,13 +1,14 @@
 .field {
-	@apply overflow-hidden w-full flex items-center items-center;
+	@apply w-full flex items-center items-center;
 	border-radius: 0.45rem;
 	border: 1px solid var(--color-primary-500);
 	background-color: var(--color-inputs-background);
 
-	input,
-	textarea {
+	&__input:not(.field__input_hidden),
+	&__textarea {
 		@apply w-full transition-colors text-base font-normal px-5 py-3;
 
+		border-radius: 0.45rem;
 		outline: none;
 		background: none;
 		appearance: none;

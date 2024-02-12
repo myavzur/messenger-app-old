@@ -63,7 +63,7 @@ export const ChatMessage: React.FC<IChatMessageProps> = ({
 					/>
 				)}
 
-				<p className={styles.content__text}>{message.text}</p>
+				<pre className={styles.content__text}>{message.text}</pre>
 
 				{withAppendix && (
 					<Icon

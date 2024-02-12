@@ -59,7 +59,7 @@ export const MessageList: React.FC<IMessageListProps> = ({
 		>
 			{messagesTransition((style, message) => {
 				const isOwn = currentUserId === message.user.id;
-				const showAuthorName = !isOwn && chat.type === ChatType.GROUP;
+				const withAuthorName = !isOwn && chat.type === ChatType.GROUP;
 
 				return (
 					<animated.div
@@ -74,7 +74,7 @@ export const MessageList: React.FC<IMessageListProps> = ({
 							isOwn={isOwn}
 							message={message}
 							withAuthorAvatar={!isOwn}
-							withAuthorName={showAuthorName}
+							withAuthorName={withAuthorName}
 							onScrollToMessage={scrollToMessage}
 							onContextMenu={data => setContextMenu(data)}
 						/>
@@ -85,6 +85,7 @@ export const MessageList: React.FC<IMessageListProps> = ({
 			{contextMenu.message && (
 				<MessageContextMenu
 					mousePosition={contextMenu.mousePosition}
+					chat={chat}
 					message={contextMenu.message}
 					containerElementRef={windowRef}
 					onClose={() => setContextMenu(contextMenuDefaultState)}

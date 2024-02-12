@@ -2,7 +2,7 @@ import { animated, useSpring } from "@react-spring/web";
 import cn from "classnames";
 import React, { Children, forwardRef, useCallback, useRef } from "react";
 
-import fieldStyles from "@/shared/styles/Field.module.scss";
+import defaultStyles from "@/shared/styles/Field.module.scss";
 
 import { ITextAreaFieldProps } from "./TextAreaField.interface";
 
@@ -13,7 +13,7 @@ export const TextAreaField = forwardRef<HTMLTextAreaElement, ITextAreaFieldProps
 		const {
 			maxGrowHeight,
 			preventBorderTop,
-			shouldHandleEnterKey,
+			onEnterKeyPress,
 			onChange,
 			isInvalid,
 			className,
@@ -69,7 +69,9 @@ export const TextAreaField = forwardRef<HTMLTextAreaElement, ITextAreaFieldProps
 			const textAreaEl = textAreaElementRef.current;
 			if (!textAreaEl) return;
 
-			if (e.key === "Enter" && !e.shiftKey && shouldHandleEnterKey) {
+			if (e.key === "Enter" && !e.shiftKey && onEnterKeyPress) {
+				e.preventDefault();
+				onEnterKeyPress();
 				animateTextArea.start({ height: initialTextAreaElementHeight.current });
 			}
 		};
@@ -77,18 +79,18 @@ export const TextAreaField = forwardRef<HTMLTextAreaElement, ITextAreaFieldProps
 		return (
 			<div
 				className={cn(
-					fieldStyles.field,
+					defaultStyles.field,
 					{
-						[fieldStyles.field_invalid]: isInvalid,
-						[fieldStyles["field_prevent-pr"]]: Children.count(children) > 0,
-						[fieldStyles["field_prevent-border-t"]]: preventBorderTop
+						[defaultStyles.field_invalid]: isInvalid,
+						[defaultStyles["field_prevent-pr"]]: Children.count(children) > 0,
+						[defaultStyles["field_prevent-border-t"]]: preventBorderTop
 					},
 					className
 				)}
 			>
 				<animated.textarea
 					{...textareaProps}
-					className={styles.textarea}
+					className={cn(defaultStyles.field__textarea, styles.textarea)}
 					style={textAreaProps}
 					rows={1}
 					ref={setRefs}

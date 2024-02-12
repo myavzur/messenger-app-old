@@ -1,7 +1,7 @@
 @import "@/app/styles/variables";
 
 .menu {
-	@apply p-1.5 rounded-lg absolute;
+	@apply p-1.5 rounded-lg cursor-default;
 	z-index: var(--z-active-chat-elements);
 	width: 235px;
 

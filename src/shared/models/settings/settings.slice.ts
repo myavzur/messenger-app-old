@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import { ITheme } from "@/shared/interfaces";
+import { ITheme } from "@/shared/interfaces/theme.interface";
 
 import { ISettingsState } from "./settings.interface";
 

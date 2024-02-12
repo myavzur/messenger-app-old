@@ -22,20 +22,13 @@
 
 	&__bottom {
 		@apply w-full mt-0.5;
-
-		&-text {
-			@apply text-sm;
-			color: var(--color-primary-200);
-			@include line-clamp(1);
-		}
 	}
 
 	&_selected {
 		background-color: var(--color-accent-1000);
 
 		.card__top-title,
-		.card__top-updated,
-		.card__bottom-text {
+		.card__top-updated {
 			color: #FFF;
 		}
 	}

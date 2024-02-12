@@ -23,7 +23,9 @@ export const PasswordField = forwardRef<
 		>
 			<FieldAction
 				iconElement={iconElement}
-				onClick={handleToggleVisibility}
+				wrapperProps={{
+					onClick: handleToggleVisibility
+				}}
 			/>
 		</Field>
 	);
