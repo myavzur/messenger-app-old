@@ -15,11 +15,21 @@ const MIMES = {
 	mov: "video/quicktime"
 };
 
+const mediaFileTypes = [
+	MIMES.png,
+	MIMES.jpg,
+	MIMES.gif,
+	MIMES.mp4,
+	MIMES.m4v,
+	MIMES.mov
+];
+
 export const AttachmentsDropdown: React.FC<IAttachmentsDropdownProps> = ({
 	...dropdownProps
 }) => {
 	const handleAttachMediaFile: ChangeEventHandler<HTMLInputElement> = e => {
-		console.log(e.target.files);
+		const files = e.target.files;
+		if (!files) return;
 	};
 
 	const handleAttachAnyFile: ChangeEventHandler<HTMLInputElement> = e => {
@@ -33,14 +43,7 @@ export const AttachmentsDropdown: React.FC<IAttachmentsDropdownProps> = ({
 				iconElement={<Icon name="image" />}
 				label="Photo or Video"
 				onChange={handleAttachMediaFile}
-				allowedFileTypes={[
-					MIMES.png,
-					MIMES.jpg,
-					MIMES.gif,
-					MIMES.mp4,
-					MIMES.m4v,
-					MIMES.mov
-				]}
+				allowedFileTypes={mediaFileTypes}
 			/>
 			<MenuFileInputItem
 				iconElement={<Icon name="file" />}

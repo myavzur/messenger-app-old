@@ -1,0 +1,40 @@
+@import "@/app/styles/_mixins";
+
+.dropzone {
+	@apply p-6 w-full h-full rounded-md;
+	background-color: var(--color-app-background);
+	color: var(--color-primary-400);
+
+	&__content {
+		@apply p-6 h-full rounded-md
+			flex flex-col items-center justify-center;
+		border: 2px dashed var(--color-primary-400);
+
+		&-icon {
+			@apply mb-5;
+			@include set-icon-size(4rem);
+		}
+
+		&-label {
+			@apply font-bold;
+		}
+
+		&-caption {
+			@apply text-sm mt-1.5;
+		}
+
+		&-icon,
+		&-label,
+		&-caption {
+			@apply pointer-events-none select-none;
+		}
+	}
+
+	&_dragging-over {
+		color: var(--color-accent-1000);
+
+		.dropzone__content {
+			border-color: var(--color-accent-1000)
+		}
+	}
+}

@@ -12,9 +12,7 @@ export const MenuItem: React.FC<IMenuItemProps> = ({
 	isDangerous = false
 }) => {
 	return (
-		<button
-			type="button"
-			key={label}
+		<div
 			className={cn(styles.item, {
 				[styles.item_dangerous]: isDangerous
 			})}
@@ -22,6 +20,6 @@ export const MenuItem: React.FC<IMenuItemProps> = ({
 		>
 			<div className={styles.item__icon}>{iconElement}</div>
 			<p className={styles.item__label}>{label}</p>
-		</button>
+		</div>
 	);
 };

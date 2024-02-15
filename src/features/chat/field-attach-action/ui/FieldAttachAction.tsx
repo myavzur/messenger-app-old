@@ -27,7 +27,7 @@ export const FieldAttachAction: React.FC<IFieldAttachActionProps> = () => {
 	};
 
 	const handleCloseDropdown = () => {
-		clearInterval(closeTimeoutId.current);
+		clearTimeout(closeTimeoutId.current);
 
 		closeTimeoutId.current = setTimeout(() => {
 			setDropdownVisible(false);

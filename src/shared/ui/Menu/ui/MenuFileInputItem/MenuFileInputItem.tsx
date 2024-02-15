@@ -21,7 +21,7 @@ export const MenuFileInputItem: React.FC<IMenuFileInputItemProps> = ({
 				className={styles.input}
 				type="file"
 				accept={accept}
-				multiple
+				multiple={true}
 				onChange={onChange}
 			/>
 		</label>

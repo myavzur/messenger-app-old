@@ -1,3 +1,5 @@
+@import "@/app/styles/_mixins";
+
 .embedded {
 	@apply flex items-center rounded-t-md pt-2 px-3;
 	border-radius: 0.45rem 0.45rem 0 0;
@@ -8,18 +10,14 @@
 
 	&__icon {
 		@apply mr-3 p-0.5;
-		min-width: 1.75rem;
-		width: 1.75rem;
-		height: 1.75rem;
+		@include set-icon-size(1.75rem);
 	}
 	&__message {
 		flex-grow: 1;
 	}
 	&__close {
 		@apply ml-3 p-0.5;
-		min-width: 2rem;
-		width: 2rem;
-		height: 2rem;
+		@include set-icon-size(2rem);
 	}
 }
 

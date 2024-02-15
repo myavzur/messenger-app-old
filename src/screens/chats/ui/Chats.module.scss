@@ -1,3 +1,5 @@
+@import "@/app/styles/_mixins";
+
 .page {
 	@apply relative flex flex-col;
 	border-right: 2px solid var(--color-app-background);
@@ -6,9 +8,6 @@
 	flex: 1 1 auto;
 
 	&__background {
-		@apply absolute w-full h-full;
-		background-image: url('https://pixelbox.ru/wp-content/uploads/2021/09/background-chat-vk-75.jpg');
-		background-color: #000;
-		opacity: 0.25;
+		@include chat-background();
 	}
 }

@@ -1,5 +1,6 @@
+import { animated, useTransition } from "@react-spring/web";
 import cn from "classnames";
-import React, { useEffect } from "react";
+import React, { DragEventHandler, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { ChatHeader } from "@/widgets/chat/chat-header/ui";
@@ -16,7 +17,7 @@ import {
 	useStoreSelector
 } from "@/shared/lib/hooks";
 import { chatActions } from "@/shared/models/chats";
-import { PageLoader } from "@/shared/ui";
+import { Dropzone, Icon, PageLoader } from "@/shared/ui";
 
 import styles from "./Chat.module.scss";
 
@@ -29,8 +30,16 @@ const Chat: React.FC = () => {
 	const { chatSocket } = useSockets();
 	const currentChat = useStoreSelector(state => state.chats.currentChat.data);
 
-	/** Works along with `requestChat`.
-	 * Request Chat Messages for passed `chat`.
+	const [isDraggingOver, setDraggingOver] = useState(false);
+	const dragLeaveTimeoutId = useRef<ReturnType<typeof setTimeout>>();
+
+	const dropzonesTransition = useTransition(isDraggingOver, {
+		from: { opacity: 0 },
+		enter: { opacity: 1 },
+		leave: { opacity: 0 }
+	});
+
+	/** Request Chat Messages for passed `chat`.
 	 * If `chat` is temporary - this means it hasn't any messages yet. */
 	const requestChatHistory = (chat: IChat) => {
 		if (chat.type === ChatType.TEMP) return;
@@ -65,6 +74,36 @@ const Chat: React.FC = () => {
 		});
 	};
 
+	const handleDragOver: DragEventHandler<HTMLDivElement> = e => {
+		e.preventDefault();
+
+		/* Dragging over one of two <Dropzone/> inside container causes `handleDragLeave` to be fired.
+		 * At the same time: `handleDragOver` is still firing periodically.
+		 * Which causing: Flickering.
+		 * So to prevent this behavior - we need to set timeout for closing in `handleDragLeave`
+		 * to make sure we actually has leaved container by canceling timeout in `handleDragOver` */
+		clearTimeout(dragLeaveTimeoutId.current);
+		if (!isDraggingOver) {
+			setDraggingOver(true);
+			return;
+		}
+	};
+
+	const handleDragLeave: DragEventHandler<HTMLDivElement> = e => {
+		e.preventDefault();
+
+		clearTimeout(dragLeaveTimeoutId.current);
+		dragLeaveTimeoutId.current = setTimeout(() => {
+			setDraggingOver(false);
+		}, 150);
+	};
+
+	const handleDrop: DragEventHandler<HTMLDivElement> = e => {
+		e.preventDefault();
+		clearTimeout(dragLeaveTimeoutId.current);
+		setDraggingOver(false);
+	};
+
 	useEffect(() => {
 		// Clear currentChat on page mount or new params.
 		dispatch(chatActions.clearCurrentChat());
@@ -89,7 +128,12 @@ const Chat: React.FC = () => {
 	}
 
 	return (
-		<div className={styles.page}>
+		<div
+			className={styles.page}
+			onDragOver={handleDragOver}
+			onDragLeave={handleDragLeave}
+			onDrop={handleDrop}
+		>
 			<div className={styles.page__background}></div>
 
 			<ChatHeader
@@ -104,6 +148,29 @@ const Chat: React.FC = () => {
 			/>
 
 			<MessageForm className={styles.page__form} />
+
+			{dropzonesTransition((style, isDraggingOver) => {
+				if (!isDraggingOver) return null;
+
+				return (
+					<animated.div
+						style={style}
+						className={styles.dropzones}
+					>
+						<Dropzone
+							iconElement={<Icon name="file" />}
+							caption="without compression"
+							onDrop={f => console.log(f)}
+						/>
+
+						<Dropzone
+							iconElement={<Icon name="image" />}
+							caption="in a quick way"
+							onDrop={f => console.log(f)}
+						/>
+					</animated.div>
+				);
+			})}
 		</div>
 	);
 };

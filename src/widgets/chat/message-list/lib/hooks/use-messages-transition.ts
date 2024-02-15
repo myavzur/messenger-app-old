@@ -9,7 +9,7 @@ interface IUseMessagesTransitionParams {
 export const useMessagesTransition = ({
 	messages
 }: IUseMessagesTransitionParams) => {
-	const transitionTrail = messages?.length ? 400 / messages.length : 0;
+	const transitionTrail = messages?.length ? 0.15 * messages.length : 0;
 
 	return useTransition(messages ? messages : [], {
 		trail: transitionTrail,

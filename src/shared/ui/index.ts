@@ -2,6 +2,7 @@ export * from "./Avatar/ui";
 export * from "./Button/ui";
 export * from "./ButtonGroup/ui";
 export * from "./Checkbox/ui";
+export * from "./Dropzone/ui";
 export * from "./Field/ui";
 export * from "./FieldAction/ui";
 export * from "./FieldLegend/ui";

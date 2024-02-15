@@ -26,6 +26,23 @@
   & { overflow: -moz-scrollbars-none; } // Firefox
 }
 
+@mixin set-icon-size($size) {
+  min-width: $size; // Prevent from shrinking.
+  width: $size;
+  height: $size;
+}
+
+@mixin chat-background() {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  pointer-events: none;
+  background-image: url("@/app/assets/images/chat_bg.jpg");
+  background-size: cover;
+  opacity: 0.25;
+}
+
 // Responsiveness settings
 $phone-portrait-max-width: 320px;
 $phone-landscape-max-width: 480px;

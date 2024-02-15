@@ -1,6 +1,14 @@
 body {
+	// * Z-index
 	--z-active-chat-elements: 100;
-	--z-chats-sidebar-actions-element: 101;
-	--z-modal-element: 200;
-	--z-user-select-element: 201;
+	--z-chats-sidebar-actions-element: 110;
+	--z-floating-drop-zone: 120;
+	--z-modal-element: 130;
+	--z-user-select-element: 140;
+
+	// * Width
+	--width-chat-content: 65%;
+
+	// * Height
+	--min-height-chat-header: 5rem;
 }
