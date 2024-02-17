@@ -76,7 +76,7 @@ export const MessageList: React.FC<IMessageListProps> = ({
 							withAuthorAvatar={!isOwn}
 							withAuthorName={withAuthorName}
 							onScrollToMessage={scrollToMessage}
-							onContextMenu={data => setContextMenu(data)}
+							onContextMenu={setContextMenu}
 						/>
 					</animated.div>
 				);

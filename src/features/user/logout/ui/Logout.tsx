@@ -1,14 +1,14 @@
 import React from "react";
 
 import { removeAccessToken } from "@/shared/lib/helpers";
-import { useAuth, useSockets, useStoreDispatch } from "@/shared/lib/hooks";
+import { useAuth, useSocketsContext, useStoreDispatch } from "@/shared/lib/hooks";
 import { chatActions } from "@/shared/models/chats";
 import { Button, Icon } from "@/shared/ui";
 
 export const Logout: React.FC = () => {
 	const dispatch = useStoreDispatch();
 
-	const { disconnectAll } = useSockets();
+	const { disconnectAll } = useSocketsContext();
 	const { refetchCurrentUser } = useAuth();
 
 	const handleLogout = () => {

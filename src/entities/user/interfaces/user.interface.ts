@@ -1,3 +1,5 @@
+import { IAttachment } from "@/entities/attachment/interfaces";
+
 export enum UserStatus {
 	OFFLINE,
 	ONLINE
@@ -13,10 +15,8 @@ export interface IUser {
 	id: string;
 	created_at: Date;
 	last_seen_at: Date;
-
 	account_name: string;
 	email: string;
-	avatar_url?: string;
-
+	avatar: IAttachment | null;
 	role: UserRole;
 }

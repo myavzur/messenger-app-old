@@ -1,13 +1,13 @@
 @import '@/app/styles/mixins';
 
 .messages {
-	@apply flex flex-col-reverse grow self-center w-full gap-1 relative;
+	@apply flex flex-col-reverse grow self-center w-full gap-2 relative;
 	@include hide-scrollbar();
 	overflow-y: scroll;
 
 	&__message {
 		@apply select-none rounded-2xl break-all;
-		max-width: 85%;
+		max-width: 70%;
 
 		&_system {
 			@apply my-4;

@@ -9,7 +9,7 @@ export interface IMessage {
 	text: string;
 
 	reply_for?: IMessage | null;
-	attachments?: IMessageAttachment[];
+	attachments: IMessageAttachment[];
 
 	user: IUser;
 	chat?: IChat;

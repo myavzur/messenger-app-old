@@ -2,5 +2,5 @@ export interface IDropzoneProps {
 	label?: string;
 	caption?: string;
 	iconElement?: React.ReactNode;
-	onDrop: (files: FileList) => void;
+	onDrop: (files: File[]) => void;
 }

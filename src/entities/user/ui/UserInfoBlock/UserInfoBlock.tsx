@@ -9,8 +9,7 @@ export const UserInfoBlock: React.FC<IUserInfoBlockProps> = ({ user, onClick }) 
 		<InfoBlock
 			title={user.account_name}
 			subtitle={user.email}
-			imageUrl={user.avatar_url}
-			status={user.status}
+			imageUrl={user.avatar?.file_url}
 			onClick={() => onClick?.(user)}
 		/>
 	);

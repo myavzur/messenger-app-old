@@ -6,7 +6,7 @@ import { ChatCard } from "@/entities/chat/ui";
 import { IPaginationBody } from "@/shared/interfaces/pagination.interface";
 import {
 	useAuth,
-	useSockets,
+	useSocketsContext,
 	useStoreDispatch,
 	useStoreSelector
 } from "@/shared/lib/hooks";
@@ -16,7 +16,7 @@ import styles from "./ChatList.module.scss";
 
 export const ChatList: React.FC = () => {
 	const dispatch = useStoreDispatch();
-	const { chatSocket } = useSockets();
+	const { chatSocket } = useSocketsContext();
 	const { currentUser } = useAuth();
 	const chatList = useStoreSelector(state => state.chats.chatList);
 

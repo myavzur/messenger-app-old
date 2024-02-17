@@ -8,7 +8,7 @@ import { Modal, ModalHeader } from "@/entities/modal/ui";
 
 import { baseApi } from "@/shared/api";
 import { ICreateGroupChatParams } from "@/shared/interfaces/socket.io";
-import { useAuth, useSockets } from "@/shared/lib/hooks";
+import { useAuth, useSocketsContext } from "@/shared/lib/hooks";
 import { Button, ButtonGroup, Field, FieldLegend } from "@/shared/ui";
 
 import { ICreateGroupChatModalProps } from "./CreateGroupChatModal.interface";
@@ -19,7 +19,7 @@ export const CreateGroupChatModal: React.FC<ICreateGroupChatModalProps> = ({
 	onClose
 }) => {
 	const { currentUser } = useAuth();
-	const { chatSocket } = useSockets();
+	const { chatSocket } = useSocketsContext();
 	const {
 		data: users,
 		isLoading: isUsersLoading,
@@ -39,8 +39,7 @@ export const CreateGroupChatModal: React.FC<ICreateGroupChatModalProps> = ({
 	const userOptions = users?.map(user => {
 		return {
 			label: user.account_name,
-			value: user.id,
-			image_url: user.avatar_url
+			value: user.id
 		} as ISelectUserOption;
 	});
 

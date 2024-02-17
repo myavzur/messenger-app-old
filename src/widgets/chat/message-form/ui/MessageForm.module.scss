@@ -24,3 +24,13 @@
 .form {
 	@apply relative;
 }
+
+.attachments {
+	@apply grid gap-2 rounded-t-md pt-2 px-3 overflow-y-scroll;
+	grid-template-columns: repeat(4, 1fr);
+	max-height: 20rem;
+	border: 1px solid var(--color-primary-500);
+	background-color: var(--color-inputs-background);
+
+	@include custom-scrollbar();
+}

@@ -1,4 +1,4 @@
-import { useTransition } from "@react-spring/web";
+import { config, useTransition } from "@react-spring/web";
 
 import { IMessage } from "@/entities/chat/interfaces";
 
@@ -12,9 +12,10 @@ export const useMessagesTransition = ({
 	const transitionTrail = messages?.length ? 0.15 * messages.length : 0;
 
 	return useTransition(messages ? messages : [], {
+		config: config.default,
 		trail: transitionTrail,
-		from: { opacity: 0, x: -10, y: 10, maxHeight: 400 },
-		enter: { opacity: 1, x: 0, y: 0, maxHeight: 400 },
-		leave: { opacity: 0, x: -10, y: 10, maxHeight: 0 }
+		from: { opacity: 0, x: -10, maxHeight: "100%" },
+		enter: { opacity: 1, x: 0, maxHeight: "100%" },
+		leave: { opacity: 0, x: -10, maxHeight: "0%" }
 	});
 };

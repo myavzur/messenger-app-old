@@ -1,3 +1,4 @@
+import { IAttachment } from "@/entities/attachment/interfaces";
 import { IChat, IMessage } from "@/entities/chat/interfaces";
 import { IUser } from "@/entities/user/interfaces";
 
@@ -20,6 +21,7 @@ export interface ISendMessageParams {
 	chatId?: IChat["id"];
 	userId?: IUser["id"];
 	replyForId?: IMessage["id"];
+	attachmentIds?: IAttachment["id"][];
 	text: IMessage["text"];
 }
 

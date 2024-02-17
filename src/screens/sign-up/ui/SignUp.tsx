@@ -6,13 +6,13 @@ import { SignUpForm } from "@/features/user/sign-up-form/ui";
 import { ISignUpBody } from "@/entities/user/interfaces";
 
 import { baseApi } from "@/shared/api";
-import { useSockets } from "@/shared/lib/hooks";
+import { useSocketsContext } from "@/shared/lib/hooks";
 
 const SignUp: React.FC = () => {
 	const navigate = useNavigate();
 
 	const [signUp, status] = baseApi.useSignUpMutation();
-	const { updateSocketsAccessToken } = useSockets();
+	const { updateSocketsAccessToken } = useSocketsContext();
 
 	const handleSignUp = (credentials: ISignUpBody) => {
 		signUp(credentials)

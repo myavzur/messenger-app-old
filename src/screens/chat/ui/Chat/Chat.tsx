@@ -4,20 +4,23 @@ import React, { DragEventHandler, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { ChatHeader } from "@/widgets/chat/chat-header/ui";
+import { MessageForm } from "@/widgets/chat/message-form/ui";
 import { MessageList } from "@/widgets/chat/message-list/ui";
 
-import { MessageForm } from "@/features/chat/message-form/ui";
+import { AttachFileDropzone } from "@/features/chat/attach-file-dropzone/ui";
+import { AttachMediaDropzone } from "@/features/chat/attach-media-dropzone/ui";
 
 import { ChatType, IChat } from "@/entities/chat/interfaces";
 
+import { AttachmentsContextProvider } from "@/shared/contexts/AttachmentsContextProvider";
 import {
 	useAuth,
-	useSockets,
+	useSocketsContext,
 	useStoreDispatch,
 	useStoreSelector
 } from "@/shared/lib/hooks";
 import { chatActions } from "@/shared/models/chats";
-import { Dropzone, Icon, PageLoader } from "@/shared/ui";
+import { PageLoader } from "@/shared/ui";
 
 import styles from "./Chat.module.scss";
 
@@ -27,7 +30,7 @@ const Chat: React.FC = () => {
 	const params = useParams<{ polymorphicId: string }>();
 
 	const { currentUser } = useAuth();
-	const { chatSocket } = useSockets();
+	const { chatSocket } = useSocketsContext();
 	const currentChat = useStoreSelector(state => state.chats.currentChat.data);
 
 	const [isDraggingOver, setDraggingOver] = useState(false);
@@ -147,30 +150,23 @@ const Chat: React.FC = () => {
 				className={styles.page__messages}
 			/>
 
-			<MessageForm className={styles.page__form} />
+			<AttachmentsContextProvider>
+				<MessageForm className={styles.page__form} />
 
-			{dropzonesTransition((style, isDraggingOver) => {
-				if (!isDraggingOver) return null;
+				{dropzonesTransition((style, isDraggingOver) => {
+					if (!isDraggingOver) return null;
 
-				return (
-					<animated.div
-						style={style}
-						className={styles.dropzones}
-					>
-						<Dropzone
-							iconElement={<Icon name="file" />}
-							caption="without compression"
-							onDrop={f => console.log(f)}
-						/>
-
-						<Dropzone
-							iconElement={<Icon name="image" />}
-							caption="in a quick way"
-							onDrop={f => console.log(f)}
-						/>
-					</animated.div>
-				);
-			})}
+					return (
+						<animated.div
+							style={style}
+							className={styles.dropzones}
+						>
+							<AttachFileDropzone />
+							<AttachMediaDropzone />
+						</animated.div>
+					);
+				})}
+			</AttachmentsContextProvider>
 		</div>
 	);
 };

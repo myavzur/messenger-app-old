@@ -40,7 +40,7 @@ export const ChatMessage: React.FC<IChatMessageProps> = ({
 				<Avatar
 					className={styles.avatar}
 					size="xs"
-					src={message.user.avatar_url}
+					src={message.user.avatar?.file_url}
 					alt={message.user.account_name}
 				>
 					{message.user.account_name}
@@ -51,6 +51,35 @@ export const ChatMessage: React.FC<IChatMessageProps> = ({
 				data-message-id={message.id}
 				className={cn(styles.content, className)}
 			>
+				{message.attachments?.length && (
+					<div
+						className={"grid grid-cols-4 mb-2 gap-2"}
+						style={{ gridTemplateRows: "repeat(3, 120px)" }}
+					>
+						{message.attachments.map(attachment => (
+							<div
+								key={attachment.id}
+								className="rounded-md overflow-hidden"
+							>
+								{(attachment.file_type.startsWith("video") && (
+									<video
+										key={attachment.id}
+										src={"http://localhost:5123" + attachment.file_url}
+										muted={false}
+										controls={true}
+										autoPlay={false}
+									/>
+								)) || (
+									<img
+										src={"http://localhost:5123" + attachment.file_url}
+										style={{ objectFit: "cover", width: "100%", height: "100%" }}
+									/>
+								)}
+							</div>
+						))}
+					</div>
+				)}
+
 				{withAuthorName && (
 					<h2 className={styles.content__author}>{message.user.account_name}</h2>
 				)}

@@ -75,7 +75,7 @@ export const baseApi = createApi({
 		}),
 
 		getUsersBasedOnLocalChats: builder.query<
-			Pick<IUser, "id" | "account_name" | "avatar_url">[],
+			Pick<IUser, "id" | "account_name">[],
 			void | null
 		>({
 			query: () => "/users/local-chats"

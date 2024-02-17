@@ -6,13 +6,13 @@ import { SignInForm } from "@/features/user/sign-in-form/ui";
 import { ISignInBody } from "@/entities/user/interfaces";
 
 import { baseApi } from "@/shared/api";
-import { useSockets } from "@/shared/lib/hooks";
+import { useSocketsContext } from "@/shared/lib/hooks";
 
 const SignIn: React.FC = () => {
 	const navigate = useNavigate();
 
 	const [signIn, status] = baseApi.useSignInMutation();
-	const { updateSocketsAccessToken } = useSockets();
+	const { updateSocketsAccessToken } = useSocketsContext();
 
 	const handleSignIn = (credentials: ISignInBody) => {
 		signIn(credentials)

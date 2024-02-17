@@ -1,9 +1,11 @@
-import React, { useLayoutEffect } from "react";
+import React, { useEffect } from "react";
 
 import { useClickOutside } from "@/shared/lib/hooks";
 import { Menu } from "@/shared/ui";
 
 import { IContextMenuProps } from "./ContextMenu.interface";
+
+import styles from "./ContextMenu.module.scss";
 
 export const ContextMenu: React.FC<IContextMenuProps> = ({
 	children,
@@ -15,7 +17,7 @@ export const ContextMenu: React.FC<IContextMenuProps> = ({
 		onUnmount: onClose
 	});
 
-	useLayoutEffect(() => {
+	useEffect(() => {
 		const containerEl = containerElementRef?.current;
 		const contextMenuEl = contextMenuElementRef?.current;
 		if (!containerEl || !contextMenuEl) return;
@@ -38,7 +40,6 @@ export const ContextMenu: React.FC<IContextMenuProps> = ({
 		if (freeFromRightPx <= 0) transform += "translateX(-100%) "; // ContextMenu to the left of the cursor.
 		if (freeFromBottomPx <= 0) transform += "translateY(-100%)"; // ContextMenu above the cursor.
 
-		contextMenuEl.style.position = "absolute";
 		contextMenuEl.style.left = `${mouseX}px`;
 		contextMenuEl.style.top = `${mouseY + containerEl.scrollTop}px`;
 		contextMenuEl.style.transform = transform;
@@ -51,5 +52,12 @@ export const ContextMenu: React.FC<IContextMenuProps> = ({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
-	return <Menu ref={contextMenuElementRef}>{children}</Menu>;
+	return (
+		<Menu
+			ref={contextMenuElementRef}
+			className={styles["context-menu"]}
+		>
+			{children}
+		</Menu>
+	);
 };

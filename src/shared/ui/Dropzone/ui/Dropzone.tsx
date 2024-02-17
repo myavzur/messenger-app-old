@@ -34,9 +34,8 @@ export const Dropzone: React.FC<IDropzoneProps> = ({
 			`%c[Dropzone/handleDrop]: ${files.length} files dropped.`,
 			"color: green"
 		);
-		console.log(caption);
-		console.log(files);
-		onDrop(files);
+
+		onDrop(Array.from(files));
 	};
 
 	return (

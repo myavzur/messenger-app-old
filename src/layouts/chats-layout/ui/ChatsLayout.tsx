@@ -39,7 +39,7 @@ export const ChatsLayout: React.FC = () => {
 					{currentUser && (
 						<Avatar
 							size="xs"
-							src={currentUser?.avatar_url}
+							src={currentUser?.avatar?.file_url}
 							alt={currentUser?.account_name}
 						>
 							{currentUser?.account_name}

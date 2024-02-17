@@ -24,8 +24,11 @@ const fillColors = [
 	"#577889"
 ];
 
+const uploadsServerUrl = import.meta.env.VITE_UPLOADS_SERVER_URL || "/";
+
 export const Avatar: React.FC<IAvatarProps> = ({
 	children,
+	serverUrl = uploadsServerUrl,
 	src,
 	alt,
 	size,
@@ -47,7 +50,7 @@ export const Avatar: React.FC<IAvatarProps> = ({
 	if (src) {
 		content = (
 			<img
-				src={src}
+				src={serverUrl + src}
 				alt={alt}
 			/>
 		);

@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { ChatParticipantRole, ChatType } from "@/entities/chat/interfaces";
 import { copyToClipboard } from "@/entities/chat/lib/helpers";
 
-import { useAuth, useSockets, useStoreDispatch } from "@/shared/lib/hooks";
+import { useAuth, useSocketsContext, useStoreDispatch } from "@/shared/lib/hooks";
 import { chatActions } from "@/shared/models/chats";
 import { Icon, MenuItem } from "@/shared/ui";
 
@@ -17,7 +17,7 @@ export const MessageContextMenu: React.FC<IMessageContextMenuProps> = ({
 	...contextMenuProps
 }) => {
 	const dispatch = useStoreDispatch();
-	const { chatSocket } = useSockets();
+	const { chatSocket } = useSocketsContext();
 	const { currentUser } = useAuth();
 	const [isCopied, setCopied] = useState(false);
 

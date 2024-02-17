@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
+import { AttachmentLoader } from "@/features/chat/attachment-loader/ui/AttachmentLoader.tsx";
 import { FieldAttachAction } from "@/features/chat/field-attach-action/ui";
 
+import { IAttachment } from "@/entities/attachment/interfaces/attachment.interface.ts";
 import { ChatMessageEmbedded } from "@/entities/chat/ui";
 
 import {
+	useAttachmentsContext,
 	useAuth,
-	useSockets,
+	useSocketsContext,
 	useStoreDispatch,
 	useStoreSelector
 } from "@/shared/lib/hooks";
@@ -21,13 +24,15 @@ import styles from "./MessageForm.module.scss";
 export const MessageForm: React.FC<IMessageFormProps> = ({ className }) => {
 	const dispatch = useStoreDispatch();
 	const { currentUser } = useAuth();
-	const { chatSocket } = useSockets();
+	const { chatSocket } = useSocketsContext();
+	const { attachments, clearAttachments } = useAttachmentsContext();
 
 	const currentChat = useStoreSelector(state => state.chats.currentChat.data);
 	const embeddedMessage = useStoreSelector(
 		state => state.chats.currentChat.embeddedMessage
 	);
 
+	const attachmentIdsRef = useRef<IAttachment["id"][]>([]);
 	const [isSendLoading, setSendLoading] = useState(false);
 
 	const {
@@ -39,6 +44,10 @@ export const MessageForm: React.FC<IMessageFormProps> = ({ className }) => {
 
 	const clearEmbeddedMessage = () => {
 		dispatch(chatActions.clearCurrentChatEmbeddedMessage());
+	};
+
+	const handleAttachmentLoaded = (data: any) => {
+		attachmentIdsRef.current = [...attachmentIdsRef.current, data.attachment_id];
 	};
 
 	const handleSendMessage: SubmitHandler<{ text: string }> = message => {
@@ -59,10 +68,13 @@ export const MessageForm: React.FC<IMessageFormProps> = ({ className }) => {
 					participant => participant.user.id !== currentUser.id
 				)?.user.id,
 				text: message.text,
-				replyForId: embeddedMessage?.id
+				replyForId: embeddedMessage?.id,
+				attachmentIds: attachmentIdsRef.current
 			},
 			() => {
 				console.log("%c[MessageForm/send-message]: Success.", "color: green");
+				attachmentIdsRef.current = [];
+				clearAttachments();
 				setSendLoading(false);
 			}
 		);
@@ -107,6 +119,21 @@ export const MessageForm: React.FC<IMessageFormProps> = ({ className }) => {
 					<FieldAttachAction sex={true} />
 				</TextAreaField>
 			</form>
+
+			{attachments.length > 0 && (
+				<div className={styles.attachments}>
+					{attachments.map((file, idx) => {
+						return (
+							<AttachmentLoader
+								key={idx}
+								file={file}
+								url="/upload/m-attachment?tag=media"
+								onLoadEnded={handleAttachmentLoaded}
+							/>
+						);
+					})}
+				</div>
+			)}
 		</div>
 	);
 };
