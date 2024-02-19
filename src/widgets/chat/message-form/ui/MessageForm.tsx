@@ -5,6 +5,7 @@ import { AttachmentLoader } from "@/features/chat/attachment-loader/ui/Attachmen
 import { FieldAttachAction } from "@/features/chat/field-attach-action/ui";
 
 import { IAttachment } from "@/entities/attachment/interfaces/attachment.interface.ts";
+import { ChatType } from "@/entities/chat/interfaces/chat.interface.ts";
 import { ChatMessageEmbedded } from "@/entities/chat/ui";
 
 import {
@@ -60,13 +61,21 @@ export const MessageForm: React.FC<IMessageFormProps> = ({ className }) => {
 		reset();
 		clearEmbeddedMessage();
 
+		let polymorphicId = "";
+		if (currentChat.type === ChatType.TEMP) {
+			const participant = currentChat.participants.find(
+				participant => participant.user.id !== currentUser.id
+			);
+
+			polymorphicId = participant?.user?.id || "";
+		} else {
+			polymorphicId = currentChat.id;
+		}
+
 		chatSocket?.emit(
 			"send-message",
 			{
-				chatId: currentChat.id,
-				userId: currentChat.participants.find(
-					participant => participant.user.id !== currentUser.id
-				)?.user.id,
+				polymorphicId,
 				text: message.text,
 				replyForId: embeddedMessage?.id,
 				attachmentIds: attachmentIdsRef.current

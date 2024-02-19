@@ -18,16 +18,10 @@ export interface ICreateGroupChatParams {
 }
 
 export interface ISendMessageParams {
-	chatId?: IChat["id"];
-	userId?: IUser["id"];
+	polymorphicId: IChat["id"] | IUser["id"];
 	replyForId?: IMessage["id"];
 	attachmentIds?: IAttachment["id"][];
 	text: IMessage["text"];
-}
-
-export interface ISendMessageAcknowledgementData {
-	chatId: IChat["id"];
-	messageId: IMessage["id"];
 }
 
 export interface IPinMessageParams {
