@@ -1,11 +1,11 @@
 import cn from "classnames";
 import React from "react";
 
-import { IReplyProps } from "./ChatMessageEmbedded.interface";
+import { IReplyProps } from "./MessageEmbedded.interface";
 
-import styles from "./ChatMessageEmbedded.module.scss";
+import styles from "./MessageEmbedded.module.scss";
 
-export const ChatMessageEmbedded: React.FC<IReplyProps> = ({
+export const MessageEmbedded: React.FC<IReplyProps> = ({
 	message,
 	onClick,
 	className

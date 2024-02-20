@@ -71,7 +71,10 @@ const Chat: React.FC = () => {
 	const requestChat = (chatId: IChat["id"]) => {
 		if (!chatSocket?.connected) return;
 
+		console.log("%c[Chat/requestChat]: Requesting...", "color: yellow");
 		chatSocket.emit("get-chat", { polymorphicId: chatId }, data => {
+			console.log("%c[Chat/requestChat]: Success!", "color: green");
+			console.log(data);
 			dispatch(chatActions.setCurrentChat(data));
 			requestChatHistory(data);
 		});

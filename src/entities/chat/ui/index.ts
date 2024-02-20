@@ -1,3 +1,4 @@
 export * from "./ChatCard";
-export * from "./ChatMessage";
-export * from "./ChatMessageEmbedded";
+export * from "./ChatLastMessage";
+export * from "./Message";
+export * from "./MessageEmbedded";

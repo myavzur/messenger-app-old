@@ -1,0 +1,19 @@
+@import "@/app/styles/_mixins";
+
+.file {
+	@apply flex items-center bg-red-500;
+
+	&__icon {
+		@include set-icon-size(35px);
+	}
+	&__info {
+
+	}
+	&__name {
+		@apply text-base font-bold;
+		@include line-clamp(1);
+	}
+	&__size {
+		@apply text-base;
+	}
+}

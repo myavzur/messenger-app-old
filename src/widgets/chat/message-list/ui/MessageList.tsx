@@ -3,7 +3,7 @@ import cn from "classnames";
 import React, { useEffect, useState } from "react";
 
 import { ChatType, IMessage } from "@/entities/chat/interfaces";
-import { ChatMessage } from "@/entities/chat/ui";
+import { Message } from "@/entities/chat/ui";
 import { MessageContextMenu } from "@/entities/context-menu/ui";
 
 import { useScrollButton } from "@/shared/lib/hooks";
@@ -70,7 +70,7 @@ export const MessageList: React.FC<IMessageListProps> = ({
 						})}
 						style={style}
 					>
-						<ChatMessage
+						<Message
 							isOwn={isOwn}
 							message={message}
 							withAuthorAvatar={!isOwn}

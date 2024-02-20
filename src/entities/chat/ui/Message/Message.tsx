@@ -1,15 +1,17 @@
 import cn from "classnames";
 import React from "react";
 
-import { ChatMessageEmbedded } from "@/entities/chat/ui";
+import { MessageEmbedded } from "@/entities/chat/ui";
 
 import { Avatar, Icon } from "@/shared/ui";
 
-import { IChatMessageProps } from "./ChatMessage.interface";
+import { MessageAttachments } from "../MessageAttachments";
 
-import styles from "./ChatMessage.module.scss";
+import { IMessageProps } from "./Message.interface";
 
-export const ChatMessage: React.FC<IChatMessageProps> = ({
+import styles from "./Message.module.scss";
+
+export const Message: React.FC<IMessageProps> = ({
 	message,
 	isOwn,
 	className,
@@ -19,6 +21,8 @@ export const ChatMessage: React.FC<IChatMessageProps> = ({
 	onScrollToMessage,
 	onContextMenu
 }) => {
+	const hasAttachments = message.attachments && message.attachments.length > 0;
+
 	const handleContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
 		if (!onContextMenu) return;
 		e.preventDefault();
@@ -51,41 +55,14 @@ export const ChatMessage: React.FC<IChatMessageProps> = ({
 				data-message-id={message.id}
 				className={cn(styles.content, className)}
 			>
-				{message.attachments?.length && (
-					<div
-						className={"grid grid-cols-4 mb-2 gap-2"}
-						style={{ gridTemplateRows: "repeat(3, 120px)" }}
-					>
-						{message.attachments.map(attachment => (
-							<div
-								key={attachment.id}
-								className="rounded-md overflow-hidden"
-							>
-								{(attachment.file_type.startsWith("video") && (
-									<video
-										key={attachment.id}
-										src={"http://localhost:5123" + attachment.file_url}
-										muted={false}
-										controls={true}
-										autoPlay={false}
-									/>
-								)) || (
-									<img
-										src={"http://localhost:5123" + attachment.file_url}
-										style={{ objectFit: "cover", width: "100%", height: "100%" }}
-									/>
-								)}
-							</div>
-						))}
-					</div>
-				)}
+				{hasAttachments && <MessageAttachments attachments={message.attachments} />}
 
 				{withAuthorName && (
 					<h2 className={styles.content__author}>{message.user.account_name}</h2>
 				)}
 
 				{message.reply_for && (
-					<ChatMessageEmbedded
+					<MessageEmbedded
 						onClick={message => onScrollToMessage?.(message)}
 						className={styles.content__embedded}
 						message={message.reply_for}

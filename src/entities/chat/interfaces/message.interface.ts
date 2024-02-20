@@ -1,7 +1,7 @@
+import { IAttachment } from "@/entities/attachment/interfaces";
 import { IUser } from "@/entities/user/interfaces";
 
 import { IChat } from "./chat.interface";
-import { IMessageAttachment } from "./message-attachment.interface";
 
 export interface IMessage {
 	id: string;
@@ -9,7 +9,7 @@ export interface IMessage {
 	text: string;
 
 	reply_for?: IMessage | null;
-	attachments: IMessageAttachment[];
+	attachments: IAttachment[];
 
 	user: IUser;
 	chat?: IChat;

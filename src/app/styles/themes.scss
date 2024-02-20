@@ -1,9 +1,6 @@
 // * Common Theme
 body {
   // Colors
-  --color-accent-1000: #6E90EE;
-  --color-accent-glassed-1000: #3659ba36;
-
   --color-util-error:  #EE5252;
   --color-util-error-glassed:  #be242436;
   --color-util-success:#52EE79;
@@ -13,6 +10,9 @@ body {
 // * Insomnia Theme
 body[class="theme_insomnia"] {
   // Colors
+  --color-accent-1000: #6E90EE;
+  --color-accent-glassed-1000: #3659ba36;
+
   --color-primary-1000: #101113;
   --color-primary-900:  #141517;
   --color-primary-800:  #1A1B1E;
@@ -25,7 +25,7 @@ body[class="theme_insomnia"] {
   --color-primary-100:  #C1C2C5;
 	--color-secondary-1000: #F8F9FA;
 
-  // Specific Colors
+  // Colors - Components
   --color-background: var(--color-primary-1000);
   --color-app-background: var(--color-primary-700);
   --color-inputs-background: var(--color-primary-700);
@@ -38,6 +38,9 @@ body[class="theme_insomnia"] {
 // * Winter Theme
 body[class="theme_winter"] {
   // Colors
+  --color-accent-1000: #6E90EE;
+  --color-accent-glassed-1000: #3659ba36;
+
   --color-primary-1000: #F8F9FA;
   --color-primary-900:  #F1F3F5;
   --color-primary-800:  #E9ECEF;
@@ -50,7 +53,7 @@ body[class="theme_winter"] {
   --color-primary-100:  #212529;
 	--color-secondary-1000: #000000;
 
-  // Specific Colors
+  // Colors - Components
   --color-background: var(--color-primary-800);
   --color-app-background: var(--color-primary-1000);
   --color-inputs-background: var(--color-primary-1000);

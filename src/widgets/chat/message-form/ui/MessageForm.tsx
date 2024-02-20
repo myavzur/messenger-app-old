@@ -1,12 +1,13 @@
 import React, { useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 import { AttachmentLoader } from "@/features/chat/attachment-loader/ui/AttachmentLoader.tsx";
 import { FieldAttachAction } from "@/features/chat/field-attach-action/ui";
 
 import { IAttachment } from "@/entities/attachment/interfaces/attachment.interface.ts";
 import { ChatType } from "@/entities/chat/interfaces/chat.interface.ts";
-import { ChatMessageEmbedded } from "@/entities/chat/ui";
+import { MessageEmbedded } from "@/entities/chat/ui";
 
 import {
 	useAttachmentsContext,
@@ -23,7 +24,9 @@ import { IMessageFormProps } from "./MessageForm.interface.ts";
 import styles from "./MessageForm.module.scss";
 
 export const MessageForm: React.FC<IMessageFormProps> = ({ className }) => {
+	const navigate = useNavigate();
 	const dispatch = useStoreDispatch();
+
 	const { currentUser } = useAuth();
 	const { chatSocket } = useSocketsContext();
 	const { attachments, clearAttachments } = useAttachmentsContext();
@@ -68,8 +71,16 @@ export const MessageForm: React.FC<IMessageFormProps> = ({ className }) => {
 			);
 
 			polymorphicId = participant?.user?.id || "";
+			console.log(
+				`%c[MessageForm/send-message]: Sending from ${currentChat.type} chat.`,
+				"color: yellow"
+			);
 		} else {
 			polymorphicId = currentChat.id;
+			console.log(
+				`%c[MessageForm/send-message]: Sending from ${currentChat.type} chat.`,
+				"color: yellow"
+			);
 		}
 
 		chatSocket?.emit(
@@ -80,11 +91,16 @@ export const MessageForm: React.FC<IMessageFormProps> = ({ className }) => {
 				replyForId: embeddedMessage?.id,
 				attachmentIds: attachmentIdsRef.current
 			},
-			() => {
-				console.log("%c[MessageForm/send-message]: Success.", "color: green");
+			data => {
+				console.log("%c[MessageForm/send-message]: Success!", "color: green");
 				attachmentIdsRef.current = [];
 				clearAttachments();
 				setSendLoading(false);
+
+				// TODO: Remade
+				if (currentChat.type === ChatType.TEMP) {
+					navigate(`/chats/${data.chat_id}`);
+				}
 			}
 		);
 
@@ -100,7 +116,7 @@ export const MessageForm: React.FC<IMessageFormProps> = ({ className }) => {
 						className={styles.embedded__icon}
 					/>
 
-					<ChatMessageEmbedded
+					<MessageEmbedded
 						className={styles.embedded__message}
 						message={embeddedMessage}
 						onClick={() => alert("Embeded!")}

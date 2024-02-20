@@ -5,6 +5,7 @@ import { formatUpdatedDate, serializeChat } from "@/entities/chat/lib/helpers";
 
 import { Avatar } from "@/shared/ui";
 
+import { ChatType } from "../../interfaces";
 import { ChatLastMessage } from "../ChatLastMessage";
 
 import { IChatCardProps } from "./ChatCard.interface";
@@ -41,6 +42,17 @@ export const ChatCard: React.FC<IChatCardProps> = ({
 							{formatUpdatedDate(serializedChat.last_message.created_at)}
 						</p>
 					)}
+					<p
+						className={`p-1 text-xs ${
+							chat.type === ChatType.GROUP
+								? "bg-blue-500"
+								: chat.type === ChatType.LOCAL
+								? "bg-green-600"
+								: "bg-red-500"
+						} rounded-md text-white`}
+					>
+						{chat.type.toUpperCase()}
+					</p>
 				</div>
 
 				<div className={styles.card__bottom}>

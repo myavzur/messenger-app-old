@@ -8,7 +8,7 @@ import {
 	IGetChatHistoryParams,
 	IGetChatParams,
 	IPinMessageParams,
-	ISendMessageAcknowledgementData,
+	ISendMessageAcknowledgement,
 	ISendMessageParams
 } from "./chat-types-client.interface";
 import {
@@ -43,7 +43,7 @@ export interface IChatClientToServerEvents {
 	) => void;
 	"send-message": (
 		params: ISendMessageParams,
-		callback: (data: ISendMessageAcknowledgementData) => void
+		callback: (data: ISendMessageAcknowledgement) => void
 	) => void;
 	"change-message": () => void;
 	"pin-message": (params: IPinMessageParams) => void;

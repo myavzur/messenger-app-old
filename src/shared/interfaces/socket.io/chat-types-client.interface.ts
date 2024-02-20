@@ -24,6 +24,11 @@ export interface ISendMessageParams {
 	text: IMessage["text"];
 }
 
+export interface ISendMessageAcknowledgement {
+	message_id: IMessage["id"];
+	chat_id: IChat["id"];
+}
+
 export interface IPinMessageParams {
 	messageId: IMessage["id"];
 }
