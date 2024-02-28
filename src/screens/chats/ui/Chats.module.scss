@@ -2,9 +2,9 @@
 
 .page {
 	@apply relative flex flex-col;
-	border-right: 2px solid var(--color-app-background);
-	border-bottom: 2px solid var(--color-app-background);
-	border-top: 2px solid var(--color-app-background);
+	border-right: 2px solid var(--color-app-bg);
+	border-bottom: 2px solid var(--color-app-bg);
+	border-top: 2px solid var(--color-app-bg);
 	flex: 1 1 auto;
 
 	&__background {

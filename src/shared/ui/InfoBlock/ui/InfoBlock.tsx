@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Avatar } from "@/shared/ui";
+import { AvatarCircle } from "@/entities/attachment/ui";
 
 import { IInfoBlockProps } from "./InfoBlock.interface";
 
@@ -9,7 +9,7 @@ import styles from "./InfoBlock.module.scss";
 export const InfoBlock: React.FC<IInfoBlockProps> = ({
 	title,
 	subtitle,
-	imageUrl,
+	image,
 	status,
 	onClick
 }) => {
@@ -20,14 +20,12 @@ export const InfoBlock: React.FC<IInfoBlockProps> = ({
 			className={styles.info}
 			onClick={onClick}
 		>
-			<Avatar
-				src={imageUrl}
-				alt={title}
-				size="sm"
+			<AvatarCircle
+				placeholderSvgText={title}
+				attachment={image}
 				status={status}
-			>
-				{title}
-			</Avatar>
+				size="sm"
+			/>
 
 			<div className={styles.info__right}>
 				<p className={styles["info__account-name"]}>{title}</p>

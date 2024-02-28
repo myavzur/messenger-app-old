@@ -9,10 +9,9 @@ const AvatarSvg: React.FC<IAvatarSvgProps> = ({ fillColor, text }) => {
 			xmlns="http://www.w3.org/2000/svg"
 			width="100%"
 		>
-			<circle
-				r="50"
-				cx="50"
-				cy="50"
+			<rect
+				width="100%"
+				height="100%"
 				fill={fillColor}
 			/>
 
@@ -22,6 +21,7 @@ const AvatarSvg: React.FC<IAvatarSvgProps> = ({ fillColor, text }) => {
 				dominantBaseline="mathematical"
 				textAnchor="middle"
 				fill="#FFF"
+				style={{ fontSize: "150%", userSelect: "none" }}
 			>
 				{text}
 			</text>

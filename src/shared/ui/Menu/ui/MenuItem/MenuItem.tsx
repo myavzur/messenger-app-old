@@ -9,14 +9,21 @@ export const MenuItem: React.FC<IMenuItemProps> = ({
 	iconElement,
 	label,
 	onClick,
-	isDangerous = false
+	isDangerous = false,
+	isDisabled = false
 }) => {
+	const handleClick = () => {
+		if (isDisabled) return;
+		onClick?.();
+	};
+
 	return (
 		<div
 			className={cn(styles.item, {
-				[styles.item_dangerous]: isDangerous
+				[styles.item_dangerous]: isDangerous,
+				[styles.item_disabled]: isDisabled
 			})}
-			onClick={onClick}
+			onClick={handleClick}
 		>
 			<div className={styles.item__icon}>{iconElement}</div>
 			<p className={styles.item__label}>{label}</p>

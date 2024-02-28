@@ -57,8 +57,6 @@ export const SignInForm: React.FC<ISignInFormProps> = ({
 				/>
 			</FieldLegend>
 
-			<p>Forgot your password?</p>
-
 			<Button
 				disabled={isSubmitting}
 				type="submit"

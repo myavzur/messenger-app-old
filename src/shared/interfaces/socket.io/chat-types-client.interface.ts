@@ -20,7 +20,7 @@ export interface ICreateGroupChatParams {
 export interface ISendMessageParams {
 	polymorphicId: IChat["id"] | IUser["id"];
 	replyForId?: IMessage["id"];
-	attachmentIds?: IAttachment["id"][];
+	fileIds?: IAttachment["id"][];
 	text: IMessage["text"];
 }
 

@@ -1,0 +1,9 @@
+.sidebar {
+	@apply h-full;
+	background-color: var(--color-app-bg);
+}
+
+.floating-actions-menu-button {
+	@apply absolute right-5 bottom-5;
+	z-index: var(--z-chats-sidebar-actions-element);
+}

@@ -1,63 +1,64 @@
-// * Common Theme
+// Common
 body {
-  // Colors
-  --color-util-error:  #EE5252;
-  --color-util-error-glassed:  #be242436;
-  --color-util-success:#52EE79;
-  --color-util-warn:   #DEEE52;
-}
+  --color-white: #FFFFFF;
 
-// * Insomnia Theme
-body[class="theme_insomnia"] {
-  // Colors
   --color-accent-1000: #6E90EE;
+  --color-accent-900: #7F9BFF;
   --color-accent-glassed-1000: #3659ba36;
 
-  --color-primary-1000: #101113;
-  --color-primary-900:  #141517;
-  --color-primary-800:  #1A1B1E;
-  --color-primary-700:  #25262B;
-  --color-primary-600:  #2C2E33;
-  --color-primary-500:  #373A40;
-  --color-primary-400:  #5C5F66;
-	--color-primary-300:  #909296;
-	--color-primary-200:  #A6A7AB;
-  --color-primary-100:  #C1C2C5;
+  --color-error:  #EE5252;
+  --color-error-glassed:  #be242436;
+  --color-success:#52EE79;
+  --color-warning:   #DEEE52;
+}
+
+// Insomnia
+body[class="theme_insomnia"] {
+  --color-primary-1000: #181a1d;
+  --color-primary-900:  #1f2226;
+  --color-primary-800:  #252931;
+  --color-primary-700:  #2d323a;
+  --color-primary-600:  #353a42;
+  --color-primary-500:  #3f454d;
+  --color-primary-400:  #676d75;
+  --color-primary-300:  #8a9199;
+  --color-primary-200:  #aeb4bc;
+  --color-primary-100:  #d0d3d8;
+
 	--color-secondary-1000: #F8F9FA;
 
-  // Colors - Components
-  --color-background: var(--color-primary-1000);
-  --color-app-background: var(--color-primary-700);
-  --color-inputs-background: var(--color-primary-700);
-  --color-context-menu-background: #1a1b1ede;// var(--color-primary-800)
+  // Components
+  --color-bg: var(--color-primary-1000);
+  --color-app-bg: var(--color-primary-800);
+  --color-inputs-bg: var(--color-primary-800);
+  --color-menu-bg: var(--color-primary-800);
+  --color-menu-shadow: rgb(16,16,16,0.612);
 
   // Images
   --image-authorization: url("@/app/assets/images/insomnia_authorization.gif");
 }
 
-// * Winter Theme
+// Winter
 body[class="theme_winter"] {
-  // Colors
-  --color-accent-1000: #6E90EE;
-  --color-accent-glassed-1000: #3659ba36;
+  --color-primary-1000: #F7F8FA;
+  --color-primary-900: #EFF2F5;
+  --color-primary-800: #E6EBEF;
+  --color-primary-700: #DDE4E9;
+  --color-primary-600: #CDD9E3;
+  --color-primary-500: #BCCEDD;
+  --color-primary-400: #AABCCD;
+  --color-primary-300: #829BAF;
+  --color-primary-200: #627D8C;
+  --color-primary-100: #425A6E;
 
-  --color-primary-1000: #F8F9FA;
-  --color-primary-900:  #F1F3F5;
-  --color-primary-800:  #E9ECEF;
-  --color-primary-600:  #DEE2E6;
-  --color-primary-700:  #CED4DA;
-  --color-primary-500:  #ADB5BD;
-  --color-primary-400:  #868E96;
-	--color-primary-300:  #495057;
-	--color-primary-200:  #343A40;
-  --color-primary-100:  #212529;
 	--color-secondary-1000: #000000;
 
-  // Colors - Components
-  --color-background: var(--color-primary-800);
-  --color-app-background: var(--color-primary-1000);
-  --color-inputs-background: var(--color-primary-1000);
-  --color-context-menu-background: #e9ecefc0;// var(--color-primary-800);
+  // Components
+  --color-bg: #1e1e1e;
+  --color-app-bg: var(--color-primary-1000);
+  --color-inputs-bg: var(--color-primary-1000);
+  --color-menu-bg: #e9ecefc0;
+  --color-menu-shadow: rgb(114,114,114,0.251);
 
   // Images
   --image-authorization: url("@/app/assets/images/winter_authorization.gif");

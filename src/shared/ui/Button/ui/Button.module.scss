@@ -1,13 +1,12 @@
 .button {
-	@apply transition-colors flex items-center justify-center rounded-md px-2 py-1.5;
-	@apply relative overflow-hidden select-none outline-none cursor-pointer;
+	@apply transition-colors flex items-center justify-center rounded-md px-2 py-1.5
+	 	relative overflow-hidden select-none outline-none cursor-pointer;
 
 	color: var(--color-accent-1000);
 	border: 1px solid transparent;
 
 	&:hover,
 	&:active { background-color: var(--color-accent-glassed-1000); }
-	&:focus {	border: 1px solid var(--color-accent-1000); }
 
 	&__icon {
 		@apply flex items-center justify-center;
@@ -37,14 +36,14 @@
 	&_full-width { @apply w-full;	}
 
 	&_color-dangerous {
-		color: var(--color-util-error);
+		color: var(--color-error);
 
-		.button__icon { color: var(--color-util-error);	}
-		.button__ripple { background-color: var(--color-util-error-glassed); }
+		.button__icon { color: var(--color-error);	}
+		.button__ripple { background-color: var(--color-error-glassed); }
 
 		&:hover,
-		&:active { background-color: var(--color-util-error-glassed); }
-		&:focus { border: 1px solid var(--color-util-error); }
+		&:active { background-color: var(--color-error-glassed); }
+		&:focus { border: 1px solid var(--color-error); }
 	}
 }
 

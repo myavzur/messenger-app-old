@@ -13,14 +13,14 @@
 
 	&__error {
 		@apply pt-1 text-sm;
-		color: var(--color-util-error);
+		color: var(--color-error);
 	}
 
 	&_with-asterisk {
 		.field__legend::after {
 			@apply pl-1;
 			content: '*';
-			color: var(--color-util-error);
+			color: var(--color-error);
 		}
 	}
 }

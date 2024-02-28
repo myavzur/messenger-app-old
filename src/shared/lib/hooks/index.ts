@@ -1,10 +1,11 @@
 export * from "./use-attachments-context";
-export * from "./use-auth";
 export * from "./use-click-outside";
 export * from "./use-debounce";
+export * from "./use-previous-value";
 export * from "./use-scroll-button";
 export * from "./use-sockets-context";
 export * from "./use-store-dispatch";
 export * from "./use-store-selector";
+export * from "./use-theme";
 export type * from "./use-upload-file.interface";
 export * from "./use-upload-file";

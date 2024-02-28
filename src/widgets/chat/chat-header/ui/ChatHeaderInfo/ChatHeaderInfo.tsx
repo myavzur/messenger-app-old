@@ -29,7 +29,7 @@ export const ChatHeaderInfo: React.FC<IChatHeaderInfoProps> = ({
 					return getLastSeenFromDate(serializedChat.user_last_seen_at);
 				}
 			}}
-			imageUrl={serializedChat.image_url}
+			image={serializedChat.image}
 			status={serializedChat?.user_status}
 		/>
 	);

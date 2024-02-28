@@ -2,7 +2,7 @@
 	@apply w-full flex items-center;
 	border-radius: 0.45rem;
 	border: 1px solid var(--color-primary-500);
-	background-color: var(--color-inputs-background);
+	background-color: var(--color-inputs-bg);
 
 	&__input:not(.field__input_hidden),
 	&__textarea {
@@ -26,13 +26,13 @@
 	}
 
 	&_invalid {
-		border-color: var(--color-util-error);
+		border-color: var(--color-error);
 
 		input {
-			color: var(--color-util-error);
+			color: var(--color-error);
 
 			&:hover,
-			&:focus {	border-color: var(--color-util-error); }
+			&:focus {	border-color: var(--color-error); }
 		}
 	}
 

@@ -4,4 +4,5 @@ export interface IFieldLegendProps {
 	withAsterisk?: boolean;
 	errorText?: string;
 	children: React.ReactNode;
+	className?: string;
 }

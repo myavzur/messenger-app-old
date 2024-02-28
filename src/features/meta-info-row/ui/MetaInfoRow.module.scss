@@ -1,0 +1,31 @@
+@import "@/app/styles/_mixins";
+
+.meta {
+	@apply flex items-center cursor-pointer p-2 rounded-xl;
+
+	&__icon {
+		@include set-icon-size(30px);
+	}
+
+	&__wrapper {
+		@apply flex flex-col ml-2;
+	}
+
+	&__value {
+		@apply text-sm;
+		color: var(--color-secondary-1000);
+	}
+
+	&__subtitle {
+		@apply text-xs flex flex-col overflow-hidden;
+		color: var(--color-primary-300);
+
+		span {
+			transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+		}
+	}
+
+	&:hover {
+		background-color: var(--color-primary-500);
+	}
+}

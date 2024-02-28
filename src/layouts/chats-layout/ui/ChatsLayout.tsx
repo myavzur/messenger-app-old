@@ -1,66 +1,46 @@
-import React, { useState } from "react";
+import React from "react";
 import { Outlet } from "react-router-dom";
 
-import { ChatList } from "@/widgets/chat/chat-list/ui";
-import { CreateGroupChatModal } from "@/widgets/modal/create-group-chat-modal/ui";
-import { SearchChatsModal } from "@/widgets/modal/search-chats-modal/ui";
+import { ChatsSidebar } from "@/widgets/sidebar/chats-sidebar/ui";
+import { PreferencesSidebar } from "@/widgets/sidebar/preferences-sidebar/ui";
+import { ProfileEditSidebar } from "@/widgets/sidebar/profile-edit-sidebar/ui";
+import { ProfileSidebar } from "@/widgets/sidebar/profile-sidebar/ui";
 
-import { ThemeSwitch } from "@/features/app/theme-switch/ui";
-import { Logout } from "@/features/user/logout/ui";
+import { useAuth } from "@/entities/user/lib/hooks";
 
-import { useAuth } from "@/shared/lib/hooks";
-import { Avatar, Button, Icon } from "@/shared/ui";
+import { useStoreSelector } from "@/shared/lib/hooks";
 
 import styles from "./ChatsLayout.module.scss";
 
 export const ChatsLayout: React.FC = () => {
 	const { currentUser } = useAuth();
 
-	const [isSearching, setSearching] = useState(false);
-	const [isCreating, setCreating] = useState(false);
+	const leftSidebarView = useStoreSelector(state => state.settings.leftSidebarView);
+
+	const renderSidebarContent = () => {
+		switch (leftSidebarView) {
+			case "chats":
+				return <ChatsSidebar />;
+			case "profile": {
+				if (!currentUser) return "No access...";
+				return <ProfileSidebar user={currentUser} />;
+			}
+			case "profile/edit":
+				return <ProfileEditSidebar />;
+			case "preferences":
+				return <PreferencesSidebar />;
+			default:
+				return "Something went wrong";
+		}
+	};
 
 	return (
 		<div className={styles.layout}>
-			<aside className={styles.layout__aside}>
-				<header className={styles.layout__header}>
-					<Logout />
-
-					<Button
-						onClick={() => setSearching(true)}
-						iconElement={<Icon name="search-eye" />}
-					/>
-
-					<ThemeSwitch />
-				</header>
-
-				<ChatList />
-
-				<div className={styles["actions"]}>
-					{currentUser && (
-						<Avatar
-							size="xs"
-							src={currentUser?.avatar?.file_url}
-							alt={currentUser?.account_name}
-						>
-							{currentUser?.account_name}
-						</Avatar>
-					)}
-
-					<Button
-						className={styles["create-chat-button"]}
-						onClick={() => setCreating(true)}
-						iconElement={<Icon name="generate" />}
-						isFullRounded={true}
-					/>
-				</div>
-			</aside>
+			<aside className={styles.layout__aside}>{renderSidebarContent()}</aside>
 
 			<main className={styles.layout__main}>
 				<Outlet />
 			</main>
-
-			{isSearching && <SearchChatsModal onClose={() => setSearching(false)} />}
-			{isCreating && <CreateGroupChatModal onClose={() => setCreating(false)} />}
 		</div>
 	);
 };

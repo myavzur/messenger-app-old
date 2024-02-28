@@ -11,7 +11,8 @@ import {
 import { AuthLayout } from "@/layouts/auth-layout/ui";
 import { ChatsLayout } from "@/layouts/chats-layout/ui";
 
-import { useAuth } from "@/shared/lib/hooks";
+import { useAuth } from "@/entities/user/lib/hooks";
+
 import { PageLoader } from "@/shared/ui";
 
 const Chats = React.lazy(() => import("@/screens/chats"));
@@ -54,6 +55,7 @@ const AppRouter: React.FC = () => {
 	return (
 		<BrowserRouter>
 			<NavigateSetter />
+
 			<Suspense fallback={<PageLoader />}>
 				<Routes>
 					<Route

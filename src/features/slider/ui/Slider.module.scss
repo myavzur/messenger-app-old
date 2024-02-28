@@ -1,0 +1,73 @@
+@import "@/app/styles/_mixins";
+
+.slider {
+	@apply relative;
+
+	&__window {
+		@apply overflow-hidden;
+	}
+
+	&__slides {
+		@apply flex;
+		width: fit-content;
+		transition: transform 0.3s ease-out;
+	}
+
+	&__slide {
+		opacity: 0.15;
+		transition: opacity 0.3s ease-in-out;
+
+		img {
+			@apply select-none w-full h-full object-cover;
+		}
+
+		&_active { opacity: 1; }
+	}
+
+	&__indicators {
+		@apply absolute left-1 right-1 top-1 flex items-center;
+		z-index: var(--z-slider-indicators);
+	}
+
+	&__indicator {
+		flex: 1 1 auto;
+		background-color: var(--color-white);
+		height: 0.15rem;
+
+		opacity: 0.25;
+		transition: opacity 0.5s ease;
+
+		& + & {
+			@apply ml-1;
+		}
+
+		&_active {
+			opacity: 0.75;
+		}
+	}
+
+	&__control {
+		@apply absolute top-0 h-full flex items-center justify-center;
+		z-index: var(--z-slider-controls);
+		color: var(--color-white);
+		width: 60px;
+
+		opacity: 0.25;
+		transition: opacity 0.5s ease;
+
+		&-icon {
+			@include set-icon-size(40px);
+		}
+
+		&:hover {
+			opacity: 0.75;
+		}
+
+		&_previous {
+			@apply left-0 rotate-180;
+		}
+		&_next {
+			@apply right-0;
+		}
+	}
+}

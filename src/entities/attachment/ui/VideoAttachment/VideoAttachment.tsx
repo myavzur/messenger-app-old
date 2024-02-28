@@ -19,7 +19,10 @@ export const VideoAttachment: React.FC<IAttachmentProps> = ({ attachment }) => {
 
 	return (
 		<div className={styles.video}>
-			<video src={UPLOADS_SERVER_URL + attachment.file_url} />
+			<video
+				src={UPLOADS_SERVER_URL + attachment.file_url}
+				controls={true}
+			/>
 		</div>
 	);
 };

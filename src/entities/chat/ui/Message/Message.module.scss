@@ -1,7 +1,9 @@
 @import "@/app/styles/_mixins";
 
 .message {
+	--color-highlight: var(--color-accent-1000);
 	--appendix-offset: 9px;
+
 	display: flex;
 
 	.avatar {
@@ -9,38 +11,63 @@
 	}
 
 	.content {
-		@apply relative select-none p-2.5 rounded-2xl;
+		@apply relative;
 
-		&__author {
-			@apply text-sm font-bold;
+		.author, .embedded, .text {
+			background-color: var(--color-primary-800);
+		}
+
+		.attachments {}
+
+		.author {
+			@apply text-sm font-bold px-2.5;
 			@include line-clamp(1);
+			color: var(--color-highlight);
 		}
 
-		.content__author + .content__embedded {
-			@apply mt-2.5;
+		.embedded {
+			@apply px-2.5;
 		}
 
-		.content__embedded + .content__text {
-			@apply mt-2.5;
-		}
-
-		&__text {
-			@apply select-text text-base;
+		.text {
+			@apply select-text text-base px-2.5;
 			white-space: pre-wrap;
 			font-family: inherit;
+			color: var(--color-secondary-1000);
 		}
 
-		&__appendix {
+		.appendix {
 			@apply absolute bottom-0;
+		}
+
+		&__item:nth-child(1) {
+			@apply rounded-t-2xl overflow-hidden;
+
+			&:not(.attachments) {
+				@apply pt-2.5;
+			}
+		}
+
+		&__item:not(.attachments):nth-child(n + 1) {
+			@apply pb-2.5;
+		}
+
+		// Последний из .content__item (на момент 28/02/2024. Последний - .text)
+		&__item:nth-last-child(-n+2) {
+			@apply rounded-b-2xl overflow-hidden;
+		}
+
+		// Следующий эллемент после .attachments
+		.attachments + * {
+			@apply pt-2.5;
 		}
 	}
 
 	&:not(.message_own) {
 		.content {
 			border-bottom-left-radius: 0;
-			background-color: var(--color-primary-800);
 
-			&__appendix {
+			.appendix {
 				transform: rotateY(-180deg);
 				left: calc(var(--appendix-offset) * -1);
 				color: var(--color-primary-800);
@@ -52,12 +79,12 @@
 		padding-right: var(--appendix-offset);
 
 		.content {
-			border-bottom-right-radius: 0;
-			background-color: var(--color-accent-1000);
-			margin-right: var(--appendix-offset);
-			color: #FFF;
+			.author, .embedded, .text {
+				background-color: var(--color-accent-1000);
+				color: var(--color-white);
+			}
 
-			&__appendix {
+			.appendix {
 				right: -9px;
 				color: var(--color-accent-1000);
 			}

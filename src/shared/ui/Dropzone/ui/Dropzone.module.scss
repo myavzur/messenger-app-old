@@ -2,7 +2,7 @@
 
 .dropzone {
 	@apply p-6 w-full h-full rounded-md;
-	background-color: var(--color-app-background);
+	background-color: var(--color-app-bg);
 	color: var(--color-primary-400);
 
 	&__content {

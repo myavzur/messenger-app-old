@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+import { IAttachment } from "@/entities/attachment/interfaces";
 import {
 	IAuthResponse,
 	ISignInBody,
@@ -79,6 +80,10 @@ export const baseApi = createApi({
 			void | null
 		>({
 			query: () => "/users/local-chats"
+		}),
+
+		getUserAvatars: builder.query<IAttachment[], IUser["id"]>({
+			query: userId => `/users/${userId}/avatars`
 		})
 	})
 });

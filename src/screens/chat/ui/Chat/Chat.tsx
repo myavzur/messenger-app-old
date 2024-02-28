@@ -1,7 +1,7 @@
 import { animated, useTransition } from "@react-spring/web";
 import cn from "classnames";
 import React, { DragEventHandler, useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { ChatHeader } from "@/widgets/chat/chat-header/ui";
 import { MessageForm } from "@/widgets/chat/message-form/ui";
@@ -11,10 +11,10 @@ import { AttachFileDropzone } from "@/features/chat/attach-file-dropzone/ui";
 import { AttachMediaDropzone } from "@/features/chat/attach-media-dropzone/ui";
 
 import { ChatType, IChat } from "@/entities/chat/interfaces";
+import { useAuth } from "@/entities/user/lib/hooks";
 
 import { AttachmentsContextProvider } from "@/shared/contexts/AttachmentsContextProvider";
 import {
-	useAuth,
 	useSocketsContext,
 	useStoreDispatch,
 	useStoreSelector
@@ -25,6 +25,7 @@ import { PageLoader } from "@/shared/ui";
 import styles from "./Chat.module.scss";
 
 const Chat: React.FC = () => {
+	const navigate = useNavigate();
 	const dispatch = useStoreDispatch();
 
 	const params = useParams<{ polymorphicId: string }>();
@@ -45,7 +46,18 @@ const Chat: React.FC = () => {
 	/** Request Chat Messages for passed `chat`.
 	 * If `chat` is temporary - this means it hasn't any messages yet. */
 	const requestChatHistory = (chat: IChat) => {
-		if (chat.type === ChatType.TEMP) return;
+		if (chat.type === ChatType.TEMP) {
+			console.log(
+				"%c[Chat/requestChatHistory]: Chat is temporary, sir! Nothing to request!",
+				"color: grey"
+			);
+			return;
+		}
+
+		console.log(
+			"%c[Chat/requestChatHistory]: Requesting history...",
+			"color: yellow"
+		);
 
 		chatSocket?.emit(
 			"get-chat-history",
@@ -55,6 +67,11 @@ const Chat: React.FC = () => {
 				limit: 100
 			},
 			data => {
+				console.log(
+					"%c[Chat/requestChatHistory]: Take your messages!",
+					"color: green"
+				);
+
 				dispatch(
 					chatActions.updateChatCarefully({
 						chatId: data.chat_id,
@@ -71,10 +88,19 @@ const Chat: React.FC = () => {
 	const requestChat = (chatId: IChat["id"]) => {
 		if (!chatSocket?.connected) return;
 
-		console.log("%c[Chat/requestChat]: Requesting...", "color: yellow");
+		console.log("%c[Chat/requestChat]: Requesting chat...", "color: yellow");
+
 		chatSocket.emit("get-chat", { polymorphicId: chatId }, data => {
-			console.log("%c[Chat/requestChat]: Success!", "color: green");
-			console.log(data);
+			const isTemporaryChat = data.type === ChatType.TEMP;
+
+			if (!isTemporaryChat && params.polymorphicId !== data.id) {
+				console.log("%c[Chat/requestChat]: Redirecting...", "color: orange");
+				navigate(`/chats/${data.id}`);
+				return;
+			}
+
+			console.log("%c[Chat/requestChat]: Gotcha!", "color: green");
+
 			dispatch(chatActions.setCurrentChat(data));
 			requestChatHistory(data);
 		});

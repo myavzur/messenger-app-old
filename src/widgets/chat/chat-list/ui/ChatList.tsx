@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 import { ChatCard } from "@/entities/chat/ui";
+import { useAuth } from "@/entities/user/lib/hooks";
 
 import { IPaginationBody } from "@/shared/interfaces/pagination.interface";
 import {
-	useAuth,
 	useSocketsContext,
 	useStoreDispatch,
 	useStoreSelector

@@ -1,0 +1,12 @@
+.sidebar {
+	@apply h-full;
+	background-color: var(--color-app-bg);
+}
+
+.meta {
+	@apply mt-4 mx-4;
+
+	&__row + &__row {
+		@apply mt-2;
+	}
+}

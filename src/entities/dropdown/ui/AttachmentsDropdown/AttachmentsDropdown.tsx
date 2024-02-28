@@ -23,7 +23,6 @@ export const AttachmentsDropdown: React.FC<IAttachmentsDropdownProps> = ({
 		console.log(e.target.files);
 	};
 
-	// TODO: Fix inputs. Prepare back-end
 	return (
 		<Dropdown {...dropdownProps}>
 			<MenuFileInputItem

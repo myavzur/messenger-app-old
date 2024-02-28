@@ -1,39 +1,17 @@
 .avatar {
 	--size: 45px;
-	--font-size: 25px;
 
-	@apply relative flex items-center justify-center rounded-full select-none pointer-events-none;
+	@apply relative flex items-center justify-center rounded-full overflow-hidden select-none pointer-events-none;
 	min-width: var(--size);
 	width: var(--size);
 	height: var(--size);
 	font-size: var(--font-size);
 
 	img {
-		@apply block w-full h-full object-cover rounded-full;
+		@apply block w-full h-full object-cover;
 	}
 
-	&__indicator {
-		@apply transition-colors;
-		position: absolute;
-		width: calc(var(--size) / 5);
-		height: calc(var(--size) / 5);
-		background-color: #9b9b9b;
-		border-radius: 50%;
-		right: 3px;
-		bottom: 3px;
-
-		&[data-type="1"] {
-			background-color: #fff;
-		}
-	}
-
-	&_size_xs {
-		--size: 30px;
-		--font-size: 30px;
-	}
-
-	&_size_sm {
-		--size: 40px;
-		--font-size: 25px;
-	}
+	&_size_xs { --size: 30px;	}
+	&_size_sm { --size: 40px; }
+	&_size_xl { --size: 125px; }
 }

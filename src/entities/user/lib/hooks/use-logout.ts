@@ -1,28 +1,24 @@
-import React from "react";
+import { useAuth } from ".";
+import { useCallback } from "react";
 
 import { removeAccessToken } from "@/shared/lib/helpers";
-import { useAuth, useSocketsContext, useStoreDispatch } from "@/shared/lib/hooks";
+import { useSocketsContext, useStoreDispatch } from "@/shared/lib/hooks";
 import { chatActions } from "@/shared/models/chats";
-import { Button, Icon } from "@/shared/ui";
 
-export const Logout: React.FC = () => {
+export const useLogout = () => {
 	const dispatch = useStoreDispatch();
 
 	const { disconnectAll } = useSocketsContext();
 	const { refetchCurrentUser } = useAuth();
 
-	const handleLogout = () => {
+	const logout = useCallback(() => {
 		removeAccessToken();
 		disconnectAll();
 		refetchCurrentUser();
 		dispatch(chatActions.clearChats());
-	};
 
-	return (
-		<Button
-			color="dangerous"
-			onClick={handleLogout}
-			iconElement={<Icon name="door-out" />}
-		/>
-	);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [disconnectAll]);
+
+	return logout;
 };

@@ -1,0 +1,23 @@
+.avatar {
+	--size: 45px;
+
+	@apply relative max-w-fit;
+
+	&__indicator {
+		@apply absolute transition-colors;
+		width: calc(var(--size) / 5);
+		height: calc(var(--size) / 5);
+		border-radius: 50%;
+		right: calc(var(--size) / 12);
+		bottom: calc(var(--size) / 30);
+		transition: 0.3s background-color, 0.3 opacity;
+
+		&[data-type="1"] {
+			background-color: var(--color-white);
+		}
+	}
+
+	&_size_xs { --size: 30px; }
+	&_size_sm { --size: 40px; }
+	&_size_xl {	--size: 125px; }
+}

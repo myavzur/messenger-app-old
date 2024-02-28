@@ -6,7 +6,7 @@ import { IChat } from "./chat.interface";
 export interface IMessage {
 	id: string;
 	created_at: Date;
-	text: string;
+	text?: string | null;
 
 	reply_for?: IMessage | null;
 	attachments: IAttachment[];

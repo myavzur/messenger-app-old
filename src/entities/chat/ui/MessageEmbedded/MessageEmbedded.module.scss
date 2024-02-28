@@ -1,13 +1,17 @@
 @import "@/app/styles/_mixins";
 
 .reply {
+	--color-highlight: var(--color-white);
+	--color-highlight-bg: var(--color-accent-900);
+
 	@apply rounded-md px-2 py-1 cursor-pointer;
-	border-left: 3px solid #FFFFFF;
-	background-color: rgba(210, 210, 210, 0.227);
+	border-left: 3px solid var(--color-highlight);
+	background-color: var(--color-highlight-bg);
 
 	&__author {
 		@apply text-sm font-bold;
 		@include line-clamp(1);
+		color: var(--color-highlight);
 	}
 
 	&__text {

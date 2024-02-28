@@ -3,4 +3,5 @@ export interface IMenuItemProps {
 	label: string;
 	onClick?: () => void;
 	isDangerous?: boolean;
+	isDisabled?: boolean;
 }

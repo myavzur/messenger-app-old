@@ -8,10 +8,10 @@ import { FieldAttachAction } from "@/features/chat/field-attach-action/ui";
 import { IAttachment } from "@/entities/attachment/interfaces/attachment.interface.ts";
 import { ChatType } from "@/entities/chat/interfaces/chat.interface.ts";
 import { MessageEmbedded } from "@/entities/chat/ui";
+import { useAuth } from "@/entities/user/lib/hooks/use-auth.ts";
 
 import {
 	useAttachmentsContext,
-	useAuth,
 	useSocketsContext,
 	useStoreDispatch,
 	useStoreSelector
@@ -51,13 +51,20 @@ export const MessageForm: React.FC<IMessageFormProps> = ({ className }) => {
 	};
 
 	const handleAttachmentLoaded = (data: any) => {
-		attachmentIdsRef.current = [...attachmentIdsRef.current, data.attachment_id];
+		attachmentIdsRef.current = [...attachmentIdsRef.current, data.file_id];
 	};
 
 	const handleSendMessage: SubmitHandler<{ text: string }> = message => {
 		if (!chatSocket?.connected || !currentUser || !currentChat) return;
 		if (!isValid) return;
 		if (isSendLoading) return;
+
+		const hasContent: boolean =
+			Boolean(message.text) ||
+			Boolean(embeddedMessage?.id) ||
+			attachmentIdsRef.current.length > 0;
+
+		if (!hasContent) return;
 
 		// Changing isSendLoading before reset to prevent placeholder flicks.
 		setSendLoading(true);
@@ -71,17 +78,14 @@ export const MessageForm: React.FC<IMessageFormProps> = ({ className }) => {
 			);
 
 			polymorphicId = participant?.user?.id || "";
-			console.log(
-				`%c[MessageForm/send-message]: Sending from ${currentChat.type} chat.`,
-				"color: yellow"
-			);
 		} else {
 			polymorphicId = currentChat.id;
-			console.log(
-				`%c[MessageForm/send-message]: Sending from ${currentChat.type} chat.`,
-				"color: yellow"
-			);
 		}
+
+		console.log(
+			`%c[MessageForm/send-message]: Sending from ${currentChat.type} chat.`,
+			"color: yellow"
+		);
 
 		chatSocket?.emit(
 			"send-message",
@@ -89,15 +93,15 @@ export const MessageForm: React.FC<IMessageFormProps> = ({ className }) => {
 				polymorphicId,
 				text: message.text,
 				replyForId: embeddedMessage?.id,
-				attachmentIds: attachmentIdsRef.current
+				fileIds: attachmentIdsRef.current
 			},
 			data => {
 				console.log("%c[MessageForm/send-message]: Success!", "color: green");
+
 				attachmentIdsRef.current = [];
 				clearAttachments();
 				setSendLoading(false);
 
-				// TODO: Remade
 				if (currentChat.type === ChatType.TEMP) {
 					navigate(`/chats/${data.chat_id}`);
 				}
@@ -135,7 +139,7 @@ export const MessageForm: React.FC<IMessageFormProps> = ({ className }) => {
 					placeholder={isSendLoading ? "Sending message..." : "Message"}
 					{...register("text", {
 						minLength: 1,
-						required: true
+						required: false
 					})}
 					maxGrowHeight={420}
 					preventBorderTop={Boolean(embeddedMessage)}

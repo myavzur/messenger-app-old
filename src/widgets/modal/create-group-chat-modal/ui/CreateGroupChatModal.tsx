@@ -5,10 +5,11 @@ import { SelectUsersField } from "@/features/user/select-users-field/ui";
 import { ISelectUserOption } from "@/features/user/select-users-field/ui";
 
 import { Modal, ModalHeader } from "@/entities/modal/ui";
+import { useAuth } from "@/entities/user/lib/hooks";
 
 import { baseApi } from "@/shared/api";
 import { ICreateGroupChatParams } from "@/shared/interfaces/socket.io";
-import { useAuth, useSocketsContext } from "@/shared/lib/hooks";
+import { useSocketsContext } from "@/shared/lib/hooks";
 import { Button, ButtonGroup, Field, FieldLegend } from "@/shared/ui";
 
 import { ICreateGroupChatModalProps } from "./CreateGroupChatModal.interface";

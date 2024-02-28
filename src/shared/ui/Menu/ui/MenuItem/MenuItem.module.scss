@@ -30,7 +30,18 @@
 		.item {
 			&__icon,
 			&__label {
-				color: var(--color-util-error);
+				color: var(--color-error);
+			}
+		}
+	}
+
+	&_disabled {
+		.item {
+			@apply pointer-events-none;
+
+			&__icon,
+			&__label {
+				color: var(--color-primary-500)
 			}
 		}
 	}

@@ -13,6 +13,7 @@ export * from "./Logo/ui";
 export * from "./Menu/ui";
 export * from "./PageLoader/ui";
 export * from "./PasswordField/ui";
+export * from "./SectionHeader/ui";
 export * from "./Switch/ui";
 export * from "./TextAnchor/ui";
 export * from "./TextAreaField/ui";

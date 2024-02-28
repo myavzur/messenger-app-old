@@ -5,11 +5,12 @@
 @import '@/app/styles/_mixins.scss';
 @import '@/app/styles/variables.scss';
 @import '@/app/styles/normalize.scss';
+@import '@/app/styles/highlight-colors.scss';
 @import '@/app/styles/themes.scss';
 @import '@/app/styles/fonts.scss';
 
 body {
   font-family: Montserrat, sans-serif;
-  background-color: var(--color-background);
+  background-color: var(--color-bg);
   color: var(--color-secondary-1000);
 }

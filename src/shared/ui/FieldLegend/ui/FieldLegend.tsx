@@ -1,4 +1,4 @@
-import classNames from "classnames";
+import cn from "classnames";
 import React from "react";
 
 import { IFieldLegendProps } from "./FieldLegend.interface";
@@ -10,11 +10,12 @@ export const FieldLegend: React.FC<IFieldLegendProps> = ({
 	description,
 	withAsterisk,
 	errorText,
-	children
+	children,
+	className
 }) => {
 	return (
-		<label
-			className={classNames(styles.field, {
+		<div
+			className={cn(styles.field, className, {
 				[styles["field_with-asterisk"]]: withAsterisk
 			})}
 		>
@@ -22,6 +23,6 @@ export const FieldLegend: React.FC<IFieldLegendProps> = ({
 			{description && <p className={styles.field__description}>{description}</p>}
 			{children}
 			{errorText && <p className={styles.field__error}>{errorText}</p>}
-		</label>
+		</div>
 	);
 };

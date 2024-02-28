@@ -1,3 +1,4 @@
+import cn from "classnames";
 import React from "react";
 
 import { AttachmentTag, IAttachment } from "@/entities/attachment/interfaces";
@@ -12,7 +13,8 @@ import { IMessageAttachmentsProps } from "./MessageAttachments.interface";
 import styles from "./MessageAttachments.module.scss";
 
 export const MessageAttachments: React.FC<IMessageAttachmentsProps> = ({
-	attachments
+	attachments,
+	className
 }) => {
 	const renderAttachment = (attachment: IAttachment) => {
 		const isMediaTag = attachment.tag === AttachmentTag.MEDIA;
@@ -28,7 +30,7 @@ export const MessageAttachments: React.FC<IMessageAttachmentsProps> = ({
 	};
 
 	return (
-		<div className={styles.attachments}>
+		<div className={cn(styles.attachments, className)}>
 			{attachments.map(attachment => (
 				<div key={attachment.id}>{renderAttachment(attachment)}</div>
 			))}

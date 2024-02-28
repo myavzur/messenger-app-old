@@ -2,9 +2,10 @@
 
 .menu {
 	@apply p-1.5 rounded-lg cursor-default;
+	box-shadow: 0 .25rem .5rem .125rem var(--color-menu-shadow);
 	z-index: var(--z-active-chat-elements);
 	width: 235px;
 
-	background-color: var(--color-context-menu-background);
+	background-color: var(--color-menu-bg);
 	backdrop-filter: blur(10px);
 }

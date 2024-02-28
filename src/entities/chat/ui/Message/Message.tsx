@@ -1,10 +1,12 @@
 import cn from "classnames";
 import React from "react";
 
+import { AvatarCircle } from "@/entities/attachment/ui";
 import { MessageEmbedded } from "@/entities/chat/ui";
 
-import { Avatar, Icon } from "@/shared/ui";
+import { Icon } from "@/shared/ui";
 
+import { IMessage } from "../../interfaces";
 import { MessageAttachments } from "../MessageAttachments";
 
 import { IMessageProps } from "./Message.interface";
@@ -14,7 +16,6 @@ import styles from "./Message.module.scss";
 export const Message: React.FC<IMessageProps> = ({
 	message,
 	isOwn,
-	className,
 	withAuthorAvatar = false,
 	withAuthorName = false,
 	withAppendix = true,
@@ -22,6 +23,8 @@ export const Message: React.FC<IMessageProps> = ({
 	onContextMenu
 }) => {
 	const hasAttachments = message.attachments && message.attachments.length > 0;
+	const hasReply = message.reply_for && message.reply_for.id;
+	const hasText = message.text;
 
 	const handleContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
 		if (!onContextMenu) return;
@@ -37,43 +40,57 @@ export const Message: React.FC<IMessageProps> = ({
 
 	return (
 		<div
+			style={
+				{
+					"--color-highlight": `var(--color-highlight-${message.user.theme})`
+				} as React.CSSProperties
+			}
 			className={cn(styles.message, { [styles.message_own]: isOwn })}
 			onContextMenu={handleContextMenu}
 		>
 			{withAuthorAvatar && (
-				<Avatar
+				<AvatarCircle
+					attachment={message.user.avatar}
+					placeholderSvgText={message.user.account_name}
 					className={styles.avatar}
 					size="xs"
-					src={message.user.avatar?.file_url}
-					alt={message.user.account_name}
-				>
-					{message.user.account_name}
-				</Avatar>
+				/>
 			)}
 
 			<div
 				data-message-id={message.id}
-				className={cn(styles.content, className)}
+				className={styles.content}
 			>
-				{hasAttachments && <MessageAttachments attachments={message.attachments} />}
-
-				{withAuthorName && (
-					<h2 className={styles.content__author}>{message.user.account_name}</h2>
+				{!hasAttachments && withAuthorName && (
+					<h2 className={cn(styles.content__item, styles.author)}>
+						{message.user.account_name}
+					</h2>
 				)}
 
-				{message.reply_for && (
-					<MessageEmbedded
-						onClick={message => onScrollToMessage?.(message)}
-						className={styles.content__embedded}
-						message={message.reply_for}
+				{hasReply && (
+					<div className={cn(styles.content__item, styles.embedded)}>
+						<MessageEmbedded
+							preventUserColors={isOwn}
+							onClick={message => onScrollToMessage?.(message)}
+							message={message.reply_for as IMessage}
+						/>
+					</div>
+				)}
+
+				{hasAttachments && (
+					<MessageAttachments
+						className={cn(styles.content__item, styles.attachments)}
+						attachments={message.attachments}
 					/>
 				)}
 
-				<pre className={styles.content__text}>{message.text}</pre>
+				{hasText && (
+					<pre className={cn(styles.content__item, styles.text)}>{message.text}</pre>
+				)}
 
 				{withAppendix && (
 					<Icon
-						className={styles.content__appendix}
+						className={styles.appendix}
 						name="appendix"
 						width="10"
 						height="18"
