@@ -1,6 +1,6 @@
 import React from "react";
 
-import { AppRouter, AppStore, AppTheme } from "@/app/providers";
+import { AppOAuth, AppRouter, AppStore, AppTheme } from "@/app/providers";
 import "@/app/styles/index.scss";
 
 import { SocketsContextProvider } from "@/shared/contexts/SocketsContextProvider";
@@ -10,16 +10,18 @@ const PRESENCE_SERVER_URL = import.meta.env.VITE_PRESENCE_SERVER_URL;
 
 function App() {
 	return (
-		<AppStore>
-			<SocketsContextProvider
-				chatServerUrl={CHAT_SERVER_URL}
-				presenceServerUrl={PRESENCE_SERVER_URL}
-			>
-				<AppTheme>
-					<AppRouter />
-				</AppTheme>
-			</SocketsContextProvider>
-		</AppStore>
+		<AppOAuth>
+			<AppStore>
+				<SocketsContextProvider
+					chatServerUrl={CHAT_SERVER_URL}
+					presenceServerUrl={PRESENCE_SERVER_URL}
+				>
+					<AppTheme>
+						<AppRouter />
+					</AppTheme>
+				</SocketsContextProvider>
+			</AppStore>
+		</AppOAuth>
 	);
 }
 

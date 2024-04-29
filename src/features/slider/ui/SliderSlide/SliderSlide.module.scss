@@ -1,0 +1,10 @@
+.slide {
+	opacity: 0.15;
+	transition: opacity 0.3s ease-in-out;
+
+	img {
+		@apply select-none w-full h-full object-cover;
+	}
+
+	&_active { opacity: 1; }
+}

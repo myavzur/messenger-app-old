@@ -1,15 +1,12 @@
-import cn from "classnames";
 import React, { useState } from "react";
 import useMeasure from "react-use-measure";
 
 import { IAttachment } from "@/entities/attachment/interfaces";
 
-import { bgFillColors } from "@/shared/constants";
-import { getElementFromArrayByStringHash, getInitials } from "@/shared/lib/helpers";
-import { Icon } from "@/shared/ui";
-import AvatarSvg from "@/shared/ui/Avatar/ui/AvatarSvg";
-
 import { ISliderProps } from "./Slider.interface";
+import { SliderArrowButton } from "./SliderArrowButton";
+import { SliderIndicator } from "./SliderIndicator";
+import { SliderSlide } from "./SliderSlide/SliderSlide";
 
 import styles from "./Slider.module.scss";
 
@@ -24,12 +21,17 @@ export const Slider: React.FC<ISliderProps> = ({
 	const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 	const [sliderWindowRef, sliderWindowBounds] = useMeasure();
 
+	const isIndicatorsEnabled = validAttachments.length > 1;
 	const isPreviousDisabled = currentSlideIndex === 0;
 	const isNextDisabled =
 		!validAttachments.length || currentSlideIndex === validAttachments.length - 1;
 
 	const slideHeight = sliderWindowBounds.width;
 	const slideWidth = Math.max(sliderWindowBounds.width, 0);
+
+	const removeFromValidAttachments = (attachment: IAttachment) => {
+		setValidAttachments(prev => prev.filter(({ id }) => id !== attachment.id));
+	};
 
 	const handlePreviousSlide = () => {
 		if (isPreviousDisabled) return;
@@ -42,44 +44,28 @@ export const Slider: React.FC<ISliderProps> = ({
 	};
 
 	const renderSlides = () => {
-		const slideStyles = {
-			width: slideWidth,
-			height: slideHeight
-		} as React.CSSProperties;
-
 		if (validAttachments.length > 0) {
 			return validAttachments.map((attachment, idx) => (
-				<li
-					key={idx}
-					className={cn(styles.slider__slide, {
-						[styles.slider__slide_active]: idx === currentSlideIndex
-					})}
-					style={slideStyles}
-				>
-					<img
-						src={attachment.file_url}
-						alt={attachment.file_name}
-						onError={() =>
-							setValidAttachments(prev => prev.filter((_, i) => i !== idx))
-						}
-					/>
-				</li>
+				<SliderSlide
+					key={attachment.id}
+					contentType="image"
+					attachment={attachment}
+					height={slideHeight}
+					width={slideWidth}
+					onImageError={() => removeFromValidAttachments(attachment)}
+					isActive={idx === currentSlideIndex}
+				/>
 			));
 		}
 
 		return (
-			<li
-				className={cn(styles.slider__slide, styles.slider__slide_active)}
-				style={slideStyles}
-			>
-				<AvatarSvg
-					fillColor={getElementFromArrayByStringHash(
-						bgFillColors,
-						emptyPicturesText
-					)}
-					text={getInitials(emptyPicturesText)}
-				/>
-			</li>
+			<SliderSlide
+				defaultAvatarText={emptyPicturesText}
+				contentType="default-avatar"
+				height={slideHeight}
+				width={slideWidth}
+				isActive={true}
+			/>
 		);
 	};
 
@@ -98,40 +84,28 @@ export const Slider: React.FC<ISliderProps> = ({
 			</div>
 
 			<ul className={styles.slider__indicators}>
-				{validAttachments.length > 1 &&
+				{isIndicatorsEnabled &&
 					validAttachments.map((_, idx) => (
-						<li
+						<SliderIndicator
 							key={idx}
-							className={cn(styles.slider__indicator, {
-								[styles.slider__indicator_active]: idx === currentSlideIndex
-							})}
+							isActive={currentSlideIndex === idx}
 							onClick={() => setCurrentSlideIndex(idx)}
 						/>
 					))}
 			</ul>
 
 			{!isPreviousDisabled && (
-				<button
-					className={cn(styles.slider__control, styles.slider__control_previous)}
+				<SliderArrowButton
 					onClick={handlePreviousSlide}
-				>
-					<Icon
-						className={styles["slider__control-icon"]}
-						name="arrow-right"
-					/>
-				</button>
+					position="left"
+				/>
 			)}
 
 			{!isNextDisabled && (
-				<button
-					className={cn(styles.slider__control, styles.slider__control_next)}
+				<SliderArrowButton
 					onClick={handleNextSlide}
-				>
-					<Icon
-						className={styles["slider__control-icon"]}
-						name="arrow-right"
-					/>
-				</button>
+					position="right"
+				/>
 			)}
 		</div>
 	);

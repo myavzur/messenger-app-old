@@ -13,7 +13,7 @@
 	}
 
 	&__last-seen {
-		@apply text-sm;
+		@apply text-sm italic;
 		color: var(--color-primary-400);
 		@include line-clamp(1);
 	}

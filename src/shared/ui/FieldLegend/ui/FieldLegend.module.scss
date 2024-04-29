@@ -2,17 +2,17 @@
 	@apply w-full;
 
 	&__legend {
-		@apply font-medium text-base;
+		@apply font-medium text-sm;
 		color: var(--color-primary-100);
 	}
 
 	&__description {
-		@apply text-sm pb-1;
+		@apply text-xs pb-1;
 		color: var(--color-primary-300);
 	}
 
 	&__error {
-		@apply pt-1 text-sm;
+		@apply pt-1 text-xs;
 		color: var(--color-error);
 	}
 

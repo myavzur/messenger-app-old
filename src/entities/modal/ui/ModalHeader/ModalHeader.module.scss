@@ -1,7 +1,9 @@
 .header {
-  @apply flex items-center justify-between font-bold;
+  @apply flex items-center justify-between font-bold text-lg;
+  color: var(--color-accent-1000);
 
   &__close {
+    color: var(--color-secondary-1000);
     width: 30px;
     height: 30px;
     transition: color 0.3s;

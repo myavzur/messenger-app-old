@@ -1,6 +1,6 @@
 {
-    "name": "Messenger",
-    "short_name": "Messenger",
+    "name": "Talkie",
+    "short_name": "Talkie",
     "icons": [
         {
             "src": "/android-chrome-192x192.png",

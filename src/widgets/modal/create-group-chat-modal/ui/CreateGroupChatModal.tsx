@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { SelectUsersField } from "@/features/user/select-users-field/ui";
 import { ISelectUserOption } from "@/features/user/select-users-field/ui";
 
 import { Modal, ModalHeader } from "@/entities/modal/ui";
-import { useAuth } from "@/entities/user/lib/hooks";
 
 import { baseApi } from "@/shared/api";
 import { ICreateGroupChatParams } from "@/shared/interfaces/socket.io";
@@ -19,7 +18,6 @@ import styles from "./CreateGroupChatModal.module.scss";
 export const CreateGroupChatModal: React.FC<ICreateGroupChatModalProps> = ({
 	onClose
 }) => {
-	const { currentUser } = useAuth();
 	const { chatSocket } = useSocketsContext();
 	const {
 		data: users,
@@ -33,8 +31,7 @@ export const CreateGroupChatModal: React.FC<ICreateGroupChatModalProps> = ({
 	const {
 		register,
 		handleSubmit,
-		formState: { isValid, errors, touchedFields },
-		setValue
+		formState: { isValid, errors }
 	} = useForm<ICreateGroupChatParams>({ mode: "onChange" });
 
 	const userOptions = users?.map(user => {
@@ -67,24 +64,10 @@ export const CreateGroupChatModal: React.FC<ICreateGroupChatModalProps> = ({
 		);
 	};
 
-	useEffect(() => {
-		if (touchedFields.title || !currentUser?.account_name) return;
-
-		setValue(
-			"title",
-			participants.reduce(
-				(prev, curr) => `${prev}, ${curr.label}`,
-				currentUser?.account_name
-			)
-		);
-
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [participants]);
-
 	return (
 		<Modal
 			onClose={onClose}
-			headerElement={<ModalHeader onClose={onClose}>New Group Chat</ModalHeader>}
+			headerElement={<ModalHeader onClose={onClose}>New group chat</ModalHeader>}
 			footerElement={
 				<ButtonGroup>
 					<Button onClick={onClose}>Cancel</Button>

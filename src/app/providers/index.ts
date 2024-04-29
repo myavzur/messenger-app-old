@@ -1,5 +1,6 @@
+import AppOAuth from "./AppOAuth";
 import AppRouter from "./AppRouter";
 import AppStore from "./AppStore";
 import AppTheme from "./AppTheme";
 
-export { AppTheme, AppRouter, AppStore };
+export { AppOAuth, AppTheme, AppRouter, AppStore };

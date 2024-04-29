@@ -32,7 +32,9 @@ export const MessageAttachments: React.FC<IMessageAttachmentsProps> = ({
 	return (
 		<div className={cn(styles.attachments, className)}>
 			{attachments.map(attachment => (
-				<div key={attachment.id}>{renderAttachment(attachment)}</div>
+				<React.Fragment key={attachment.id}>
+					{renderAttachment(attachment)}
+				</React.Fragment>
 			))}
 		</div>
 	);

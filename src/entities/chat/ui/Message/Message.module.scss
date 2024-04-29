@@ -30,7 +30,7 @@
 		}
 
 		.text {
-			@apply select-text text-base px-2.5;
+			@apply select-text text-sm px-2.5;
 			white-space: pre-wrap;
 			font-family: inherit;
 			color: var(--color-secondary-1000);

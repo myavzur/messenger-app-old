@@ -1,6 +1,6 @@
 .modal {
   @apply fixed top-0 left-0 w-screen h-screen flex items-center justify-center;
-  background-color: rgba(0 0 0 / 0.4);
+  background-color: rgba(0 0 0 / 0.1);
   z-index: var(--z-modal-element);
 
   &__dialog {
@@ -11,7 +11,7 @@
   &__header,
   &__content,
   &__footer {
-    @apply p-4;
+    @apply p-7;
   }
 
   &__header {

@@ -4,6 +4,7 @@
 	@apply flex items-center text-sm;
 
 	&__author {
+		@apply italic;
 		color: var(--color-accent-1000);
 	}
 	&__colon {
@@ -11,6 +12,7 @@
 		color: var(--color-primary-200);
 	}
 	&__text {
+		@apply italic;
 		color: var(--color-primary-200);
 		@include line-clamp(1);
 	}

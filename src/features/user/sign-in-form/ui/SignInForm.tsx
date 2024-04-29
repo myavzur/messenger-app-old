@@ -39,7 +39,7 @@ export const SignInForm: React.FC<ISignInFormProps> = ({
 		>
 			<div className={styles.form__header}>
 				<Logo />
-				<Title className="ml-2"> Messenger </Title>
+				<Title className="ml-5"> WhisperFox </Title>
 			</div>
 
 			<FieldLegend legend="Email">

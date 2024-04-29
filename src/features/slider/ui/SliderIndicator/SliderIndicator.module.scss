@@ -1,0 +1,16 @@
+.indicator {
+	flex: 1 1 auto;
+	background-color: var(--color-white);
+	height: 0.15rem;
+
+	opacity: 0.25;
+	transition: opacity 0.5s ease;
+
+	& + & {
+		@apply ml-1;
+	}
+
+	&_active {
+		opacity: 0.75;
+	}
+}
